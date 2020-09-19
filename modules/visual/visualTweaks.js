@@ -1,4 +1,4 @@
-let version = '2.1.0';
+let version = '2.1.1';
 
 let obj = {
   onImport: async function () {
@@ -99,6 +99,8 @@ let obj = {
           for (let i = 0; i < tweakRules.removeEmojiUpsell.length; i++) {
             sheet.deleteRule(tweakRules.removeEmojiUpsell[i]);
           }
+
+          tweakRules.removeEmojiUpsell = [];
         }
       },
       'darkerMode': {
