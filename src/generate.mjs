@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'fs';
 
 import glob from 'glob';
 
-const baseDir = '../../GooseMod/src/modules';
+const baseDir = '../modules';
 
 const modules = glob.sync(`${baseDir}/***/*.js`);
 
