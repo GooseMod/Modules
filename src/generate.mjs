@@ -9,17 +9,26 @@ const modules = glob.sync(`${baseDir}/***/*.js`);
 let jsons = [];
 
 for (let path of modules) {
+  const content = readFileSync(path, 'utf-8');
+
+  const {name, author, description, version} = eval(content);
+
   const split = path.split('/');
 
-  const name = split.slice(-1)[0].split('.')[0];
+  const filename = split.slice(-1)[0].split('.')[0];
   const category = split.slice(-2)[0];
 
-  const codeURL = `https://gitdab.com/duck/GooseMod/raw/branch/master/src/modules/${category}/${name}.js`;
+  const codeURL = `https://gitdab.com/duck/GooseMod/raw/branch/master/src/modules/${category}/${filename}.js`;
 
   const json = {
-    name,
+    filename,
     category,
-    codeURL
+    codeURL,
+
+    name,
+    author,
+    description,
+    version
   };
 
   //const jsonPath = `../api/modules/${name}.json`;
