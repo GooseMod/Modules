@@ -1,4 +1,4 @@
-let version = '1.0.0';
+let version = '1.0.1';
 
 let interval;
 
@@ -19,7 +19,7 @@ function run() {
       return;
     }
 
-    let contents = a.firstChild.children[1];
+    let contents = a.querySelector('.messageContent-2qWWxC');
 
     if (contents.classList.contains('isSending-9nvak6')) {
       a.remove();
