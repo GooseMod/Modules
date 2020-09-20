@@ -1,4 +1,4 @@
-let version = '1.0.1';
+let version = '1.0.2';
 
 function byProperties(props, filter = m => m) {
 	return module => {
@@ -10,7 +10,7 @@ function byProperties(props, filter = m => m) {
 
 function newDev() {
 	const filter = byProperties(["isDeveloper"]);
-	const modules = webpackJsonp.push([[], {a: (m, e, t) => m.exports = t.c},[ ['a'] ]]);
+	const modules = window.webpackJsonp.push([[], {a: (m, e, t) => m.exports = t.c},[ ['a'] ]]);
 	for (const index in modules) {
 		const {exports} = modules[index];
 		if (!exports) continue;
