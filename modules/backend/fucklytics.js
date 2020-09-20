@@ -1,4 +1,4 @@
-let version = '1.1.2';
+let version = '1.1.3';
 
 let enabled = true;
 
@@ -7,7 +7,7 @@ let blocking = {
   'sentry': true
 };
 
-if (typeof window === 'undefined') { // JSON API generator evals
+if (typeof window === 'undefined' || typeof window.XMLHttpRequest === 'undefined') { // JSON API generator evals
   global.window = {XMLHttpRequest: {}};
 }
 
