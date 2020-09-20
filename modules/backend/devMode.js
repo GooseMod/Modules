@@ -1,4 +1,4 @@
-let version = '1.0.2';
+let version = '1.0.3';
 
 function byProperties(props, filter = m => m) {
 	return module => {
@@ -24,7 +24,9 @@ let obj = {
   onImport: async function() {
     this.logger.debug('devMode', 'Enabling Developer Mode');
 
-    newDev();
+		try {
+			newDev();
+		} catch (e) { alert('Failed to enable developer mode'); }
 	},
 	
 	remove: async function() {
