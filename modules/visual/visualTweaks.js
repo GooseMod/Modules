@@ -1,4 +1,4 @@
-let version = '2.1.1';
+let version = '2.2.0';
 
 let obj = {
   onImport: async function () {
@@ -8,14 +8,11 @@ let obj = {
       'removeHelpButton': true,
       'removeEmojiUpsell': false,
       'darkerMode': true,
-      'darkestMode': true
+      'darkestMode': true,
+      'squareAvatars': true
     };
 
     let sheet = window.document.styleSheets[0];
-    let tweakRules = {
-      removeEmojiUpsell: []
-    };
-
 
     // Darker Theme / Mode
     sheet.insertRule(`body.theme-darker {
@@ -75,6 +72,19 @@ let obj = {
       background-color: var(--background-floating);
     }`, sheet.cssRules.length);
 
+
+    sheet.insertRule(`body.square-avatars .avatar-1BDn8e {
+      border-radius: 0px;
+    }`, sheet.cssRules.length);
+
+    sheet.insertRule(`body.no-emoji-popups .container-ZRw2kD {
+      display:none;
+    }`, sheet.cssRules.length);
+
+    sheet.insertRule(`body.no-emoji-popups .emojiContainer-3X8SvE {
+      cursor:default;
+    }`, sheet.cssRules.length);
+
     let tweakFunctions = {
       'removeHelpButton': {
         enable: () => {
@@ -87,20 +97,11 @@ let obj = {
       },
       'removeEmojiUpsell': {
         enable: () => {
-          tweakRules.removeEmojiUpsell.push(sheet.insertRule(`.container-ZRw2kD {
-            display:none;
-          }`, sheet.cssRules.length));
-          tweakRules.removeEmojiUpsell.push(sheet.insertRule(`.emojiContainer-3X8SvE {
-            cursor:default;
-          }`, sheet.cssRules.length));
+          document.body.classList.add('no-emoji-popups');
         },
 
         disable: () => {
-          for (let i = 0; i < tweakRules.removeEmojiUpsell.length; i++) {
-            sheet.deleteRule(tweakRules.removeEmojiUpsell[i]);
-          }
-
-          tweakRules.removeEmojiUpsell = [];
+          document.body.classList.remove('no-emoji-popups');
         }
       },
       'darkerMode': {
@@ -119,6 +120,15 @@ let obj = {
 
         disable: () => {
           document.body.classList.remove('theme-darkest');
+        }
+      },
+      'squareAvatars': {
+        enable: () => {
+          document.body.classList.add('square-avatars');
+        },
+
+        disable: () => {
+          document.body.classList.remove('square-avatars');
         }
       }
     };
@@ -188,6 +198,13 @@ let obj = {
         subtext: 'Disables the pop-up when clicking emojis',
         onToggle: (c) => { this.setTweak('removeEmojiUpsell', c); },
         isToggled: () => this.tweaks['removeEmojiUpsell']
+      },
+      {
+        type: 'toggle',
+        text: 'Square Avatars',
+        subtext: 'Makes avatars for messages square instead of circle (cozy only)',
+        onToggle: (c) => { this.setTweak('squareAvatars', c); },
+        isToggled: () => this.tweaks['squareAvatars']
       }
     ]);
   },
