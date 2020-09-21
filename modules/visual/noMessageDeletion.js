@@ -1,4 +1,4 @@
-let version = '1.0.1';
+let version = '1.0.2';
 
 let interval;
 
@@ -7,7 +7,7 @@ let original;
 function run() {
   let el = document.getElementsByClassName('scrollerInner-2YIMLh')[0];
 
-  if (el === null || el.classList.contains('gm-message-deleted-assigned')) return;
+  if (!el || el.classList.contains('gm-message-deleted-assigned')) return;
 
   console.log(el);
 

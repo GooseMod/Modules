@@ -1,4 +1,4 @@
-let version = '2.2.0';
+let version = '2.3.0';
 
 let obj = {
   onImport: async function () {
@@ -9,7 +9,8 @@ let obj = {
       'removeEmojiUpsell': false,
       'darkerMode': true,
       'darkestMode': true,
-      'squareAvatars': true
+      'squareAvatars': true,
+      'noMemberlistAvatars': false
     };
 
     let sheet = window.document.styleSheets[0];
@@ -77,12 +78,25 @@ let obj = {
       border-radius: 0px;
     }`, sheet.cssRules.length);
 
+
     sheet.insertRule(`body.no-emoji-popups .container-ZRw2kD {
       display:none;
     }`, sheet.cssRules.length);
 
     sheet.insertRule(`body.no-emoji-popups .emojiContainer-3X8SvE {
       cursor:default;
+    }`, sheet.cssRules.length);
+
+    sheet.insertRule(`body.no-memberlist-avatars .avatar-3uk_u9 {
+      width: 5px;
+    }`, sheet.cssRules.length);
+
+    sheet.insertRule(`body.no-memberlist-avatars .avatar-3uk_u9 > div > svg > foreignObject {
+      display: none;
+    }`, sheet.cssRules.length);
+
+    sheet.insertRule(`body.no-memberlist-avatars .avatar-3uk_u9 > div > svg > rect {
+      transform: translate(-22px, -10px);
     }`, sheet.cssRules.length);
 
     let tweakFunctions = {
@@ -95,6 +109,7 @@ let obj = {
           document.querySelector('a[href="https://support.discord.com"] > div[role="button"]').parentElement.style.display = 'flex';
         }
       },
+
       'removeEmojiUpsell': {
         enable: () => {
           document.body.classList.add('no-emoji-popups');
@@ -104,6 +119,27 @@ let obj = {
           document.body.classList.remove('no-emoji-popups');
         }
       },
+
+      'squareAvatars': {
+        enable: () => {
+          document.body.classList.add('square-avatars');
+        },
+
+        disable: () => {
+          document.body.classList.remove('square-avatars');
+        }
+      },
+
+      'noMemberlistAvatars': {
+        enable: () => {
+          document.body.classList.add('no-memberlist-avatars');
+        },
+
+        disable: () => {
+          document.body.classList.remove('no-memberlist-avatars');
+        }
+      },
+
       'darkerMode': {
         enable: () => {
           document.body.classList.add('theme-darker');
@@ -120,15 +156,6 @@ let obj = {
 
         disable: () => {
           document.body.classList.remove('theme-darkest');
-        }
-      },
-      'squareAvatars': {
-        enable: () => {
-          document.body.classList.add('square-avatars');
-        },
-
-        disable: () => {
-          document.body.classList.remove('square-avatars');
         }
       }
     };
@@ -205,6 +232,13 @@ let obj = {
         subtext: 'Makes avatars for messages square instead of circle (cozy only)',
         onToggle: (c) => { this.setTweak('squareAvatars', c); },
         isToggled: () => this.tweaks['squareAvatars']
+      },
+      {
+        type: 'toggle',
+        text: '[WIP] No Member List Avatars',
+        subtext: 'Hides avatars in the member list',
+        onToggle: (c) => { this.setTweak('noMemberlistAvatars', c); },
+        isToggled: () => this.tweaks['noMemberlistAvatars']
       }
     ]);
   },
