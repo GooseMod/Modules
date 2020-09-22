@@ -1,4 +1,4 @@
-let version = '1.1.0';
+let version = '1.2.0';
 
 let interval;
 
@@ -35,14 +35,16 @@ let obj = {
       let els = [...document.getElementsByClassName('contents-2mQqc9')];
       let lastColor = '';
       for (let el of els) {
-        let roleColor = el.querySelector('.username-1A8OIy')?.style?.color;
+        let usernameEl = el.querySelector('.username-1A8OIy');
+
+        let roleColor = usernameEl && (usernameEl.style.color || 'var(--header-primary)');
 
         if (roleColor) {
           let rgb = roleColor.replace('rgb(', '').replace(')', '').split(', ').map((x) => parseFloat(x));
 
           let [h, s, l] = rgb2hsl(rgb[0], rgb[1], rgb[2]);
 
-          roleColor = `hsl(${h}, ${s + 10}%, ${l + 10}%)`;
+          roleColor = `hsl(${h}, ${65}%, ${85}%)`;
         }
 
         el.querySelector('.markup-2BOw-j').style.color = roleColor || lastColor;
