@@ -1,4 +1,4 @@
-let version = '1.0.0';
+let version = '1.1.0';
 
 // .messagesWrapper-1sRNjr .markup-2BOw-j
 let italicsEnabled = true; // <em>
@@ -123,9 +123,10 @@ let obj = {
       letter-spacing: 0.004em;
 
       display: inline-block;
-      color: gray;
       text-decoration: none;
       font-style: normal;
+
+      filter: brightness(0.5);
     }`, sheet.cssRules.length);
 
     sheet.insertRule(`body.gm-wysiwyg-italics-enabled .messagesWrapper-1sRNjr .markup-2BOw-j em::after, body.gm-wysiwyg-bold-enabled .messagesWrapper-1sRNjr .markup-2BOw-j strong::after, body.gm-wysiwyg-underline-enabled .messagesWrapper-1sRNjr .markup-2BOw-j u::after, body.gm-wysiwyg-strikethrough-enabled .messagesWrapper-1sRNjr .markup-2BOw-j s::after, body.gm-wysiwyg-spoiler-enabled .messagesWrapper-1sRNjr .markup-2BOw-j .spoilerText-3p6IlD::after, body.gm-wysiwyg-inline-enabled .messagesWrapper-1sRNjr .markup-2BOw-j code.inline::after {
@@ -134,9 +135,10 @@ let obj = {
       letter-spacing: 0.004em;
 
       display: inline-block;
-      color: gray;
       text-decoration: none;
       font-style: normal;
+
+      filter: brightness(0.5);
     }`, sheet.cssRules.length);
   },
 
