@@ -1,20 +1,19 @@
-const version = '1.0.1';
+const version = '1.0.2';
 
-let enabled, autoCheckEnabled = false;
+let enabled = false;
 let autoCheck = true;
 
 const run = () => {
   if (!autoCheck) return;
 
   if (document.getElementsByClassName('rtcConnectionStatus-2-jIsi')[0]) {
-    if (!document.body.classList.contains('voice-mode')) { 
-      autoCheckEnabled = Boolean(enabled);
+    if (!document.body.classList.contains('voice-mode') && !enabled) { 
       enabled = true;
 
       setEnabled();
     }
-  } else if (document.body.classList.contains('voice-mode')) {
-    enabled = autoCheckEnabled;
+  } else if (document.body.classList.contains('voice-mode') && enabled) {
+    enabled = false;
 
     setEnabled();
   }
@@ -46,7 +45,7 @@ const obj = {
     }`, sheet.cssRules.length);
 
     sheet.insertRule(`body.voice-mode [aria-label="User area"] .nameTag-3uD-yy + .directionRow-3v3tfG {
-      transform: scale(1.5) translate(-52.5%, -190%);
+      transform: scale(1.5) translate(-50%, -190%);
 
       position: absolute;
       left: 50vw;
@@ -63,17 +62,6 @@ const obj = {
 
       {
         type: 'toggle',
-        text: 'Voice Mode',
-        subtext: 'Manually enable / disable',
-        onToggle: (c) => {
-          enabled = c;
-          setEnabled();
-        },
-        isToggled: () => enabled
-      },
-
-      {
-        type: 'toggle',
         text: 'Auto-enable',
         subtext: 'Automatically enables when entering voice chat (and disables when leaving)',
         onToggle: (c) => {
@@ -83,7 +71,7 @@ const obj = {
       },
     ]);
 
-    interval = setInterval(run, 400);
+    interval = setInterval(run, 500);
   },
 
   remove: async function () {
