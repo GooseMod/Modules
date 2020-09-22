@@ -18,7 +18,7 @@ for (let path of modules) {
   const filename = split.slice(-1)[0].split('.')[0];
   const category = split.slice(-2)[0];
 
-  const codeURL = `https://gitdab.com/duck/GooseMod-JSONAPI/raw/branch/master/modules/${category}/${filename}.js`;
+  const codeURL = `https://raw.githubusercontent.com/GooseMod/Modules/master/modules/${category}/${filename}.js`;
 
   const json = {
     filename,
