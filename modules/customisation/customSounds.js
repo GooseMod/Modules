@@ -1,4 +1,4 @@
-let version = '1.1.0';
+const version = '1.1.1';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -157,7 +157,7 @@ let obj = {
   logRegionColor: 'darkblue',
 
   name: 'Custom Sounds',
-  description: 'Allows uploading of custom call sounds',
+  description: 'Allows replacing Discord sounds with your own custom uploaded sounds',
 
   author: 'Ducko',
 
