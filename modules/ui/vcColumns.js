@@ -1,4 +1,4 @@
-const version = '1.0.0';
+const version = '1.0.1';
 
 let enabled, autoCheckEnabled = false;
 let autoCheck = true;
@@ -46,7 +46,10 @@ const obj = {
     }`, sheet.cssRules.length);
 
     sheet.insertRule(`body.voice-mode [aria-label="User area"] .nameTag-3uD-yy + .directionRow-3v3tfG {
-      transform: scale(1.5) translate(calc(-25vw - 50%), -190%);
+      transform: scale(1.5) translate(-52.5%, -190%);
+
+      position: absolute;
+      left: 50vw;
     }`, sheet.cssRules.length);
 
     sheet.insertRule(`body.voice-mode [aria-label="Disconnect"] {
