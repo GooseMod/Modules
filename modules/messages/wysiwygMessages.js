@@ -1,4 +1,4 @@
-let version = '1.1.0';
+let version = '1.2.0';
 
 // .messagesWrapper-1sRNjr .markup-2BOw-j
 let italicsEnabled = true; // <em>
@@ -9,7 +9,6 @@ let strikethroughEnabled = true; // <s>
 let spoilerEnabled = true; // <.spoilerText-3p6IlD>
 
 let inlineCodeEnabled = true; // <code.inline>
-let codeblockEnabled = true; // <pre>
 
 if (typeof window === 'undefined' || typeof window.document === 'undefined') { // JSON API generator evals
   global.window = { document: { styleSheets: [0] } };
@@ -209,6 +208,16 @@ let obj = {
 
     let settingItem = this.settings.items.find((x) => x[1] === 'WYSIWYG Messages');
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+  },
+
+  getSettings: () => [italicsEnabled, boldEnabled, underlineEnabled, strikethroughEnabled, spoilerEnabled, inlineCodeEnabled],
+  loadSettings: ([_italicsEnabled, _boldEnabled, _underlineEnabled, _strikethroughEnabled, _spoilerEnabled, _inlineCodeEnabled]) => {
+    setItalics(_italicsEnabled);
+    setBold(_boldEnabled);
+    setUnderline(_underlineEnabled);
+    setStrikethrough(_strikethroughEnabled);
+    setSpoiler(_spoilerEnabled);
+    setInlineCode(_inlineCodeEnabled);
   },
 
   logRegionColor: 'darkred',
