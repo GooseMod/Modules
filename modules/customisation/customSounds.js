@@ -1,4 +1,4 @@
-const version = '1.3.2';
+const version = '1.3.3';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -12,7 +12,7 @@ let fileSelectEl;
 let incomingCallSound, outgoingCallSound, notificationSound;
 let incomingCallName, outgoingCallName, notificationName;
 
-let items;
+//let items;
 
 const getFileUpload = async () => {
   fileSelectEl.click();
@@ -73,7 +73,7 @@ let obj = {
 
     document.body.appendChild(fileSelectEl);
 
-    items = [
+    let items = [
       {
         type: 'text-and-button',
         text: 'Incoming Call',
@@ -171,12 +171,17 @@ let obj = {
     outgoingCallName = _outgoingCallName;
     notificationName = _notificationName;
 
+    let settingItem = this.settings.items.find((x) => x[1] === 'Custom Sounds');
+    settingItem[2][2] = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
+    settingItem[2][3] = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
+    settingItem[2][4] = !notificationName ? 'Not uploaded' : `Uploaded: ${notificationName}`;
+
     //this.settings.createFromItems();
     //this.openSettingItem('Custom Sounds');
 
-    items[0].subtext = incomingCallName === undefined ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
-    items[1].subtext = outgoingCallName === undefined ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
-    items[2].subtext = notificationName === undefined ? 'Not uploaded' : `Uploaded: ${notificationName}`;
+    //items[0].subtext = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
+    //items[1].subtext = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
+    //items[2].subtext = !notificationName ? 'Not uploaded' : `Uploaded: ${notificationName}`;
   },
 
   logRegionColor: 'darkblue',
