@@ -1,4 +1,4 @@
-const version = '1.0.2';
+const version = '1.1.0';
 
 let enabled = false;
 let autoCheck = true;
@@ -84,6 +84,11 @@ const obj = {
     autoCheck = false;
 
     setEnabled();
+  },
+
+  getSettings: () => [autoCheck],
+  loadSettings: ([_autoCheck]) => {
+    autoCheck = _autoCheck;
   },
 
   logRegionColor: 'darkred',
