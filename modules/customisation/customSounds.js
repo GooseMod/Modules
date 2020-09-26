@@ -1,4 +1,4 @@
-const version = '1.3.4';
+const version = '1.3.5';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -15,6 +15,9 @@ let incomingCallName, outgoingCallName, notificationName;
 //let items;
 
 const getFileUpload = async () => {
+  console.log('start');
+
+  fileSelectEl.value = null; // Prevent not firing change for repeated files
   fileSelectEl.click();
 
   await new Promise((res) => {
@@ -22,6 +25,10 @@ const getFileUpload = async () => {
       res();
     };
   });
+
+  fileSelectEl.onchange = undefined;
+
+  console.log('after');
 
   const file = fileSelectEl.files[0];
           
@@ -68,7 +75,7 @@ let obj = {
     fileSelectEl = document.createElement('input');
     fileSelectEl.type = 'file';
 
-    fileSelectEl.accept = 'sound/*';
+    //fileSelectEl.accept = 'sound/*';
     fileSelectEl.style.display = 'none';
 
     document.body.appendChild(fileSelectEl);
@@ -120,6 +127,9 @@ let obj = {
           el.textContent = 'Uploading...';
 
           const file = await getFileUpload();
+
+          console.log(file);
+
           notificationSound = file === undefined ? undefined : URL.createObjectURL(file);
           notificationName = file === undefined ? undefined : file.name;
 
@@ -172,6 +182,9 @@ let obj = {
     notificationName = _notificationName;
 
     let settingItem = this.settings.items.find((x) => x[1] === 'Custom Sounds');
+
+    console.log(settingItem[2]);
+
     settingItem[2][2].subtext = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
     settingItem[2][3].subtext = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
     settingItem[2][4].subtext = !notificationName ? 'Not uploaded' : `Uploaded: ${notificationName}`;
