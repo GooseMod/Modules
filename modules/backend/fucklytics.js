@@ -1,4 +1,4 @@
-let version = '1.2.0';
+let version = '1.2.1';
 
 let enabled = true;
 
@@ -80,8 +80,6 @@ let obj = {
   },
 
   remove: async function() {
-    enabled = false;
-
     window.XMLHttpRequest = _XMLHttpRequest;
 
     let settingItem = this.settings.items.find((x) => x[1] === 'Fucklytics');
