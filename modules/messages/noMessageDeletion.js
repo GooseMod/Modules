@@ -1,67 +1,64 @@
-let version = '1.0.2';
-
-let interval;
+let version = '2.0.0';
 
 let original;
+let interval;
+let deleted = [];
 
-function run() {
-  let el = document.getElementsByClassName('scrollerInner-2YIMLh')[0];
+const styleMessage = async ({ id }) => {
+  let el = document.getElementById(`chat-messages-${id}`);
+  if (!el) return;
 
-  if (!el || el.classList.contains('gm-message-deleted-assigned')) return;
+  if (el.classList.contains('gm-deleted-message')) return;
 
-  console.log(el);
+  el.classList.add('gm-deleted-message');
+  el.style.backgroundColor = 'rgba(240, 71, 71, 0.1)';
+};
 
-  original = el.removeChild;
-
-  el.removeChild = (a) => {
-    if (!a.classList.contains('message-2qnXI6')) {
-      a.remove();
-      return;
-    }
-
-    let contents = a.querySelector('.messageContent-2qWWxC');
-
-    if (contents.classList.contains('isSending-9nvak6')) {
-      a.remove();
-      return;
-    }
-
-    a.style.backgroundColor = 'rgba(240, 71, 71, 0.1)';
-
-    a.classList.add('gm-message-deleted');
-    a.classList.remove('selected-2P5D_Z');
-  };
-
-  el.classList.add('gm-message-deleted-assigned');
-}
+const run = () => {
+  for (let obj of deleted) {
+    styleMessage(obj);
+  }
+};
 
 let obj = {
   onImport: async function () {
-    interval = setInterval(run, 1000);
+    let mod = this.webpackModules.findByProps('register');
+    original = mod._orderedActionHandlers.MESSAGE_DELETE[4];
+
+    mod._orderedActionHandlers.MESSAGE_DELETE[4] = {
+      actionHandler: (obj) => {
+        deleted.push(obj);
+
+        styleMessage(obj);
+      },
+
+      storeDidChange: function() { }
+    };
   },
 
   onLoadingFinished: async function () {
+    interval = setInterval(run, 300);
   },
 
   remove: async function () {
     clearInterval(interval);
 
-    for (let e of document.getElementsByClassName('gm-message-deleted')) {
+    for (let e of document.getElementsByClassName('gm-deleted-message')) {
       e.remove();
     }
 
-    for (let e of document.getElementsByClassName('gm-message-deleted-assigned')) {
-      e.classList.remove('gm-message-deleted-assigned');
-      console.log(e.removeChild);
-      e.removeChild = original;
-      console.log(original);
+    this.webpackModules.findByProps('register')._orderedActionHandlers.MESSAGE_DELETE[4] = original;
+
+    for (let obj of deleted) {
+      await original.actionHandler(obj);
+      await original.storeDidChange(obj);
     }
   },
 
   logRegionColor: 'darkred',
 
   name: 'No Message Deletion',
-  description: 'Messages only turn red instead of completely disappearing (only current visible messages)',
+  description: 'Messages only turn red instead of completely disappearing',
 
   author: 'Ducko',
 
