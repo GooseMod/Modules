@@ -1,4 +1,4 @@
-const version = '1.3.0';
+const version = '1.3.1';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -151,8 +151,6 @@ let obj = {
   },
 
   remove: async function() {
-    enabled = false;
-
     window.Audio = _Audio;
     
     fileSelectEl.remove();
