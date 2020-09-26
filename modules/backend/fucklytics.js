@@ -1,4 +1,4 @@
-let version = '1.1.3';
+let version = '1.2.0';
 
 let enabled = true;
 
@@ -86,6 +86,12 @@ let obj = {
 
     let settingItem = this.settings.items.find((x) => x[1] === 'Fucklytics');
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+  },
+
+  getSettings: () => [blocking, enabled],
+  loadSettings: ([_blocking, _enabled]) => {
+    blocking = _blocking;
+    enabled = _enabled;
   },
 
   logRegionColor: 'darkblue',
