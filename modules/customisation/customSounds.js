@@ -1,4 +1,4 @@
-const version = '1.3.3';
+const version = '1.3.4';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -172,9 +172,9 @@ let obj = {
     notificationName = _notificationName;
 
     let settingItem = this.settings.items.find((x) => x[1] === 'Custom Sounds');
-    settingItem[2][2] = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
-    settingItem[2][3] = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
-    settingItem[2][4] = !notificationName ? 'Not uploaded' : `Uploaded: ${notificationName}`;
+    settingItem[2][2].subtext = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
+    settingItem[2][3].subtext = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
+    settingItem[2][4].subtext = !notificationName ? 'Not uploaded' : `Uploaded: ${notificationName}`;
 
     //this.settings.createFromItems();
     //this.openSettingItem('Custom Sounds');
