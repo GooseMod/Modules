@@ -1,4 +1,4 @@
-let version = '2.4.0';
+let version = '2.4.1';
 
 let obj = {
   onImport: async function () {
@@ -252,7 +252,7 @@ let obj = {
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
   },
 
-  getSettings: async function() { return this.tweaks },
+  getSettings: async function() { return [this.tweaks] },
   loadSettings: async function ([_tweaks]) {
     this.tweaks = _tweaks;
 
