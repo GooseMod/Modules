@@ -1,4 +1,4 @@
-let version = '2.0.1';
+let version = '2.0.2';
 
 let original;
 let interval;
@@ -20,6 +20,21 @@ const run = () => {
   }
 };
 
+const setup = () => {
+  let mod = this.webpackModules.findByProps('register');
+  original = mod._orderedActionHandlers.MESSAGE_DELETE[4];
+
+  mod._orderedActionHandlers.MESSAGE_DELETE[4] = {
+    actionHandler: (obj) => {
+      deleted.push(obj);
+
+      styleMessage(obj);
+    },
+
+    storeDidChange: function() { }
+  };
+};
+
 let obj = {
   onImport: async function () {
   },
@@ -27,18 +42,7 @@ let obj = {
   onLoadingFinished: async function () {
     interval = setInterval(run, 300);
 
-    let mod = this.webpackModules.findByProps('register');
-    original = mod._orderedActionHandlers.MESSAGE_DELETE[4];
-
-    mod._orderedActionHandlers.MESSAGE_DELETE[4] = {
-      actionHandler: (obj) => {
-        deleted.push(obj);
-
-        styleMessage(obj);
-      },
-
-      storeDidChange: function() { }
-    };
+    setTimeout(setup, 10000);
   },
 
   remove: async function () {
