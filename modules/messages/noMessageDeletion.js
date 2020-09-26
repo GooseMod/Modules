@@ -1,4 +1,4 @@
-let version = '2.0.0';
+let version = '2.0.1';
 
 let original;
 let interval;
@@ -22,6 +22,11 @@ const run = () => {
 
 let obj = {
   onImport: async function () {
+  },
+
+  onLoadingFinished: async function () {
+    interval = setInterval(run, 300);
+
     let mod = this.webpackModules.findByProps('register');
     original = mod._orderedActionHandlers.MESSAGE_DELETE[4];
 
@@ -34,10 +39,6 @@ let obj = {
 
       storeDidChange: function() { }
     };
-  },
-
-  onLoadingFinished: async function () {
-    interval = setInterval(run, 300);
   },
 
   remove: async function () {
