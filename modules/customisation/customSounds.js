@@ -1,4 +1,4 @@
-const version = '1.1.1';
+const version = '1.2.0';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -152,6 +152,15 @@ let obj = {
 
     let settingItem = this.settings.items.find((x) => x[1] === 'Custom Sounds');
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+  },
+
+  getSettings: () => [enabled, incomingCallSound, outgoingCallSound, notificationSound],
+  loadSettings: ([_enabled, _incomingCallSound, _outgoingCallSound, _notificationSound]) => {
+    enabled = _enabled;
+    
+    incomingCallSound = _incomingCallSound;
+    outgoingCallSound = _outgoingCallSound;
+    notificationSound = _notificationSound;
   },
 
   logRegionColor: 'darkblue',
