@@ -1,4 +1,4 @@
-const version = '1.3.1';
+const version = '1.3.2';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -171,8 +171,8 @@ let obj = {
     outgoingCallName = _outgoingCallName;
     notificationName = _notificationName;
 
-    this.settings.createFromItems();
-    this.openSettingItem('Custom Sounds');
+    //this.settings.createFromItems();
+    //this.openSettingItem('Custom Sounds');
 
     items[0].subtext = incomingCallName === undefined ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
     items[1].subtext = outgoingCallName === undefined ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
