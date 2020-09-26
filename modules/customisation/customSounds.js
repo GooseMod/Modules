@@ -1,4 +1,4 @@
-const version = '1.3.6';
+const version = '1.3.7';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -229,9 +229,9 @@ let obj = {
     outgoingCallStorage = _outgoingCallStorage;
     notificationStorage = _notificationStorage;
 
-    incomingCallSound = dataURItoBlobURI(incomingCallStorage);
-    outgoingCallSound = dataURItoBlobURI(outgoingCallStorage);
-    notificationSound = dataURItoBlobURI(notificationStorage);
+    incomingCallSound = incomingCallStorage === null ? undefined : dataURItoBlobURI(incomingCallStorage);
+    outgoingCallSound = outgoingCallStorage === null ? undefined : dataURItoBlobURI(outgoingCallStorage);
+    notificationSound = notificationStorage === null ? undefined : dataURItoBlobURI(notificationStorage);
 
     console.log(incomingCallSound, outgoingCallSound, notificationSound);
 
