@@ -1,4 +1,4 @@
-let version = '2.4.1';
+let version = '2.4.2';
 
 let obj = {
   onImport: async function () {
@@ -257,7 +257,7 @@ let obj = {
     this.tweaks = _tweaks;
 
     for (let t in this.tweaks) {
-      if (this.tweaks[t] === true) this.enableTweak(t);
+      this.setTweak(t, this.tweaks[t]);
     }
   },
 
