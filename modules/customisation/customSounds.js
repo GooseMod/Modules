@@ -1,4 +1,4 @@
-const version = '1.3.5';
+const version = '1.3.6';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -10,9 +10,31 @@ let enabled = true;
 
 let fileSelectEl;
 let incomingCallSound, outgoingCallSound, notificationSound;
+let incomingCallStorage, outgoingCallStorage, notificationStorage;
 let incomingCallName, outgoingCallName, notificationName;
 
-//let items;
+const dataURItoBlobURI = (dataURI) => { // https://stackoverflow.com/a/12300351
+  // convert base64 to raw binary data held in a string
+  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+  const byteString = atob(dataURI.split(',')[1]);
+
+  // separate out the mime component
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+  // write the bytes of the string to an ArrayBuffer
+  const ab = new ArrayBuffer(byteString.length);
+
+  // create a view into the buffer
+  let ia = new Uint8Array(ab);
+
+  // set the bytes of the buffer to the correct values
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+
+  // write the ArrayBuffer to a blob, and you're done
+  return URL.createObjectURL(new Blob([ab], {type: mimeString}));
+};
 
 const getFileUpload = async () => {
   console.log('start');
@@ -98,6 +120,16 @@ let obj = {
 
           this.settings.createFromItems();
           this.openSettingItem('Custom Sounds');
+
+          if (file !== undefined) {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+              incomingCallStorage = reader.result;
+            };
+
+            reader.readAsDataURL(file);
+          }
         }
       },
       {
@@ -116,6 +148,16 @@ let obj = {
 
           this.settings.createFromItems();
           this.openSettingItem('Custom Sounds');
+
+          if (file !== undefined) {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+              outgoingCallStorage = reader.result;
+            };
+
+            reader.readAsDataURL(file);
+          }
         }
       },
       {
@@ -137,6 +179,16 @@ let obj = {
 
           this.settings.createFromItems();
           this.openSettingItem('Custom Sounds');
+
+          if (file !== undefined) {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+              notificationStorage = reader.result;
+            };
+
+            reader.readAsDataURL(file);
+          }
         }
       }
     ];
@@ -169,13 +221,19 @@ let obj = {
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
   },
 
-  getSettings: () => [enabled, incomingCallSound, outgoingCallSound, notificationSound, incomingCallName, outgoingCallName, notificationName],
-  loadSettings: ([_enabled, _incomingCallSound, _outgoingCallSound, _notificationSound, _incomingCallName, _outgoingCallName, _notificationName]) => {
+  getSettings: () => [enabled, incomingCallStorage, outgoingCallStorage, notificationStorage, incomingCallName, outgoingCallName, notificationName],
+  loadSettings: ([_enabled, _incomingCallStorage, _outgoingCallStorage, _notificationStorage, _incomingCallName, _outgoingCallName, _notificationName]) => {
     enabled = _enabled;
     
-    incomingCallSound = _incomingCallSound;
-    outgoingCallSound = _outgoingCallSound;
-    notificationSound = _notificationSound;
+    incomingCallStorage = _incomingCallStorage;
+    outgoingCallStorage = _outgoingCallStorage;
+    notificationStorage = _notificationStorage;
+
+    incomingCallSound = dataURItoBlobURI(incomingCallStorage);
+    outgoingCallSound = dataURItoBlobURI(outgoingCallStorage);
+    notificationSound = dataURItoBlobURI(notificationStorage);
+
+    console.log(incomingCallSound, outgoingCallSound, notificationSound);
 
     incomingCallName = _incomingCallName;
     outgoingCallName = _outgoingCallName;
