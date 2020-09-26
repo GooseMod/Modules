@@ -1,4 +1,4 @@
-const version = '1.2.0';
+const version = '1.3.0';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -10,6 +10,9 @@ let enabled = true;
 
 let fileSelectEl;
 let incomingCallSound, outgoingCallSound, notificationSound;
+let incomingCallName, outgoingCallName, notificationName;
+
+let items;
 
 const getFileUpload = async () => {
   fileSelectEl.click();
@@ -70,7 +73,7 @@ let obj = {
 
     document.body.appendChild(fileSelectEl);
 
-    let items = [
+    items = [
       {
         type: 'text-and-button',
         text: 'Incoming Call',
@@ -80,7 +83,9 @@ let obj = {
           el.textContent = 'Uploading...';
 
           const file = await getFileUpload();
+
           incomingCallSound = file === undefined ? undefined : URL.createObjectURL(file);
+          incomingCallName = file === undefined ? undefined : file.name;
 
           items[0].subtext = file === undefined ? 'Not uploaded' : `Uploaded: ${file.name}`;
 
@@ -98,6 +103,7 @@ let obj = {
 
           const file = await getFileUpload();
           outgoingCallSound = file === undefined ? undefined : URL.createObjectURL(file);
+          outgoingCallName = file === undefined ? undefined : file.name;
 
           items[1].subtext = file === undefined ? 'Not uploaded' : `Uploaded: ${file.name}`;
 
@@ -115,6 +121,7 @@ let obj = {
 
           const file = await getFileUpload();
           notificationSound = file === undefined ? undefined : URL.createObjectURL(file);
+          notificationName = file === undefined ? undefined : file.name;
 
           items[2].subtext = file === undefined ? 'Not uploaded' : `Uploaded: ${file.name}`;
 
@@ -154,13 +161,24 @@ let obj = {
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
   },
 
-  getSettings: () => [enabled, incomingCallSound, outgoingCallSound, notificationSound],
-  loadSettings: ([_enabled, _incomingCallSound, _outgoingCallSound, _notificationSound]) => {
+  getSettings: () => [enabled, incomingCallSound, outgoingCallSound, notificationSound, incomingCallName, outgoingCallName, notificationName],
+  loadSettings: ([_enabled, _incomingCallSound, _outgoingCallSound, _notificationSound, _incomingCallName, _outgoingCallName, _notificationName]) => {
     enabled = _enabled;
     
     incomingCallSound = _incomingCallSound;
     outgoingCallSound = _outgoingCallSound;
     notificationSound = _notificationSound;
+
+    incomingCallName = _incomingCallName;
+    outgoingCallName = _outgoingCallName;
+    notificationName = _notificationName;
+
+    this.settings.createFromItems();
+    this.openSettingItem('Custom Sounds');
+
+    items[0].subtext = incomingCallName === undefined ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
+    items[1].subtext = outgoingCallName === undefined ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
+    items[2].subtext = notificationName === undefined ? 'Not uploaded' : `Uploaded: ${notificationName}`;
   },
 
   logRegionColor: 'darkblue',
