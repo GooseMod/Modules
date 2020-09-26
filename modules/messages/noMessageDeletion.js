@@ -1,4 +1,4 @@
-let version = '2.0.3';
+let version = '2.1.0';
 
 let original;
 let interval;
@@ -22,10 +22,20 @@ const run = () => {
 
 const setup = () => {
   let mod = this.webpackModules.findByProps('register');
-  original = mod._orderedActionHandlers.MESSAGE_DELETE[4];
+
+  try {
+    original = mod._orderedActionHandlers.MESSAGE_DELETE[4];
+  } catch (e) {
+    this.showToast('No Message Deletion: Setup failed, retrying...');
+    return setTimeout(setup, 3000);
+  }
 
   mod._orderedActionHandlers.MESSAGE_DELETE[4] = {
     actionHandler: (obj) => {
+      console.log(obj);
+
+      if (deleted.find((x) => x.id === obj.id)) { return; }
+      
       deleted.push(obj);
 
       styleMessage(obj);
@@ -56,10 +66,7 @@ let obj = {
 
     this.webpackModules.findByProps('register')._orderedActionHandlers.MESSAGE_DELETE[4] = original;
 
-    for (let obj of deleted) {
-      await original.actionHandler(obj);
-      await original.storeDidChange(obj);
-    }
+    this.showToast('No Message Deletion: Deleted messages may be left behind');
   },
 
   logRegionColor: 'darkred',
