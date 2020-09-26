@@ -1,4 +1,4 @@
-let version = '2.3.0';
+let version = '2.4.0';
 
 let obj = {
   onImport: async function () {
@@ -250,6 +250,15 @@ let obj = {
 
     let settingItem = this.settings.items.find((x) => x[1] === 'Visual Tweaks');
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+  },
+
+  getSettings: async function() { return this.tweaks },
+  loadSettings: async function ([_tweaks]) {
+    this.tweaks = _tweaks;
+
+    for (let t in this.tweaks) {
+      if (this.tweaks[t] === true) this.enableTweak(t);
+    }
   },
 
   logRegionColor: 'darkred',
