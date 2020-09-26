@@ -1,4 +1,4 @@
-let version = '2.0.2';
+let version = '2.0.3';
 
 let original;
 let interval;
@@ -33,6 +33,8 @@ const setup = () => {
 
     storeDidChange: function() { }
   };
+
+  this.showToast('No Message Deletion: Ready');
 };
 
 let obj = {
@@ -42,7 +44,7 @@ let obj = {
   onLoadingFinished: async function () {
     interval = setInterval(run, 300);
 
-    setTimeout(setup, 10000);
+    setTimeout(setup, 5000);
   },
 
   remove: async function () {
