@@ -1,4 +1,4 @@
-let version = '2.0.0';
+let version = '2.0.1';
 
 if (typeof window === 'undefined' || typeof window.document === 'undefined' || typeof window.document.styleSheets === 'undefined') { // JSON API generator evals
   global.window = { document: { styleSheets: [0] } };
@@ -89,8 +89,8 @@ let obj = {
   },
 
   remove: async function () {
-    for (let t in this.tweaks) {
-      if (this.tweaks[t] === true) disableTweak(t);
+    for (let t in tweaks) {
+      if (tweaks[t] === true) disableTweak(t);
     }
 
     let settingItem = this.settings.items.find((x) => x[1] === 'RainbowCord');
