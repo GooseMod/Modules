@@ -89,8 +89,8 @@ let obj = {
   },
 
   remove: async function () {
-    for (let t in this.tweaks) {
-      if (this.tweaks[t] === true) disableTweak(t);
+    for (let t in tweaks) {
+      if (tweaks[t] === true) disableTweak(t);
     }
 
     let settingItem = this.settings.items.find((x) => x[1] === 'RainbowCord');
