@@ -1,4 +1,4 @@
-const version = '1.1.0';
+const version = '1.1.1';
 
 let enabled = false;
 let autoCheck = true;
@@ -77,7 +77,7 @@ const obj = {
   remove: async function () {
     clearInterval(interval);
 
-    let settingItem = this.settings.items.find((x) => x[1] === 'Voice Mode');
+    let settingItem = this.settings.items.find((x) => x[1] === 'VC Columns');
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
 
     enabled = false;
