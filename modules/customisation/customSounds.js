@@ -1,4 +1,4 @@
-const version = '1.3.7';
+const version = '1.3.8';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -14,26 +14,30 @@ let incomingCallStorage, outgoingCallStorage, notificationStorage;
 let incomingCallName, outgoingCallName, notificationName;
 
 const dataURItoBlobURI = (dataURI) => { // https://stackoverflow.com/a/12300351
-  // convert base64 to raw binary data held in a string
-  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-  const byteString = atob(dataURI.split(',')[1]);
+  try {
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    const byteString = atob(dataURI.split(',')[1]);
 
-  // separate out the mime component
-  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    // separate out the mime component
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
 
-  // write the bytes of the string to an ArrayBuffer
-  const ab = new ArrayBuffer(byteString.length);
+    // write the bytes of the string to an ArrayBuffer
+    const ab = new ArrayBuffer(byteString.length);
 
-  // create a view into the buffer
-  let ia = new Uint8Array(ab);
+    // create a view into the buffer
+    let ia = new Uint8Array(ab);
 
-  // set the bytes of the buffer to the correct values
-  for (let i = 0; i < byteString.length; i++) {
-    ia[i] = byteString.charCodeAt(i);
+    // set the bytes of the buffer to the correct values
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    // write the ArrayBuffer to a blob, and you're done
+    return URL.createObjectURL(new Blob([ab], {type: mimeString}));
+  } catch (e) {
+    return undefined;
   }
-
-  // write the ArrayBuffer to a blob, and you're done
-  return URL.createObjectURL(new Blob([ab], {type: mimeString}));
 };
 
 const getFileUpload = async () => {
