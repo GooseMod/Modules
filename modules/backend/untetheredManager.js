@@ -1,4 +1,4 @@
-const version = '1.0.0';
+const version = '1.1.0';
 
 let os;
 let pathSeparator;
@@ -52,8 +52,8 @@ const obj = {
 
   logRegionColor: 'darkred',
 
-  name: 'VC Columns',
-  description: 'A column UI with larger buttons for VC',
+  name: 'Untethered Manager',
+  description: 'Easy installation (and updating) of GooseMod Untethered',
 
   author: 'Ducko',
 
