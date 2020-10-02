@@ -1,4 +1,4 @@
-let version = '1.2.0';
+let version = '1.2.1';
 
 // .messagesWrapper-1sRNjr .markup-2BOw-j
 let italicsEnabled = true; // <em>
@@ -205,6 +205,9 @@ let obj = {
     setItalics(false);
     setBold(false);
     setUnderline(false);
+    setStrikethrough(false);
+    setSpoiler(false);
+    setInlineCode(false);
 
     let settingItem = this.settings.items.find((x) => x[1] === 'WYSIWYG Messages');
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
