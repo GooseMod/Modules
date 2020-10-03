@@ -1,7 +1,9 @@
-let version = '1.0.0';
+let version = '1.0.1';
 
 let obj = {
   onImport: async function () {
+    let sheet = window.document.styleSheets[0];
+
     sheet.insertRule(`html > body.theme-darker {
       --background-primary: #000;
       --background-secondary: #111;
