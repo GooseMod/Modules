@@ -1,4 +1,4 @@
-const version = '1.3.8';
+const version = '1.3.9';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -41,8 +41,6 @@ const dataURItoBlobURI = (dataURI) => { // https://stackoverflow.com/a/12300351
 };
 
 const getFileUpload = async () => {
-  console.log('start');
-
   fileSelectEl.value = null; // Prevent not firing change for repeated files
   fileSelectEl.click();
 
@@ -53,8 +51,6 @@ const getFileUpload = async () => {
   });
 
   fileSelectEl.onchange = undefined;
-
-  console.log('after');
 
   const file = fileSelectEl.files[0];
           
@@ -74,7 +70,7 @@ let obj = {
     
       var _play = audio.play;
       audio.play = function() {
-        console.log(this.src);
+        // console.log(this.src);
 
         if (enabled) {
           if (outgoingCallSound && this.src.includes('/assets/c6e92752668dde4eee5923d70441579f.mp3')) { // Outgoing Call
@@ -174,8 +170,6 @@ let obj = {
 
           const file = await getFileUpload();
 
-          console.log(file);
-
           notificationSound = file === undefined ? undefined : URL.createObjectURL(file);
           notificationName = file === undefined ? undefined : file.name;
 
@@ -237,15 +231,11 @@ let obj = {
     outgoingCallSound = outgoingCallStorage === null ? undefined : dataURItoBlobURI(outgoingCallStorage);
     notificationSound = notificationStorage === null ? undefined : dataURItoBlobURI(notificationStorage);
 
-    console.log(incomingCallSound, outgoingCallSound, notificationSound);
-
     incomingCallName = _incomingCallName;
     outgoingCallName = _outgoingCallName;
     notificationName = _notificationName;
 
     let settingItem = this.settings.items.find((x) => x[1] === 'Custom Sounds');
-
-    console.log(settingItem[2]);
 
     settingItem[2][2].subtext = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
     settingItem[2][3].subtext = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
