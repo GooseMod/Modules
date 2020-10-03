@@ -1,4 +1,4 @@
-let version = '1.0.1';
+let version = '2.0.0';
 
 /*const getVariablesObj = (css) => css.split(';').map((x) => x.trim()).filter((x) => x.startsWith('--'))
 .reduce((o, val) => {
@@ -45,29 +45,46 @@ let obj = {
       background-color: var(--background-floating);
     }`, sheet.cssRules.length);*/
 
+    let ctx = document.createElement('canvas').getContext('2d');
+
+    const normaliseColor = (str) => { ctx.fillStyle = str; return ctx.fillStyle; };
+    const normaliseColors = (str) => str.replace(/rgb\(([0-9]+), ([0-9]+), ([0-9]+)\)/g, normaliseColor);
+
     let sheet = window.document.styleSheets[0];
 
     let darkThemeVars = getVariablesArr([...sheet.cssRules].find((x) => x.selectorText === '.theme-dark').cssText);
     let lightThemeVars = getVariablesArr([...sheet.cssRules].find((x) => x.selectorText === '.theme-light').cssText);
 
-    let themeVars = darkThemeVars.concat(lightThemeVars).filter((x) => !x[0].includes('scrollbar'));
+    let themeVars = darkThemeVars.concat(lightThemeVars).filter((x) => !x[0].includes('scrollbar') && !x[0].includes('logo')).map((x) => {
+      x[1] = normaliseColor(x[1]);
+      return x;
+    });
 
     for (let rule of sheet.cssRules) {
+      if (rule.selectorText === '.theme-light' || rule.selectorText === '.theme-dark') continue;
+
+      let normalisedText = normaliseColors(rule.cssText);
+      let changed = false;
+
       for (let v of themeVars) {
-        if (rule.cssText.includes(v[1])) {
-          console.log(v);
-          sheet.insertRule(`body.hardcoded-color-fixes ${rule.selectorText} {
-            ${rule.cssText.replace(v[1], `var(${v[0]})`)}
-          }`, sheet.cssRules.length);
+        if (normalisedText.includes(v[1])) {
+          normalisedText = normalisedText.replace(v[1], `var(${v[0]})`);
+          changed = true;
+
+          break;
         }
+      }
+
+      if (changed) {
+        sheet.insertRule(`html[hardcoded-color-fixes="true"] ${normalisedText}`, sheet.cssRules.length);
       }
     }
 
-    document.body.classList.add('hardcoded-color-fixes');
+    document.documentElement.setAttribute('hardcoded-color-fixes', 'true');
   },
 
   remove: async function () {
-    document.body.classList.remove('hardcoded-color-fixes');
+    document.documentElement.removeAttribute('hardcoded-color-fixes');
   },
 
   logRegionColor: 'darkred',
