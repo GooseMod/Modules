@@ -1,4 +1,4 @@
-let version = '1.0.0';
+let version = '1.0.1';
 
 let obj = {
   onImport: async function () {
@@ -9,6 +9,7 @@ let obj = {
       --background-tertiary: #080808;
 
       --channeltextarea-background: #080808;
+      --background-message-hover: rgba(255,255,255,0.025);
 
       --background-accent: #111;
       --background-floating: #080808;
