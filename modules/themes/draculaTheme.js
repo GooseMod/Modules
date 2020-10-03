@@ -1,4 +1,4 @@
-let version = '1.0.0';
+let version = '1.1.0';
 
 let obj = {
   onImport: async function () {
@@ -22,6 +22,9 @@ let obj = {
 
       --scrollbar-auto-track: #16171D;
       --scrollbar-auto-scrollbar-color-track: #16171D;
+
+      --brand-color: #9B78CC;
+      --brand-color-hover: #896BB5;
     }`, sheet.cssRules.length);
 
     document.body.classList.add('theme-dracula');
