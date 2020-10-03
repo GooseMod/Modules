@@ -1,4 +1,4 @@
-let version = '1.0.1';
+let version = '2.0.0';
 
 if (typeof window === 'undefined' || typeof window.document === 'undefined') { // JSON API generator evals
   global.window = { document: { styleSheets: [0] } };
@@ -27,7 +27,9 @@ let obj = {
     sheet.insertRule(`body.user-panel-columns [aria-label="User area"] .nameTag-3uD-yy + .directionRow-3v3tfG {
       margin: auto;
 
-      transform: translate(45%, -190%);
+      padding: 3px;
+      border-radius: 4px;
+      transform: scale(1.3) translate(20%, -146%);
 
       background-color: var(--background-secondary-alt);
 
