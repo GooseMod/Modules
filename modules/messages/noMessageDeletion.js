@@ -1,4 +1,4 @@
-let version = '2.1.1';
+let version = '2.1.2';
 
 let original;
 let interval;
@@ -26,7 +26,7 @@ const setup = () => {
   try {
     original = mod._orderedActionHandlers.MESSAGE_DELETE[4];
   } catch (e) {
-    this.showToast('No Message Deletion: Setup failed, retrying...');
+    //this.showToast('No Message Deletion: Setup failed, retrying...');
     return setTimeout(setup, 3000);
   }
 
@@ -44,7 +44,7 @@ const setup = () => {
     storeDidChange: function() { }
   };
 
-  this.showToast('No Message Deletion: Ready');
+  // this.showToast('No Message Deletion: Ready');
 };
 
 let obj = {
