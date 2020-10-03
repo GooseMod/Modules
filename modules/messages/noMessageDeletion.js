@@ -1,4 +1,4 @@
-let version = '2.1.0';
+let version = '2.1.1';
 
 let original;
 let interval;
@@ -32,7 +32,7 @@ const setup = () => {
 
   mod._orderedActionHandlers.MESSAGE_DELETE[4] = {
     actionHandler: (obj) => {
-      console.log(obj);
+      // console.log(obj);
 
       if (deleted.find((x) => x.id === obj.id)) { return; }
       
