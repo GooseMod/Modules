@@ -1,4 +1,4 @@
-let version = '1.0.0';
+let version = '1.0.1';
 
 if (typeof window === 'undefined' || typeof window.document === 'undefined') { // JSON API generator evals
   global.window = { document: { styleSheets: [0] } };
@@ -31,7 +31,7 @@ let obj = {
 
       background-color: var(--background-secondary-alt);
 
-      z-index: 99999;
+      z-index: 1;
     }`, sheet.cssRules.length);
 
     document.body.classList.add('user-panel-columns');
