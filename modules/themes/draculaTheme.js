@@ -1,4 +1,4 @@
-let version = '1.1.1';
+let version = '1.1.2';
 
 let obj = {
   onImport: async function () {
@@ -16,9 +16,9 @@ let obj = {
       --background-accent: #22232E;
       --background-floating: #1F2029;
 
-      --scrollbar-thin-thumb: #22232E;
-      --scrollbar-auto-thumb: #22232E;
-      --scrollbar-auto-scrollbar-color-thumb: #22232E;
+      --scrollbar-thin-thumb: #4A4B54;
+      --scrollbar-auto-thumb: #4A4B54;
+      --scrollbar-auto-scrollbar-color-thumb: #4A4B54;
 
       --scrollbar-auto-track: #16171D;
       --scrollbar-auto-scrollbar-color-track: #16171D;
