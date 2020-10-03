@@ -1,4 +1,4 @@
-let version = '2.1.1';
+let version = '2.1.2';
 
 /*const getVariablesObj = (css) => css.split(';').map((x) => x.trim()).filter((x) => x.startsWith('--'))
 .reduce((o, val) => {
@@ -69,7 +69,7 @@ let obj = {
     themeVars.push(['--brand-color-hover', '#677bc4']);
 
     for (let rule of sheet.cssRules) {
-      if (rule.selectorText === '.theme-light' || rule.selectorText === '.theme-dark') continue;
+      if (rule.selectorText === '.theme-light' || rule.selectorText === '.theme-dark' || rule.selectorText === 'body') continue;
 
       let normalisedText = normaliseColors(rule.cssText);
       let changed = false;
