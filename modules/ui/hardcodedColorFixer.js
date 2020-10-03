@@ -60,6 +60,12 @@ let obj = {
       return x;
     });
 
+    document.body.style.setProperty('--brand-color', '#7289da');
+    document.body.style.setProperty('--brand-color-hover', '#677bc4');
+
+    themeVars.push(['--brand-color', '#7289da']);
+    themeVars.push(['--brand-color-hover', '#677bc4']);
+
     for (let rule of sheet.cssRules) {
       if (rule.selectorText === '.theme-light' || rule.selectorText === '.theme-dark') continue;
 
