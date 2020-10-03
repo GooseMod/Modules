@@ -1,4 +1,4 @@
-let version = '1.1.0';
+let version = '1.1.1';
 
 let obj = {
   onImport: async function () {
@@ -37,7 +37,7 @@ let obj = {
   logRegionColor: 'darkred',
 
   name: 'Dracula Theme',
-  description: 'Pure dark theme',
+  description: 'A dark blue theme, based on the Dracula color scheme',
 
   author: 'Ducko',
 
