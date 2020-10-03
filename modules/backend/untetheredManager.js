@@ -1,4 +1,4 @@
-const version = '1.1.0';
+const version = '1.1.1';
 
 let os;
 let pathSeparator;
@@ -16,9 +16,9 @@ const install = async () => {
   const modulePath = await DiscordNative.fileManager.getModulePath();
   const rpcPathAbsolute = [modulePath, 'discord_rpc'].join(pathSeparator);
   const rpcPathHomeRelative = `..${pathSeparator}`.repeat(50) + (os === 'Windows' ? rpcPathAbsolute.replace(/[A-Z]\:\\/, '') : rpcPathAbsolute);
-  //const rpcPathHomeRelative = os === 'Windows' ? rpcPathAbsolute.replace(/[A-Za-z]:\\Users\\\w+\\/, '') : rpcPathAbsolute.replace(/\/home\/\w+\//, '');
+  // const rpcPathHomeRelative = os === 'Windows' ? rpcPathAbsolute.replace(/[A-Za-z]:\\Users\\\w+\\/, '') : rpcPathAbsolute.replace(/\/home\/\w+\//, '');
 
-  console.log(rpcPathAbsolute, rpcPathHomeRelative);
+  // console.log(rpcPathAbsolute, rpcPathHomeRelative);
 
   const injectCode = await this.cspBypasser.text('https://raw.githubusercontent.com/GooseMod/Untethered/master/src/untetheredInject.js');
 
