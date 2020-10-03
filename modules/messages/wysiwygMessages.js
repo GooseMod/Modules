@@ -1,4 +1,4 @@
-let version = '1.2.1';
+let version = '1.3.0';
 
 // .messagesWrapper-1sRNjr .markup-2BOw-j
 let italicsEnabled = true; // <em>
@@ -9,6 +9,7 @@ let strikethroughEnabled = true; // <s>
 let spoilerEnabled = true; // <.spoilerText-3p6IlD>
 
 let inlineCodeEnabled = true; // <code.inline>
+let quotesEnabled = true; // <div.blockquoteDivider-2hH8H6>
 
 if (typeof window === 'undefined' || typeof window.document === 'undefined') { // JSON API generator evals
   global.window = { document: { styleSheets: [0] } };
@@ -71,6 +72,16 @@ function setInlineCode(c) {
 
   try {
     document.body.classList[c ? 'add' : 'remove']('gm-wysiwyg-inline-enabled');
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function setQuotes(c) {
+  quotesEnabled = c;
+
+  try {
+    document.body.classList[c ? 'add' : 'remove']('gm-wysiwyg-quotes-enabled');
   } catch (e) {
     console.log(e);
   }
@@ -139,6 +150,26 @@ let obj = {
 
       filter: brightness(0.5);
     }`, sheet.cssRules.length);
+
+    sheet.insertRule(`body.gm-wysiwyg-quotes-enabled .messagesWrapper-1sRNjr .markup-2BOw-j .blockquoteContainer-U5TVEi .blockquoteDivider-2hH8H6 {
+      width: 0;
+      background-color: transparent;
+
+      margin-right: 2px;
+    }`, sheet.cssRules.length);
+
+    sheet.insertRule(`body.gm-wysiwyg-quotes-enabled .messagesWrapper-1sRNjr .markup-2BOw-j .blockquoteContainer-U5TVEi .blockquoteDivider-2hH8H6::before {
+      content: '>';
+
+      color: var(--text-normal);
+
+      filter: brightness(0.3);
+      font-weight: 400;
+      
+      display: inline-block;
+      text-decoration: none;
+      font-style: normal;
+    }`, sheet.cssRules.length);
   },
 
   onLoadingFinished: async function () {
@@ -148,6 +179,7 @@ let obj = {
     setStrikethrough(true);
     setSpoiler(true);
     setInlineCode(true);
+    setQuotes(true);
 
     this.settings.createItem('WYSIWYG Messages', [
       `(v${version})`,
@@ -197,6 +229,13 @@ let obj = {
         subtext: '`Text`',
         onToggle: (c) => setInlineCode(c),
         isToggled: () => inlineCodeEnabled
+      },
+      {
+        type: 'toggle',
+        text: 'Quotes',
+        subtext: '> Text',
+        onToggle: (c) => setQuotes(c),
+        isToggled: () => quotesEnabled
       }
     ]);
   },
@@ -208,19 +247,21 @@ let obj = {
     setStrikethrough(false);
     setSpoiler(false);
     setInlineCode(false);
+    setQuotes(false);
 
     let settingItem = this.settings.items.find((x) => x[1] === 'WYSIWYG Messages');
     this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
   },
 
-  getSettings: () => [italicsEnabled, boldEnabled, underlineEnabled, strikethroughEnabled, spoilerEnabled, inlineCodeEnabled],
-  loadSettings: ([_italicsEnabled, _boldEnabled, _underlineEnabled, _strikethroughEnabled, _spoilerEnabled, _inlineCodeEnabled]) => {
+  getSettings: () => [italicsEnabled, boldEnabled, underlineEnabled, strikethroughEnabled, spoilerEnabled, inlineCodeEnabled, quotesEnabled],
+  loadSettings: ([_italicsEnabled, _boldEnabled, _underlineEnabled, _strikethroughEnabled, _spoilerEnabled, _inlineCodeEnabled, _quotesEnabled]) => {
     setItalics(_italicsEnabled);
     setBold(_boldEnabled);
     setUnderline(_underlineEnabled);
     setStrikethrough(_strikethroughEnabled);
     setSpoiler(_spoilerEnabled);
     setInlineCode(_inlineCodeEnabled);
+    setQuotes(_quotesEnabled);
   },
 
   logRegionColor: 'darkred',
