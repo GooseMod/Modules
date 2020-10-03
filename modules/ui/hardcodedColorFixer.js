@@ -1,4 +1,4 @@
-let version = '2.0.0';
+let version = '2.0.1';
 
 /*const getVariablesObj = (css) => css.split(';').map((x) => x.trim()).filter((x) => x.startsWith('--'))
 .reduce((o, val) => {
@@ -76,15 +76,15 @@ let obj = {
       }
 
       if (changed) {
-        sheet.insertRule(`html[hardcoded-color-fixes="true"] ${normalisedText}`, sheet.cssRules.length);
+        sheet.insertRule(`${normalisedText}`, sheet.cssRules.length);
       }
     }
 
-    document.documentElement.setAttribute('hardcoded-color-fixes', 'true');
+    //document.documentElement.setAttribute('hardcoded-color-fixes', 'true');
   },
 
   remove: async function () {
-    document.documentElement.removeAttribute('hardcoded-color-fixes');
+    //document.documentElement.removeAttribute('hardcoded-color-fixes');
   },
 
   logRegionColor: 'darkred',
