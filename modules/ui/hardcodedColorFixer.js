@@ -1,4 +1,4 @@
-let version = '1.0.0';
+let version = '1.0.1';
 
 /*const getVariablesObj = (css) => css.split(';').map((x) => x.trim()).filter((x) => x.startsWith('--'))
 .reduce((o, val) => {
@@ -56,18 +56,18 @@ let obj = {
       for (let v of themeVars) {
         if (rule.cssText.includes(v[1])) {
           console.log(v);
-          sheet.insertRule(`html.hardcoded-color-fixes ${rule.selectorText} {
+          sheet.insertRule(`body.hardcoded-color-fixes ${rule.selectorText} {
             ${rule.cssText.replace(v[1], `var(${v[0]})`)}
           }`, sheet.cssRules.length);
         }
       }
     }
 
-    document.documentElement.classList.add('hardcoded-color-fixes');
+    document.body.classList.add('hardcoded-color-fixes');
   },
 
   remove: async function () {
-    document.documentElement.classList.remove('hardcoded-color-fixes');
+    document.body.classList.remove('hardcoded-color-fixes');
   },
 
   logRegionColor: 'darkred',
