@@ -1,4 +1,4 @@
-let version = '2.5.0';
+let version = '2.5.1';
 
 let obj = {
   onImport: async function () {
@@ -10,6 +10,8 @@ let obj = {
       'squareAvatars': true,
       'noMemberlistAvatars': false
     };
+
+    let sheet = window.document.styleSheets[0];
 
     sheet.insertRule(`body.square-avatars .avatar-1BDn8e {
       border-radius: 0px;
