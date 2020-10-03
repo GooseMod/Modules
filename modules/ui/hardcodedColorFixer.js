@@ -1,4 +1,4 @@
-let version = '2.0.1';
+let version = '2.1.0';
 
 /*const getVariablesObj = (css) => css.split(';').map((x) => x.trim()).filter((x) => x.startsWith('--'))
 .reduce((o, val) => {
