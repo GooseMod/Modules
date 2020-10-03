@@ -1,4 +1,4 @@
-let version = '2.1.0';
+let version = '2.1.1';
 
 /*const getVariablesObj = (css) => css.split(';').map((x) => x.trim()).filter((x) => x.startsWith('--'))
 .reduce((o, val) => {
@@ -60,8 +60,10 @@ let obj = {
       return x;
     });
 
-    document.body.style.setProperty('--brand-color', '#7289da');
-    document.body.style.setProperty('--brand-color-hover', '#677bc4');
+    sheet.insertRule(`body {
+      --brand-color: #7289da;
+      --brand-color-hover: #677bc4;
+    }`, sheet.cssRules.length);
 
     themeVars.push(['--brand-color', '#7289da']);
     themeVars.push(['--brand-color-hover', '#677bc4']);
