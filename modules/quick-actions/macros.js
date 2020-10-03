@@ -2,7 +2,7 @@ let originalFunc;
 
 let macros = {};
 
-let version = '1.0.0';
+let version = '1.0.1';
 
 let obj = {
   onImport: async function () {
@@ -16,8 +16,6 @@ let obj = {
         let rpl = message.content.replace('/m ', '');
         let name = rpl.split(' ')[0];
         let content = rpl.split(' ').slice(1).join(' ');
-
-        console.log(macros, name, content);
 
         if (!content) {
           if (!macros[name]) {
@@ -38,10 +36,6 @@ let obj = {
       
       return originalFunc.apply(this, arguments);
     };
-  },
-
-  onLoadingFinished: async function() {
-    
   },
 
   remove: async function () {
