@@ -2,7 +2,9 @@ let originalFunc;
 
 let macros = {};
 
-let version = '1.0.1';
+let version = '1.1.0';
+
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 let obj = {
   onImport: async function () {
@@ -11,13 +13,31 @@ let obj = {
 
     let goosemodScope = this;
 
-    mod.sendMessage = function (_, message) {//_, [, message]) {
+    mod.sendMessage = async function (_, message) {//_, [, message]) {
       if (message.content.startsWith('/m')) {
         let rpl = message.content.replace('/m ', '');
         let name = rpl.split(' ')[0];
         let content = rpl.split(' ').slice(1).join(' ');
 
+        console.log(name, content);
+
         if (!content) {
+          if (!name || name === '/m') {
+            goosemodScope.showToast(`Syntax: "/m <macro_name> [macro content]" - no macro content = get macro, with macro content = set macro`, {timeout: 2000});
+            await sleep(2000);
+
+            goosemodScope.showToast(`Your Macros:`, {timeout: 1000});
+
+            await sleep(1000);
+
+            for (let t of Object.keys(macros).map((x) => `${x}: ${macros[x]}`)) {
+              goosemodScope.showToast(t, {timeout: 1000});
+              await sleep(1000);
+            }
+
+            return;
+          }
+
           if (!macros[name]) {
             goosemodScope.showToast(`No macro "${name}"`);
 
