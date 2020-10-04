@@ -1,4 +1,4 @@
-let version = '2.0.0';
+let version = '2.0.1';
 
 if (typeof window === 'undefined' || typeof window.document === 'undefined') { // JSON API generator evals
   global.window = { document: { styleSheets: [0] } };
@@ -34,6 +34,11 @@ let obj = {
       background-color: var(--background-secondary-alt);
 
       z-index: 1;
+    }`, sheet.cssRules.length);
+
+    sheet.insertRule(`body.user-panel-columns [aria-label="User area"] .wrapper-24pKcD {
+      margin-bottom: 47px;
+      z-index: 2;
     }`, sheet.cssRules.length);
 
     document.body.classList.add('user-panel-columns');
