@@ -1,6 +1,5 @@
-const version = '1.0.0';
+const version = '1.0.1';
 
-let version = '1.0.0';
 let orig;
 
 let obj = {
