@@ -15,7 +15,7 @@ let _XMLHttpRequest = window.XMLHttpRequest;
 
 let obj = {
   onImport: async function() {
-    let gooseModScope = this;
+    let gooseModScope = globalThis;
 
     globalThis.logger.debug('fucklytics', 'Overriding XMLHTTPRequest with a proxy function');
 
