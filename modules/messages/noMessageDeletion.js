@@ -1,4 +1,4 @@
-let version = '2.1.2';
+let version = '2.1.3';
 
 let original;
 let interval;

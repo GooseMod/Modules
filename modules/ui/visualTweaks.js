@@ -1,4 +1,4 @@
-let version = '2.5.1';
+let version = '2.5.2';
 
 let obj = {
   onImport: async function () {

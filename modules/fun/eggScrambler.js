@@ -1,4 +1,4 @@
-let version = '1.0.0';
+let version = '1.0.1';
 
 let interval;
 
@@ -13,27 +13,27 @@ function scrambleMessages() {
 }
 
 let obj = {
-    // Activating module
-    onImport: async function () {
-        globalThis.logger.debug('scrambleMessages', 'Starting Egg...');
-        scrambleMessages();
-    },
-
-    // Removing function
-    remove: async function () {
-        clearInterval(interval);
-    },
-        
-    // Random thing I don't rlly want
-    logRegionColor: 'red',
-
-    // Data
-    name: 'Egg Scrambler',
-    description: 'Makes discord unusable by converting all messages into eggs',
-
-    author: 'Fjorge + Hax + Ducko',
-
-    version: version
+  // Activating module
+  onImport: async function () {
+    globalThis.logger.debug('scrambleMessages', 'Starting Egg...');
+    scrambleMessages();
+  },
+  
+  // Removing function
+  remove: async function () {
+    clearInterval(interval);
+  },
+  
+  // Random thing I don't rlly want
+  logRegionColor: 'red',
+  
+  // Data
+  name: 'Egg Scrambler',
+  description: 'Makes discord unusable by converting all messages into eggs',
+  
+  author: 'Fjorge + Hax + Ducko',
+  
+  version: version
 };
 
 obj

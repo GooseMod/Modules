@@ -1,4 +1,4 @@
-let version = '2.1.0';
+let version = '2.1.1';
 
 if (typeof window === 'undefined' || typeof window.document === 'undefined') { // JSON API generator evals
   global.window = { document: { styleSheets: [0] } };
