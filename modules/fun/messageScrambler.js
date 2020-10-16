@@ -23,7 +23,7 @@ function scrambleMessages() {
 let obj = {
 	// Activating module
 	onImport: async function () {
-		this.logger.debug('scrambleMessages', 'Starting Scrambler...');
+		globalThis.logger.debug('scrambleMessages', 'Starting Scrambler...');
 		scrambleMessages();
 	},
 

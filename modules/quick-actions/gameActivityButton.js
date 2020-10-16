@@ -39,7 +39,7 @@ function onButtonMouseOut() {
 const onToggle = () => {
   gameActivity = !gameActivity;
 
-  const mod = this.webpackModules.findByProps("updateRemoteSettings");
+  const mod = globalThis.webpackModules.findByProps("updateRemoteSettings");
 
   mod.updateLocalSettings({
     showCurrentGame: gameActivity,
@@ -68,7 +68,7 @@ const onToggle = () => {
 const checkForChange = () => {
   if (removed) return;
 
-  let current = this.webpackModules.findByProps("guildPositions").showCurrentGame;
+  let current = globalThis.webpackModules.findByProps("guildPositions").showCurrentGame;
   if (gameActivity !== current) {
     gameActivity = current;
 
@@ -84,11 +84,11 @@ const checkForChange = () => {
 
 let obj = {
   onImport: async function () {
-    const mod = this.webpackModules.findByProps("guildPositions");
+    const mod = globalThis.webpackModules.findByProps("guildPositions");
     mod.addChangeListener(checkForChange);
 
     gameActivity = mod.showCurrentGame;
-    soundReference = this.webpackModules.findByProps("playSound");
+    soundReference = globalThis.webpackModules.findByProps("playSound");
 
     const row = document.querySelector('[aria-label="User area"] .nameTag-3uD-yy + .directionRow-3v3tfG');
 
@@ -105,7 +105,7 @@ let obj = {
 
     row.prepend(btn);
 
-    const tooltipClasses = this.webpackModules.findByProps("tooltipBottom");
+    const tooltipClasses = globalThis.webpackModules.findByProps("tooltipBottom");
 
     const wrapperDiv = document.createElement("div");
     tooltip = wrapperDiv;

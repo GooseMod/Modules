@@ -36,9 +36,9 @@ let obj = {
   onImport: async function () {
     intervals = [];
 
-    getUser = this.webpackModules.findByProps('getUser');
-    getMembers = this.webpackModules.findByProps('getNick');
-    getGuildId = this.webpackModules.findByPropsAll('getGuildId')[1];
+    getUser = globalThis.webpackModules.findByProps('getUser');
+    getMembers = globalThis.webpackModules.findByProps('getNick');
+    getGuildId = globalThis.webpackModules.findByPropsAll('getGuildId')[1];
 
     intervals.push(setInterval(run, 300), setInterval(updateMembers, 5000));
 

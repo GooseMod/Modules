@@ -5,10 +5,10 @@ let obj = {
   },
 
   onLoadingFinished: async function () {
-    let electronInfo = this.webpackModules.findByProps('ua');
+    let electronInfo = globalThis.webpackModules.findByProps('ua');
 
     let moduleItems = [];
-    let moduleVersions = this.webpackModules.findByProps('moduleVersions').moduleVersions;
+    let moduleVersions = globalThis.webpackModules.findByProps('moduleVersions').moduleVersions;
 
     for (let m in moduleVersions) {
       moduleItems.push({
@@ -18,7 +18,7 @@ let obj = {
       });
     }
 
-    this.settings.createItem('Discord Debug', [
+    globalThis.settings.createItem('Discord Debug', [
       `(v${version})`,
 
       {
@@ -52,8 +52,8 @@ let obj = {
   },
 
   remove: async function () {
-    let settingItem = this.settings.items.find((x) => x[1] === 'Discord Debug');
-    this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Discord Debug');
+    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
   },
 
   logRegionColor: 'darkred',

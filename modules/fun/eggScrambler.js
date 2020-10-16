@@ -15,7 +15,7 @@ function scrambleMessages() {
 let obj = {
     // Activating module
     onImport: async function () {
-        this.logger.debug('scrambleMessages', 'Starting Egg...');
+        globalThis.logger.debug('scrambleMessages', 'Starting Egg...');
         scrambleMessages();
     },
 

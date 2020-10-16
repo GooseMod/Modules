@@ -4,14 +4,14 @@ let orig;
 
 let obj = {
   onImport: async function () {
-    let mod = this.webpackModules.findByProps('startTyping');
+    let mod = globalThis.webpackModules.findByProps('startTyping');
     orig = mod.startTyping;
 
     mod.startTyping = () => {};
   },
 
   onLoadingFinished: async function () {
-    this.webpackModules.findByProps('startTyping').startTyping = orig;
+    globalThis.webpackModules.findByProps('startTyping').startTyping = orig;
   },
 
   remove: async function () {

@@ -9,7 +9,7 @@ const rpcIndexBase = `module.exports = {
 };`;
 
 const install = async () => {
-  if (!(await this.confirmDialog('Install', 'Install GooseMod Untethered', 'Are you sure you want to install GooseMod Untethered?'))) {
+  if (!(await globalThis.confirmDialog('Install', 'Install GooseMod Untethered', 'Are you sure you want to install GooseMod Untethered?'))) {
     return;
   }
 
@@ -20,7 +20,7 @@ const install = async () => {
 
   // console.log(rpcPathAbsolute, rpcPathHomeRelative);
 
-  const injectCode = await this.cspBypasser.text('https://goosemod-api.netlify.app/untethered/base.js');
+  const injectCode = await globalThis.cspBypasser.text('https://goosemod-api.netlify.app/untethered/base.js');
 
   const replacementIndexCode = injectCode + '\n\n' + rpcIndexBase;
 
@@ -29,12 +29,12 @@ const install = async () => {
 
 const obj = {
   onImport: async function () {
-    os = this.webpackModules.findByProps('ua').os.family;
+    os = globalThis.webpackModules.findByProps('ua').os.family;
     pathSeparator = os === 'Windows' ? '\\' : '/'
   },
 
   onLoadingFinished: async function () {
-    this.settings.createItem('Untethered Manager', [
+    globalThis.settings.createItem('Untethered Manager', [
       `(v${version})`,
 
       {
@@ -46,8 +46,8 @@ const obj = {
   },
 
   remove: async function () {
-    let settingItem = this.settings.items.find((x) => x[1] === 'Untethered Manager');
-    this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Untethered Manager');
+    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
   },
 
   logRegionColor: 'darkred',

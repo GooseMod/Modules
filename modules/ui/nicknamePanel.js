@@ -33,10 +33,10 @@ let obj = {
     hoverEl.addEventListener('mouseenter', mouseEnter);
     hoverEl.addEventListener('mouseleave', mouseLeave);
 
-    user = this.webpackModules.findByProps('getCurrentUser').getCurrentUser();
+    user = globalThis.webpackModules.findByProps('getCurrentUser').getCurrentUser();
 
-    getNick = this.webpackModules.findByProps('getNick');
-    getGuildId = this.webpackModules.findByPropsAll('getGuildId')[1];
+    getNick = globalThis.webpackModules.findByProps('getNick');
+    getGuildId = globalThis.webpackModules.findByPropsAll('getGuildId')[1];
   },
 
   onLoadingFinished: async function () {

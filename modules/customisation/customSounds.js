@@ -16,7 +16,7 @@ let incomingCallName, outgoingCallName, notificationName;
 const dataURItoBlobURI = (dataURI) => { // https://stackoverflow.com/a/12300351
   try {
     // convert base64 to raw binary data held in a string
-    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code
     const byteString = atob(dataURI.split(',')[1]);
 
     // separate out the mime component
@@ -63,25 +63,28 @@ const getFileUpload = async () => {
 
 let obj = {
   onImport: async function() {
-    this.logger.debug('customSounds', 'Overriding Audio with a proxy function');
+    globalThis.logger.debug('customSounds', 'Overriding Audio with a proxy function');
 
     window.Audio = function() {
       var audio = new _Audio();
     
       var _play = audio.play;
       audio.play = function() {
-        // console.log(this.src);
+        //console.log(this.src);
 
         if (enabled) {
           if (outgoingCallSound && this.src.includes('/assets/c6e92752668dde4eee5923d70441579f.mp3')) { // Outgoing Call
+            console.log('outgoing');
             this.src = outgoingCallSound;
           }
 
           if (incomingCallSound && this.src.includes('/assets/84a1b4e11d634dbfa1e5dd97a96de3ad.mp3')) { // Incoming Call
+            console.log('incoming');
             this.src = incomingCallSound;
           }
 
           if (notificationSound && this.src.includes('/assets/dd920c06a01e5bb8b09678581e29d56f.mp3')) { // Notification Sound / Ping
+            console.log('notification');
             this.src = notificationSound;
           }
         }
@@ -118,8 +121,8 @@ let obj = {
 
           items[0].subtext = file === undefined ? 'Not uploaded' : `Uploaded: ${file.name}`;
 
-          this.settings.createFromItems();
-          this.openSettingItem('Custom Sounds');
+          globalThis.settings.createFromItems();
+          globalThis.openSettingItem('Custom Sounds');
 
           if (file !== undefined) {
             const reader = new FileReader();
@@ -146,8 +149,8 @@ let obj = {
 
           items[1].subtext = file === undefined ? 'Not uploaded' : `Uploaded: ${file.name}`;
 
-          this.settings.createFromItems();
-          this.openSettingItem('Custom Sounds');
+          globalThis.settings.createFromItems();
+          globalThis.openSettingItem('Custom Sounds');
 
           if (file !== undefined) {
             const reader = new FileReader();
@@ -175,8 +178,8 @@ let obj = {
 
           items[2].subtext = file === undefined ? 'Not uploaded' : `Uploaded: ${file.name}`;
 
-          this.settings.createFromItems();
-          this.openSettingItem('Custom Sounds');
+          globalThis.settings.createFromItems();
+          globalThis.openSettingItem('Custom Sounds');
 
           if (file !== undefined) {
             const reader = new FileReader();
@@ -191,7 +194,7 @@ let obj = {
       }
     ];
 
-    this.settings.createItem('Custom Sounds', [
+    globalThis.settings.createItem('Custom Sounds', [
       `(v${version})`,
 
       {
@@ -215,8 +218,8 @@ let obj = {
     
     fileSelectEl.remove();
 
-    let settingItem = this.settings.items.find((x) => x[1] === 'Custom Sounds');
-    this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Custom Sounds');
+    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
   },
 
   getSettings: () => [enabled, incomingCallStorage, outgoingCallStorage, notificationStorage, incomingCallName, outgoingCallName, notificationName],
@@ -235,14 +238,14 @@ let obj = {
     outgoingCallName = _outgoingCallName;
     notificationName = _notificationName;
 
-    let settingItem = this.settings.items.find((x) => x[1] === 'Custom Sounds');
+    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Custom Sounds');
 
     settingItem[2][2].subtext = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
     settingItem[2][3].subtext = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
     settingItem[2][4].subtext = !notificationName ? 'Not uploaded' : `Uploaded: ${notificationName}`;
 
-    //this.settings.createFromItems();
-    //this.openSettingItem('Custom Sounds');
+    //globalThis.settings.createFromItems();
+    //globalThis.openSettingItem('Custom Sounds');
 
     //items[0].subtext = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
     //items[1].subtext = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;

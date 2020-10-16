@@ -2,9 +2,9 @@ let version = '2.5.1';
 
 let obj = {
   onImport: async function () {
-    this.logger.debug('visualTweaks', 'Enabling Visual Tweaks');
+    globalThis.logger.debug('visualTweaks', 'Enabling Visual Tweaks');
 
-    this.tweaks = {
+    globalThis.tweaks = {
       'removeHelpButton': true,
       'removeEmojiUpsell': false,
       'squareAvatars': true,
@@ -80,33 +80,33 @@ let obj = {
       }
     };
 
-    this.enableTweak = (tweakName) => {
+    globalThis.enableTweak = (tweakName) => {
       tweakFunctions[tweakName].enable();
 
-      this.tweaks[tweakName] = true;
+      globalThis.tweaks[tweakName] = true;
     };
 
-    this.disableTweak = (tweakName) => {
+    globalThis.disableTweak = (tweakName) => {
       tweakFunctions[tweakName].disable();
 
-      this.tweaks[tweakName] = false;
+      globalThis.tweaks[tweakName] = false;
     };
 
-    this.setTweak = (tweakName, value) => {
+    globalThis.setTweak = (tweakName, value) => {
       if (value === true) {
-        this.enableTweak(tweakName);
+        globalThis.enableTweak(tweakName);
       } else {
-        this.disableTweak(tweakName);
+        globalThis.disableTweak(tweakName);
       }
     };
   },
 
   onLoadingFinished: async function () {
-    for (let t in this.tweaks) {
-      if (this.tweaks[t] === true) this.enableTweak(t);
+    for (let t in globalThis.tweaks) {
+      if (globalThis.tweaks[t] === true) globalThis.enableTweak(t);
     }
 
-    this.settings.createItem('Visual Tweaks', [
+    globalThis.settings.createItem('Visual Tweaks', [
       `(v${version})`,
 
       {
@@ -117,49 +117,49 @@ let obj = {
         type: 'toggle',
         text: 'Hide Help Button',
         subtext: 'Hides the help button in the top right corner',
-        onToggle: (c) => { this.setTweak('removeHelpButton', c); },
-        isToggled: () => this.tweaks['removeHelpButton']
+        onToggle: (c) => { globalThis.setTweak('removeHelpButton', c); },
+        isToggled: () => globalThis.tweaks['removeHelpButton']
       },
       {
         type: 'toggle',
         text: 'Disable Emoji Click Pop-up',
         subtext: 'Disables the pop-up when clicking emojis',
-        onToggle: (c) => { this.setTweak('removeEmojiUpsell', c); },
-        isToggled: () => this.tweaks['removeEmojiUpsell']
+        onToggle: (c) => { globalThis.setTweak('removeEmojiUpsell', c); },
+        isToggled: () => globalThis.tweaks['removeEmojiUpsell']
       },
       {
         type: 'toggle',
         text: 'Square Avatars',
         subtext: 'Makes avatars for messages square instead of circle (cozy only)',
-        onToggle: (c) => { this.setTweak('squareAvatars', c); },
-        isToggled: () => this.tweaks['squareAvatars']
+        onToggle: (c) => { globalThis.setTweak('squareAvatars', c); },
+        isToggled: () => globalThis.tweaks['squareAvatars']
       },
       {
         type: 'toggle',
         text: '[WIP] No Member List Avatars',
         subtext: 'Hides avatars in the member list',
-        onToggle: (c) => { this.setTweak('noMemberlistAvatars', c); },
-        isToggled: () => this.tweaks['noMemberlistAvatars']
+        onToggle: (c) => { globalThis.setTweak('noMemberlistAvatars', c); },
+        isToggled: () => globalThis.tweaks['noMemberlistAvatars']
       }
     ]);
   },
 
   remove: async function () {
-    for (let t in this.tweaks) {
-      if (this.tweaks[t] === true) this.disableTweak(t);
+    for (let t in globalThis.tweaks) {
+      if (globalThis.tweaks[t] === true) globalThis.disableTweak(t);
     }
 
-    let settingItem = this.settings.items.find((x) => x[1] === 'Visual Tweaks');
-    this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Visual Tweaks');
+    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
   },
 
-  getSettings: async function() { return [this.tweaks] },
+  getSettings: async function() { return [globalThis.tweaks] },
   loadSettings: async function ([_tweaks]) {
-    this.tweaks = _tweaks;
+    globalThis.tweaks = _tweaks;
 
-    for (let t in this.tweaks) {
+    for (let t in globalThis.tweaks) {
       try { // Some tweaks might have been removed so wrap in try catch
-        this.setTweak(t, this.tweaks[t]);
+        globalThis.setTweak(t, globalThis.tweaks[t]);
       } catch (e) {
         console.log(e);
       }

@@ -17,37 +17,37 @@ let obj = {
   onImport: async function() {
     let gooseModScope = this;
 
-    this.logger.debug('fucklytics', 'Overriding XMLHTTPRequest with a proxy function');
+    globalThis.logger.debug('fucklytics', 'Overriding XMLHTTPRequest with a proxy function');
 
     window.XMLHttpRequest = function() {
       var xhr = new _XMLHttpRequest();
   
       var _open = xhr.open;
       xhr.open = function() {
-          //console.log(this, arguments, arguments[1], arguments[1].includes('science'));
-          if (enabled) {
-            if (blocking['science'] === true && arguments[1].includes('/v8/science')) {
-              gooseModScope.logger.debug('fucklytics', 'Blocked analytics request (science)');
+        //console.log(this, arguments, arguments[1], arguments[1].includes('science'));
+        if (enabled) {
+          if (blocking['science'] === true && arguments[1].includes('/v8/science')) {
+            gooseModScope.logger.debug('fucklytics', 'Blocked analytics request (science)');
 
-              return false;
-            }
-
-            if (blocking['sentry'] === true && arguments[1].includes('https://sentry.io')) {
-              gooseModScope.logger.debug('fucklytics', 'Blocked analytics request (sentry)');
-
-              return false;
-            }
+            return false;
           }
 
-          return _open.apply(this, arguments);
-      }
+          if (blocking['sentry'] === true && arguments[1].includes('https://sentry.io')) {
+            gooseModScope.logger.debug('fucklytics', 'Blocked analytics request (sentry)');
+
+            return false;
+          }
+        }
+
+        return _open.apply(this, arguments);
+      };
   
       return xhr;
     }
   },
 
   onLoadingFinished: async function() {
-    this.settings.createItem('Fucklytics', [
+    globalThis.settings.createItem('Fucklytics', [
       `(v${version})`,
 
       {
@@ -82,8 +82,8 @@ let obj = {
   remove: async function() {
     window.XMLHttpRequest = _XMLHttpRequest;
 
-    let settingItem = this.settings.items.find((x) => x[1] === 'Fucklytics');
-    this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Fucklytics');
+    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
   },
 
   getSettings: () => [blocking, enabled],

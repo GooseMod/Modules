@@ -22,7 +22,7 @@ function newDev() {
 
 let obj = {
   onImport: async function() {
-    this.logger.debug('devMode', 'Enabling Developer Mode');
+    globalThis.logger.debug('devMode', 'Enabling Developer Mode');
 
 		try {
 			newDev();

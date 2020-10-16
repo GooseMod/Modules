@@ -21,12 +21,12 @@ const run = () => {
 };
 
 const setup = () => {
-  let mod = this.webpackModules.findByProps('register');
+  let mod = globalThis.webpackModules.findByProps('register');
 
   try {
     original = mod._orderedActionHandlers.MESSAGE_DELETE[4];
   } catch (e) {
-    //this.showToast('No Message Deletion: Setup failed, retrying...');
+    //globalThis.showToast('No Message Deletion: Setup failed, retrying...');
     return setTimeout(setup, 3000);
   }
 
@@ -44,7 +44,7 @@ const setup = () => {
     storeDidChange: function() { }
   };
 
-  // this.showToast('No Message Deletion: Ready');
+  // globalThis.showToast('No Message Deletion: Ready');
 };
 
 let obj = {
@@ -64,9 +64,9 @@ let obj = {
       e.remove();
     }
 
-    this.webpackModules.findByProps('register')._orderedActionHandlers.MESSAGE_DELETE[4] = original;
+    globalThis.webpackModules.findByProps('register')._orderedActionHandlers.MESSAGE_DELETE[4] = original;
 
-    this.showToast('No Message Deletion: Deleted messages may be left behind');
+    globalThis.showToast('No Message Deletion: Deleted messages may be left behind');
   },
 
   logRegionColor: 'darkred',

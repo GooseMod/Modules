@@ -40,9 +40,9 @@ const run = () => {
 
 let obj = {
   onImport: async function () {
-    getUser = this.webpackModules.findByProps('getUser');
-    getMembers = this.webpackModules.findByProps('getNick');
-    getGuildId = this.webpackModules.findByPropsAll('getGuildId')[1];
+    getUser = globalThis.webpackModules.findByProps('getUser');
+    getMembers = globalThis.webpackModules.findByProps('getNick');
+    getGuildId = globalThis.webpackModules.findByPropsAll('getGuildId')[1];
 
     interval = setInterval(run, 300);
   },

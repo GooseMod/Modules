@@ -8,7 +8,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 let obj = {
   onImport: async function () {
-    let mod = this.webpackModules.findByProps("jumpToMessage", "_sendMessage");
+    let mod = globalThis.webpackModules.findByProps("jumpToMessage", "_sendMessage");
     originalFunc = mod.sendMessage;
 
     let goosemodScope = this;
@@ -59,7 +59,7 @@ let obj = {
   },
 
   remove: async function () {
-    this.webpackModules.findByProps("jumpToMessage", "_sendMessage").sendMessage = originalFunc;
+    globalThis.webpackModules.findByProps("jumpToMessage", "_sendMessage").sendMessage = originalFunc;
   },
 
   getSettings: () => [macros],

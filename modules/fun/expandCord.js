@@ -15,7 +15,7 @@ function expand() {
 let obj = {
   // Activating module
   onImport: async function () {
-    this.logger.debug('expandCord', 'e x p a n d i n g..');
+    globalThis.logger.debug('expandCord', 'e x p a n d i n g..');
     expand();
   },
 

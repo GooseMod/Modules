@@ -181,7 +181,7 @@ let obj = {
     setInlineCode(true);
     setQuotes(true);
 
-    this.settings.createItem('WYSIWYG Messages', [
+    globalThis.settings.createItem('WYSIWYG Messages', [
       `(v${version})`,
 
       {
@@ -249,8 +249,8 @@ let obj = {
     setInlineCode(false);
     setQuotes(false);
 
-    let settingItem = this.settings.items.find((x) => x[1] === 'WYSIWYG Messages');
-    this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+    let settingItem = globalThis.settings.items.find((x) => x[1] === 'WYSIWYG Messages');
+    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
   },
 
   getSettings: () => [italicsEnabled, boldEnabled, underlineEnabled, strikethroughEnabled, spoilerEnabled, inlineCodeEnabled, quotesEnabled],

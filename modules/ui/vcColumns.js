@@ -57,7 +57,7 @@ const obj = {
   },
 
   onLoadingFinished: async function () {
-    this.settings.createItem('VC Columns', [
+    globalThis.settings.createItem('VC Columns', [
       `(v${version})`,
 
       {
@@ -77,8 +77,8 @@ const obj = {
   remove: async function () {
     clearInterval(interval);
 
-    let settingItem = this.settings.items.find((x) => x[1] === 'VC Columns');
-    this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+    let settingItem = globalThis.settings.items.find((x) => x[1] === 'VC Columns');
+    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
 
     enabled = false;
     autoCheck = false;

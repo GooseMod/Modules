@@ -63,7 +63,7 @@ const setTweak = (tweakName, value) => {
 
 let obj = {
   onImport: async function () {
-    this.logger.debug('rainbowMode', 'Enabling Rainbow Tweaks');
+    globalThis.logger.debug('rainbowMode', 'Enabling Rainbow Tweaks');
   },
 
   onLoadingFinished: async function () {
@@ -71,7 +71,7 @@ let obj = {
       if (tweaks[t] === true) enableTweak(t);
     }
 
-    this.settings.createItem('RainbowCord', [
+    globalThis.settings.createItem('RainbowCord', [
       `(v${version})`,
 
       {
@@ -93,8 +93,8 @@ let obj = {
       if (tweaks[t] === true) disableTweak(t);
     }
 
-    let settingItem = this.settings.items.find((x) => x[1] === 'RainbowCord');
-    this.settings.items.splice(this.settings.items.indexOf(settingItem), 1);
+    let settingItem = globalThis.settings.items.find((x) => x[1] === 'RainbowCord');
+    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
   },
 
   logRegionColor: 'black',

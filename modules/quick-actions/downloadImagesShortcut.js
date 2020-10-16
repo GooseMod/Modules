@@ -4,7 +4,7 @@ let src;
 
 const downloadURL = async (sourceURL) => {
   // convert URL to data:
-  let url = sourceURL.includes('http') ? URL.createObjectURL(await this.cspBypasser.blob(sourceURL, false)) : sourceURL;
+  let url = sourceURL.includes('http') ? URL.createObjectURL(await globalThis.cspBypasser.blob(sourceURL, false)) : sourceURL;
 
   let el = document.createElement('a');
 
