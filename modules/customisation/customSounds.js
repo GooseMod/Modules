@@ -1,4 +1,4 @@
-const version = '1.3.9';
+const version = '1.3.10';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
