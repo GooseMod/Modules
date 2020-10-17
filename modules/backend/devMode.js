@@ -1,32 +1,10 @@
-let version = '1.0.4';
-
-function byProperties(props, filter = m => m) {
-	return module => {
-		const component = filter(module);
-		if (!component) return false;
-		return props.every(property => component[property] !== undefined);
-	};
-}
-
-function newDev() {
-	const filter = byProperties(["isDeveloper"]);
-	const modules = window.webpackJsonp.push([[], {a: (m, e, t) => m.exports = t.c},[ ['a'] ]]);
-	for (const index in modules) {
-		const {exports} = modules[index];
-		if (!exports) continue;
-		if (exports.__esModule && exports.default && filter(exports.default))  {
-			Object.defineProperty(exports.default, 'isDeveloper', { configurable: true, writable: true, value: 1 });
-		}
-	}
-}
+let version = '2.0.0';
 
 let obj = {
   onImport: async function() {
     globalThis.logger.debug('devMode', 'Enabling Developer Mode');
 
-		try {
-			newDev();
-		} catch (e) { alert('Failed to enable developer mode'); }
+		globalThis.webpackModules.findByProps('isDeveloper').isDeveloper = 1;
 	},
 	
 	remove: async function() {
