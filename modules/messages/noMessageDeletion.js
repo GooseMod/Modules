@@ -1,4 +1,4 @@
-let version = '2.1.3';
+let version = '3.0.0';
 
 let original;
 let interval;
@@ -20,17 +20,19 @@ const run = () => {
   }
 };
 
+const getWantedHandler = (mod) => mod._orderedActionHandlers.MESSAGE_DELETE.find((x) => x.actionHandler.toString().includes('revealedMessageId'));
+
 const setup = () => {
-  let mod = globalThis.webpackModules.findByProps('register');
+  const mod = globalThis.webpackModules.findByProps('register');
 
   try {
-    original = mod._orderedActionHandlers.MESSAGE_DELETE[4];
+    original = getWantedHandler(mod);
   } catch (e) {
     //globalThis.showToast('No Message Deletion: Setup failed, retrying...');
     return setTimeout(setup, 3000);
   }
 
-  mod._orderedActionHandlers.MESSAGE_DELETE[4] = {
+  mod._orderedActionHandlers.MESSAGE_DELETE[mod._orderedActionHandlers.MESSAGE_DELETE.indexOf(getWantedHandler(mod))] = {
     actionHandler: (obj) => {
       // console.log(obj);
 
