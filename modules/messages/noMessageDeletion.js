@@ -1,4 +1,4 @@
-let version = '3.0.0';
+let version = '3.1.0';
 
 let original;
 let interval;
@@ -28,7 +28,7 @@ const setup = () => {
   try {
     original = getWantedHandler(mod);
   } catch (e) {
-    //globalThis.showToast('No Message Deletion: Setup failed, retrying...');
+    // globalThis.showToast('No Message Deletion: Setup failed, retrying...');
     return setTimeout(setup, 3000);
   }
 
@@ -56,7 +56,7 @@ let obj = {
   onLoadingFinished: async function () {
     interval = setInterval(run, 300);
 
-    setTimeout(setup, 5000);
+    setup();
   },
 
   remove: async function () {
@@ -67,13 +67,11 @@ let obj = {
     }
 
     globalThis.webpackModules.findByProps('register')._orderedActionHandlers.MESSAGE_DELETE[4] = original;
-
-    globalThis.showToast('No Message Deletion: Deleted messages may be left behind');
   },
 
   logRegionColor: 'darkred',
 
-  name: 'No Message Deletion',
+  name: 'Better Message Deletion',
   description: 'Messages only turn red instead of completely disappearing',
 
   author: 'Ducko',
