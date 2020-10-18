@@ -1,4 +1,4 @@
-const version = '1.0.1';
+const version = '1.0.2';
 
 let src;
 
@@ -15,8 +15,6 @@ const downloadURL = async (sourceURL) => {
 
   document.body.appendChild(el);
 
-  console.log(el);
-
   el.click();
 
   document.body.removeChild(el);
@@ -31,7 +29,6 @@ const keypressHandler = (e) => {
 const hoverHandler = (e) => {
   if (e.target && e.target.src) {
     src = e.target.src.split('?')[0];
-    console.log(src);
   } else {
     src = undefined;
   }
