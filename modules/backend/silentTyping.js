@@ -1,4 +1,4 @@
-const version = '1.0.2';
+const version = '1.0.3';
 
 let orig;
 
@@ -11,10 +11,10 @@ let obj = {
   },
 
   onLoadingFinished: async function () {
-    globalThis.webpackModules.findByProps('startTyping').startTyping = orig;
   },
 
   remove: async function () {
+    globalThis.webpackModules.findByProps('startTyping').startTyping = orig;
   },
 
   logRegionColor: 'darkred',
