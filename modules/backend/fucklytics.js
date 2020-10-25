@@ -1,4 +1,4 @@
-let version = '1.2.3';
+let version = '1.2.4';
 
 let enabled = true;
 
@@ -15,8 +15,6 @@ let _XMLHttpRequest = window.XMLHttpRequest;
 
 let obj = {
   onImport: async function() {
-    let gooseModScope = goosemodScope;
-
     goosemodScope.logger.debug('fucklytics', 'Overriding XMLHTTPRequest with a proxy function');
 
     window.XMLHttpRequest = function() {
@@ -27,13 +25,13 @@ let obj = {
         //console.log(this, arguments, arguments[1], arguments[1].includes('science'));
         if (enabled) {
           if (blocking['science'] === true && arguments[1].includes('/v8/science')) {
-            gooseModScope.logger.debug('fucklytics', 'Blocked analytics request (science)');
+            goosemodScope.logger.debug('fucklytics', 'Blocked analytics request (science)');
 
             return false;
           }
 
           if (blocking['sentry'] === true && arguments[1].includes('https://sentry.io')) {
-            gooseModScope.logger.debug('fucklytics', 'Blocked analytics request (sentry)');
+            goosemodScope.logger.debug('fucklytics', 'Blocked analytics request (sentry)');
 
             return false;
           }
