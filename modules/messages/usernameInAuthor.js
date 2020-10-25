@@ -1,4 +1,4 @@
-const version = '1.0.1';
+const version = '1.0.2';
 
 let getUser, getMembers, getGuildId;
 let members;
@@ -36,9 +36,9 @@ let obj = {
   onImport: async function () {
     intervals = [];
 
-    getUser = globalThis.webpackModules.findByProps('getUser');
-    getMembers = globalThis.webpackModules.findByProps('getNick');
-    getGuildId = globalThis.webpackModules.findByPropsAll('getGuildId')[1];
+    getUser = goosemodScope.webpackModules.findByProps('getUser');
+    getMembers = goosemodScope.webpackModules.findByProps('getNick');
+    getGuildId = goosemodScope.webpackModules.findByPropsAll('getGuildId')[1];
 
     intervals.push(setInterval(run, 300), setInterval(updateMembers, 5000));
 

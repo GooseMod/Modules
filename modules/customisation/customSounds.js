@@ -1,4 +1,4 @@
-const version = '1.3.10';
+const version = '1.3.11';
 
 if (typeof window === 'undefined' || typeof window.Audio === 'undefined') { // JSON API generator evals
   global.window = {Audio: {}};
@@ -63,7 +63,7 @@ const getFileUpload = async () => {
 
 let obj = {
   onImport: async function() {
-    globalThis.logger.debug('customSounds', 'Overriding Audio with a proxy function');
+    goosemodScope.logger.debug('customSounds', 'Overriding Audio with a proxy function');
 
     window.Audio = function() {
       var audio = new _Audio();
@@ -121,8 +121,8 @@ let obj = {
 
           items[0].subtext = file === undefined ? 'Not uploaded' : `Uploaded: ${file.name}`;
 
-          globalThis.settings.createFromItems();
-          globalThis.openSettingItem('Custom Sounds');
+          goosemodScope.settings.createFromItems();
+          goosemodScope.openSettingItem('Custom Sounds');
 
           if (file !== undefined) {
             const reader = new FileReader();
@@ -149,8 +149,8 @@ let obj = {
 
           items[1].subtext = file === undefined ? 'Not uploaded' : `Uploaded: ${file.name}`;
 
-          globalThis.settings.createFromItems();
-          globalThis.openSettingItem('Custom Sounds');
+          goosemodScope.settings.createFromItems();
+          goosemodScope.openSettingItem('Custom Sounds');
 
           if (file !== undefined) {
             const reader = new FileReader();
@@ -178,8 +178,8 @@ let obj = {
 
           items[2].subtext = file === undefined ? 'Not uploaded' : `Uploaded: ${file.name}`;
 
-          globalThis.settings.createFromItems();
-          globalThis.openSettingItem('Custom Sounds');
+          goosemodScope.settings.createFromItems();
+          goosemodScope.openSettingItem('Custom Sounds');
 
           if (file !== undefined) {
             const reader = new FileReader();
@@ -194,7 +194,7 @@ let obj = {
       }
     ];
 
-    globalThis.settings.createItem('Custom Sounds', [
+    goosemodScope.settings.createItem('Custom Sounds', [
       `(v${version})`,
 
       {
@@ -218,8 +218,8 @@ let obj = {
     
     fileSelectEl.remove();
 
-    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Custom Sounds');
-    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
+    let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Custom Sounds');
+    goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
   },
 
   getSettings: () => [enabled, incomingCallStorage, outgoingCallStorage, notificationStorage, incomingCallName, outgoingCallName, notificationName],
@@ -238,14 +238,14 @@ let obj = {
     outgoingCallName = _outgoingCallName;
     notificationName = _notificationName;
 
-    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Custom Sounds');
+    let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Custom Sounds');
 
     settingItem[2][2].subtext = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
     settingItem[2][3].subtext = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;
     settingItem[2][4].subtext = !notificationName ? 'Not uploaded' : `Uploaded: ${notificationName}`;
 
-    //globalThis.settings.createFromItems();
-    //globalThis.openSettingItem('Custom Sounds');
+    //goosemodScope.settings.createFromItems();
+    //goosemodScope.openSettingItem('Custom Sounds');
 
     //items[0].subtext = !incomingCallName ? 'Not uploaded' : `Uploaded: ${incomingCallName}`;
     //items[1].subtext = !outgoingCallName ? 'Not uploaded' : `Uploaded: ${outgoingCallName}`;

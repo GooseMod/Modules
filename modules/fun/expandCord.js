@@ -1,4 +1,4 @@
-let version = '1.0.2';
+let version = '1.0.3';
 
 let interval;
 
@@ -15,7 +15,7 @@ function expand() {
 let obj = {
   // Activating module
   onImport: async function () {
-    globalThis.logger.debug('expandCord', 'e x p a n d i n g..');
+    goosemodScope.logger.debug('expandCord', 'e x p a n d i n g..');
     expand();
   },
 

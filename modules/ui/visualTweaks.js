@@ -1,10 +1,10 @@
-let version = '2.5.2';
+let version = '2.5.3';
 
 let obj = {
   onImport: async function () {
-    globalThis.logger.debug('visualTweaks', 'Enabling Visual Tweaks');
+    goosemodScope.logger.debug('visualTweaks', 'Enabling Visual Tweaks');
 
-    globalThis.tweaks = {
+    goosemodScope.tweaks = {
       'removeHelpButton': true,
       'removeEmojiUpsell': false,
       'squareAvatars': true,
@@ -80,33 +80,33 @@ let obj = {
       }
     };
 
-    globalThis.enableTweak = (tweakName) => {
+    goosemodScope.enableTweak = (tweakName) => {
       tweakFunctions[tweakName].enable();
 
-      globalThis.tweaks[tweakName] = true;
+      goosemodScope.tweaks[tweakName] = true;
     };
 
-    globalThis.disableTweak = (tweakName) => {
+    goosemodScope.disableTweak = (tweakName) => {
       tweakFunctions[tweakName].disable();
 
-      globalThis.tweaks[tweakName] = false;
+      goosemodScope.tweaks[tweakName] = false;
     };
 
-    globalThis.setTweak = (tweakName, value) => {
+    goosemodScope.setTweak = (tweakName, value) => {
       if (value === true) {
-        globalThis.enableTweak(tweakName);
+        goosemodScope.enableTweak(tweakName);
       } else {
-        globalThis.disableTweak(tweakName);
+        goosemodScope.disableTweak(tweakName);
       }
     };
   },
 
   onLoadingFinished: async function () {
-    for (let t in globalThis.tweaks) {
-      if (globalThis.tweaks[t] === true) globalThis.enableTweak(t);
+    for (let t in goosemodScope.tweaks) {
+      if (goosemodScope.tweaks[t] === true) goosemodScope.enableTweak(t);
     }
 
-    globalThis.settings.createItem('Visual Tweaks', [
+    goosemodScope.settings.createItem('Visual Tweaks', [
       `(v${version})`,
 
       {
@@ -117,49 +117,49 @@ let obj = {
         type: 'toggle',
         text: 'Hide Help Button',
         subtext: 'Hides the help button in the top right corner',
-        onToggle: (c) => { globalThis.setTweak('removeHelpButton', c); },
-        isToggled: () => globalThis.tweaks['removeHelpButton']
+        onToggle: (c) => { goosemodScope.setTweak('removeHelpButton', c); },
+        isToggled: () => goosemodScope.tweaks['removeHelpButton']
       },
       {
         type: 'toggle',
         text: 'Disable Emoji Click Pop-up',
         subtext: 'Disables the pop-up when clicking emojis',
-        onToggle: (c) => { globalThis.setTweak('removeEmojiUpsell', c); },
-        isToggled: () => globalThis.tweaks['removeEmojiUpsell']
+        onToggle: (c) => { goosemodScope.setTweak('removeEmojiUpsell', c); },
+        isToggled: () => goosemodScope.tweaks['removeEmojiUpsell']
       },
       {
         type: 'toggle',
         text: 'Square Avatars',
         subtext: 'Makes avatars for messages square instead of circle (cozy only)',
-        onToggle: (c) => { globalThis.setTweak('squareAvatars', c); },
-        isToggled: () => globalThis.tweaks['squareAvatars']
+        onToggle: (c) => { goosemodScope.setTweak('squareAvatars', c); },
+        isToggled: () => goosemodScope.tweaks['squareAvatars']
       },
       {
         type: 'toggle',
         text: '[WIP] No Member List Avatars',
         subtext: 'Hides avatars in the member list',
-        onToggle: (c) => { globalThis.setTweak('noMemberlistAvatars', c); },
-        isToggled: () => globalThis.tweaks['noMemberlistAvatars']
+        onToggle: (c) => { goosemodScope.setTweak('noMemberlistAvatars', c); },
+        isToggled: () => goosemodScope.tweaks['noMemberlistAvatars']
       }
     ]);
   },
 
   remove: async function () {
-    for (let t in globalThis.tweaks) {
-      if (globalThis.tweaks[t] === true) globalThis.disableTweak(t);
+    for (let t in goosemodScope.tweaks) {
+      if (goosemodScope.tweaks[t] === true) goosemodScope.disableTweak(t);
     }
 
-    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Visual Tweaks');
-    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
+    let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Visual Tweaks');
+    goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
   },
 
-  getSettings: async function() { return [globalThis.tweaks] },
+  getSettings: async function() { return [goosemodScope.tweaks] },
   loadSettings: async function ([_tweaks]) {
-    globalThis.tweaks = _tweaks;
+    goosemodScope.tweaks = _tweaks;
 
-    for (let t in globalThis.tweaks) {
+    for (let t in goosemodScope.tweaks) {
       try { // Some tweaks might have been removed so wrap in try catch
-        globalThis.setTweak(t, globalThis.tweaks[t]);
+        goosemodScope.setTweak(t, goosemodScope.tweaks[t]);
       } catch (e) {
         console.log(e);
       }

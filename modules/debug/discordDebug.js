@@ -1,14 +1,14 @@
-const version = '1.0.1';
+const version = '1.0.2';
 
 let obj = {
   onImport: async function () {
   },
 
   onLoadingFinished: async function () {
-    let electronInfo = globalThis.webpackModules.findByProps('ua');
+    let electronInfo = goosemodScope.webpackModules.findByProps('ua');
 
     let moduleItems = [];
-    let moduleVersions = globalThis.webpackModules.findByProps('moduleVersions').moduleVersions;
+    let moduleVersions = goosemodScope.webpackModules.findByProps('moduleVersions').moduleVersions;
 
     for (let m in moduleVersions) {
       moduleItems.push({
@@ -18,7 +18,7 @@ let obj = {
       });
     }
 
-    globalThis.settings.createItem('Discord Debug', [
+    goosemodScope.settings.createItem('Discord Debug', [
       `(v${version})`,
 
       {
@@ -52,8 +52,8 @@ let obj = {
   },
 
   remove: async function () {
-    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Discord Debug');
-    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
+    let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Discord Debug');
+    goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
   },
 
   logRegionColor: 'darkred',

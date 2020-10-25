@@ -1,10 +1,10 @@
-const version = '1.0.3';
+const version = '1.0.4';
 
 let orig;
 
 let obj = {
   onImport: async function () {
-    let mod = globalThis.webpackModules.findByProps('startTyping');
+    let mod = goosemodScope.webpackModules.findByProps('startTyping');
     orig = mod.startTyping;
 
     mod.startTyping = () => {};
@@ -14,7 +14,7 @@ let obj = {
   },
 
   remove: async function () {
-    globalThis.webpackModules.findByProps('startTyping').startTyping = orig;
+    goosemodScope.webpackModules.findByProps('startTyping').startTyping = orig;
   },
 
   logRegionColor: 'darkred',

@@ -1,4 +1,4 @@
-let version = '1.2.2';
+let version = '1.2.3';
 
 let enabled = true;
 
@@ -15,9 +15,9 @@ let _XMLHttpRequest = window.XMLHttpRequest;
 
 let obj = {
   onImport: async function() {
-    let gooseModScope = globalThis;
+    let gooseModScope = goosemodScope;
 
-    globalThis.logger.debug('fucklytics', 'Overriding XMLHTTPRequest with a proxy function');
+    goosemodScope.logger.debug('fucklytics', 'Overriding XMLHTTPRequest with a proxy function');
 
     window.XMLHttpRequest = function() {
       var xhr = new _XMLHttpRequest();
@@ -47,7 +47,7 @@ let obj = {
   },
 
   onLoadingFinished: async function() {
-    globalThis.settings.createItem('Fucklytics', [
+    goosemodScope.settings.createItem('Fucklytics', [
       `(v${version})`,
 
       {
@@ -82,8 +82,8 @@ let obj = {
   remove: async function() {
     window.XMLHttpRequest = _XMLHttpRequest;
 
-    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Fucklytics');
-    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
+    let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Fucklytics');
+    goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
   },
 
   getSettings: () => [blocking, enabled],

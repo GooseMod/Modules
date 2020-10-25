@@ -1,4 +1,4 @@
-let version = '1.3.1';
+let version = '1.3.2';
 
 // .messagesWrapper-1sRNjr .markup-2BOw-j
 let italicsEnabled = true; // <em>
@@ -181,7 +181,7 @@ let obj = {
     setInlineCode(true);
     setQuotes(true);
 
-    globalThis.settings.createItem('WYSIWYG Messages', [
+    goosemodScope.settings.createItem('WYSIWYG Messages', [
       `(v${version})`,
 
       {
@@ -249,8 +249,8 @@ let obj = {
     setInlineCode(false);
     setQuotes(false);
 
-    let settingItem = globalThis.settings.items.find((x) => x[1] === 'WYSIWYG Messages');
-    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
+    let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'WYSIWYG Messages');
+    goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
   },
 
   getSettings: () => [italicsEnabled, boldEnabled, underlineEnabled, strikethroughEnabled, spoilerEnabled, inlineCodeEnabled, quotesEnabled],

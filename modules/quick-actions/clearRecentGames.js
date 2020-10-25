@@ -1,4 +1,4 @@
-let version = '1.0.1';
+let version = '1.0.2';
 
 let obj = {
   onImport: async function () {
@@ -8,8 +8,8 @@ let obj = {
   },
 
   onLoadingFinished: async function () {
-    globalThis.settings.createItem('Clear Recent Games', [''], async () => {
-      if (!(await globalThis.confirmDialog('Clear', 'Clear Recent Games', 'Are you sure you want to clear your recent games?'))) {
+    goosemodScope.settings.createItem('Clear Recent Games', [''], async () => {
+      if (!(await goosemodScope.confirmDialog('Clear', 'Clear Recent Games', 'Are you sure you want to clear your recent games?'))) {
         return;
       }
 
@@ -19,15 +19,15 @@ let obj = {
 
       localStorage.setItem('RunningGameStore', JSON.stringify(c));
 
-      if (await globalThis.confirmDialog('Reload', 'Reload Discord', 'To actually update the recent games after clearing it, Discord requires a reload. Without it, it will still look like recent games have not been cleared. This will also uninstall GooseMod due to reloading.')) {
+      if (await goosemodScope.confirmDialog('Reload', 'Reload Discord', 'To actually update the recent games after clearing it, Discord requires a reload. Without it, it will still look like recent games have not been cleared. This will also uninstall GooseMod due to reloading.')) {
         window.location.reload();
       }
     });
   },
 
   remove: async function () {
-    let settingItem = globalThis.settings.items.find((x) => x[1] === 'Clear Recent Games');
-    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
+    let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Clear Recent Games');
+    goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
   },
 
   logRegionColor: 'darkred',

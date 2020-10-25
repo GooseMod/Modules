@@ -1,4 +1,4 @@
-let version = '3.1.0';
+let version = '3.1.1';
 
 let original;
 let interval;
@@ -23,12 +23,12 @@ const run = () => {
 const getWantedHandler = (mod) => mod._orderedActionHandlers.MESSAGE_DELETE.find((x) => x.actionHandler.toString().includes('revealedMessageId'));
 
 const setup = () => {
-  const mod = globalThis.webpackModules.findByProps('register');
+  const mod = goosemodScope.webpackModules.findByProps('register');
 
   try {
     original = getWantedHandler(mod);
   } catch (e) {
-    // globalThis.showToast('No Message Deletion: Setup failed, retrying...');
+    // goosemodScope.showToast('No Message Deletion: Setup failed, retrying...');
     return setTimeout(setup, 3000);
   }
 
@@ -46,7 +46,7 @@ const setup = () => {
     storeDidChange: function() { }
   };
 
-  // globalThis.showToast('No Message Deletion: Ready');
+  // goosemodScope.showToast('No Message Deletion: Ready');
 };
 
 let obj = {
@@ -66,7 +66,7 @@ let obj = {
       e.remove();
     }
 
-    globalThis.webpackModules.findByProps('register')._orderedActionHandlers.MESSAGE_DELETE[4] = original;
+    goosemodScope.webpackModules.findByProps('register')._orderedActionHandlers.MESSAGE_DELETE[4] = original;
   },
 
   logRegionColor: 'darkred',

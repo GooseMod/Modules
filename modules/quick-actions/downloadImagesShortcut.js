@@ -1,10 +1,10 @@
-const version = '1.0.2';
+const version = '1.0.3';
 
 let src;
 
 const downloadURL = async (sourceURL) => {
   // convert URL to data:
-  let url = sourceURL.includes('http') ? URL.createObjectURL(await globalThis.cspBypasser.blob(sourceURL, false)) : sourceURL;
+  let url = sourceURL.includes('http') ? URL.createObjectURL(await goosemodScope.cspBypasser.blob(sourceURL, false)) : sourceURL;
 
   let el = document.createElement('a');
 

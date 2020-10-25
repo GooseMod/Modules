@@ -1,4 +1,4 @@
-let version = '2.0.2';
+let version = '2.0.3';
 
 if (typeof window === 'undefined' || typeof window.document === 'undefined' || typeof window.document.styleSheets === 'undefined') { // JSON API generator evals
   global.window = { document: { styleSheets: [0] } };
@@ -63,7 +63,7 @@ const setTweak = (tweakName, value) => {
 
 let obj = {
   onImport: async function () {
-    globalThis.logger.debug('rainbowMode', 'Enabling Rainbow Tweaks');
+    goosemodScope.logger.debug('rainbowMode', 'Enabling Rainbow Tweaks');
   },
 
   onLoadingFinished: async function () {
@@ -71,7 +71,7 @@ let obj = {
       if (tweaks[t] === true) enableTweak(t);
     }
 
-    globalThis.settings.createItem('RainbowCord', [
+    goosemodScope.settings.createItem('RainbowCord', [
       `(v${version})`,
 
       {
@@ -93,8 +93,8 @@ let obj = {
       if (tweaks[t] === true) disableTweak(t);
     }
 
-    let settingItem = globalThis.settings.items.find((x) => x[1] === 'RainbowCord');
-    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
+    let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'RainbowCord');
+    goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
   },
 
   logRegionColor: 'black',

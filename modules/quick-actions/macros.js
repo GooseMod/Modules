@@ -2,13 +2,13 @@ let originalFunc;
 
 let macros = {};
 
-let version = '1.1.1';
+let version = '1.1.2';
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 let obj = {
   onImport: async function () {
-    let mod = globalThis.webpackModules.findByProps("jumpToMessage", "_sendMessage");
+    let mod = goosemodScope.webpackModules.findByProps("jumpToMessage", "_sendMessage");
     originalFunc = mod.sendMessage;
 
     let goosemodScope = this;
@@ -59,7 +59,7 @@ let obj = {
   },
 
   remove: async function () {
-    globalThis.webpackModules.findByProps("jumpToMessage", "_sendMessage").sendMessage = originalFunc;
+    goosemodScope.webpackModules.findByProps("jumpToMessage", "_sendMessage").sendMessage = originalFunc;
   },
 
   getSettings: () => [macros],

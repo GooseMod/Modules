@@ -1,4 +1,4 @@
-let version = '1.0.2';
+let version = '1.0.3';
 
 let interval;
 
@@ -23,7 +23,7 @@ function scrambleMessages() {
 let obj = {
 	// Activating module
 	onImport: async function () {
-		globalThis.logger.debug('scrambleMessages', 'Starting Scrambler...');
+		goosemodScope.logger.debug('scrambleMessages', 'Starting Scrambler...');
 		scrambleMessages();
 	},
 

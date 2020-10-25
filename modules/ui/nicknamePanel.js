@@ -1,4 +1,4 @@
-const version = '1.0.1';
+const version = '1.0.2';
 
 const getCurrentNickname = () => (getNick.getNick(getGuildId.getGuildId(), user.id) || user.username);
 
@@ -33,10 +33,10 @@ let obj = {
     hoverEl.addEventListener('mouseenter', mouseEnter);
     hoverEl.addEventListener('mouseleave', mouseLeave);
 
-    user = globalThis.webpackModules.findByProps('getCurrentUser').getCurrentUser();
+    user = goosemodScope.webpackModules.findByProps('getCurrentUser').getCurrentUser();
 
-    getNick = globalThis.webpackModules.findByProps('getNick');
-    getGuildId = globalThis.webpackModules.findByPropsAll('getGuildId')[1];
+    getNick = goosemodScope.webpackModules.findByProps('getNick');
+    getGuildId = goosemodScope.webpackModules.findByPropsAll('getGuildId')[1];
   },
 
   onLoadingFinished: async function () {

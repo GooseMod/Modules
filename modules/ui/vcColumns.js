@@ -1,4 +1,4 @@
-const version = '1.1.2';
+const version = '1.1.3';
 
 let enabled = false;
 let autoCheck = true;
@@ -57,7 +57,7 @@ const obj = {
   },
 
   onLoadingFinished: async function () {
-    globalThis.settings.createItem('VC Columns', [
+    goosemodScope.settings.createItem('VC Columns', [
       `(v${version})`,
 
       {
@@ -77,8 +77,8 @@ const obj = {
   remove: async function () {
     clearInterval(interval);
 
-    let settingItem = globalThis.settings.items.find((x) => x[1] === 'VC Columns');
-    globalThis.settings.items.splice(globalThis.settings.items.indexOf(settingItem), 1);
+    let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'VC Columns');
+    goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
 
     enabled = false;
     autoCheck = false;
