@@ -2,7 +2,7 @@ let originalFunc;
 
 let macros = {};
 
-let version = '1.1.2';
+let version = '1.1.3';
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
