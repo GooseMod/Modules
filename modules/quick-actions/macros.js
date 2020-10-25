@@ -11,8 +11,6 @@ let obj = {
     let mod = goosemodScope.webpackModules.findByProps("jumpToMessage", "_sendMessage");
     originalFunc = mod.sendMessage;
 
-    let goosemodScope = this;
-
     mod.sendMessage = async function (_, message) {//_, [, message]) {
       if (message.content.startsWith('/m')) {
         let rpl = message.content.replace('/m ', '');
