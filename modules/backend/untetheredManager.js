@@ -1,4 +1,4 @@
-const version = '1.2.2';
+const version = '1.2.3';
 
 let os;
 let pathSeparator;
@@ -20,7 +20,7 @@ const install = async () => {
 
   // console.log(rpcPathAbsolute, rpcPathHomeRelative);
 
-  const injectCode = await goosemodScope.cspBypasser.text('https://goosemod-api.netlify.app/untethered/base.js');
+  const injectCode = await goosemodScope.cspBypasser.text('https://goosemod-api.netlify.app/untethered/untetheredInject.js');
 
   const replacementIndexCode = injectCode + '\n\n' + rpcIndexBase;
 
