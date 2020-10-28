@@ -1,4 +1,4 @@
-let version = '1.2';
+let version = '1.2-2';
 
 let el;
 
@@ -7,8 +7,6 @@ const css = `:root{--icon:var(--server-icon-size, var(--ASW_size, 35px));--conta
 let obj = {
   onImport: async function () {
     el = document.createElement('style');
-
-    console.log(el);
 
     document.head.appendChild(el);
 
