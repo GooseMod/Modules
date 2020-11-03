@@ -1,15 +1,12 @@
-const version = '1.0.4';
+const version = '1.1.0';
 
 let src;
 
-const downloadURL = async (sourceURL) => {
-  // convert URL to data:
-  let url = sourceURL.includes('http') ? URL.createObjectURL(await (await fetch(sourceURL)).blob()) : sourceURL;
-
+const downloadURL = async (url) => {
   let el = document.createElement('a');
 
   el.href = url;
-  el.download = sourceURL.includes('http') ? sourceURL.split('/').pop() : '';
+  el.download = url.includes('http') ? url.split('/').pop() : '';
 
   el.style.display = 'none';
 
@@ -21,8 +18,11 @@ const downloadURL = async (sourceURL) => {
 };
 
 const keypressHandler = (e) => {
-  if (src && e.key.toLowerCase() === 'd' && e.ctrlKey) {
+  if (src && e.code === 'KeyD' && e.ctrlKey) {
     downloadURL(src);
+
+    e.preventDefault();
+    return false;
   }
 };
 
@@ -44,8 +44,6 @@ let obj = {
     document.removeEventListener('keypress', keypressHandler);
     document.removeEventListener('mousemove', hoverHandler);
   },
-
-  logRegionColor: 'darkred',
 
   name: 'Download Images Shortcut',
   description: 'Allows downloading of images by hovering overing them and pressing Ctrl+D',
