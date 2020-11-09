@@ -1,4 +1,4 @@
-let version = '3.1.1';
+let version = '3.1.2';
 
 let original;
 let interval;
@@ -22,6 +22,8 @@ const run = () => {
 
 const getWantedHandler = (mod) => mod._orderedActionHandlers.MESSAGE_DELETE.find((x) => x.actionHandler.toString().includes('revealedMessageId'));
 
+let index = 0;
+
 const setup = () => {
   const mod = goosemodScope.webpackModules.findByProps('register');
 
@@ -32,7 +34,9 @@ const setup = () => {
     return setTimeout(setup, 3000);
   }
 
-  mod._orderedActionHandlers.MESSAGE_DELETE[mod._orderedActionHandlers.MESSAGE_DELETE.indexOf(getWantedHandler(mod))] = {
+  index = mod._orderedActionHandlers.MESSAGE_DELETE.indexOf(getWantedHandler(mod));
+
+  mod._orderedActionHandlers.MESSAGE_DELETE[index] = {
     actionHandler: (obj) => {
       // console.log(obj);
 
@@ -66,7 +70,7 @@ let obj = {
       e.remove();
     }
 
-    goosemodScope.webpackModules.findByProps('register')._orderedActionHandlers.MESSAGE_DELETE[4] = original;
+    goosemodScope.webpackModules.findByProps('register')._orderedActionHandlers.MESSAGE_DELETE[index] = original;
   },
 
   logRegionColor: 'darkred',
