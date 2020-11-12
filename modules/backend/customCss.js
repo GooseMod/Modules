@@ -1,6 +1,6 @@
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const version = '1.1.0';
+const version = '1.1.1';
 
 let css = '';
 let styleEl, el, highlightEl, mod;
@@ -63,6 +63,7 @@ let obj = {
     el.innerHTML = css;
     
     el.oninput = fn;
+
     fn();
 
     el.addEventListener('paste', function (e) { // Don't paste HTML / rich content, only plain text
