@@ -1,14 +1,20 @@
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const version = '1.0.0';
+const version = '1.1.0';
 
 let css = '';
-let styleEl;
+let styleEl, el, highlightEl, mod;
 
 const updateCSS = (c) => {
   styleEl.innerHTML = '';
   
   styleEl.appendChild(document.createTextNode(c));
+};
+
+const updateHighlight = () => {
+  highlightEl.innerHTML = el.innerHTML;
+  
+  mod.highlightBlock(highlightEl);
 };
 
 let obj = {
@@ -17,7 +23,7 @@ let obj = {
     
     document.head.appendChild(styleEl);
     
-    let el = document.createElement('div');
+    el = document.createElement('div');
     
     el.style.width = '90%';
     el.style.height = '85vh';
@@ -37,25 +43,23 @@ let obj = {
     
     el.style.fontFamily = 'Consolas,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Monaco,Courier New,Courier,monospace';
     
-    let highlightEl = el.cloneNode();
+    highlightEl = el.cloneNode();
     
     highlightEl.style.pointerEvents = 'none';
     highlightEl.style.backgroundColor = 'transparent';
     highlightEl.style.zIndex = '2';
     highlightEl.contentEditable = 'false';
     
-    let mod = goosemod.webpackModules.findByPropsAll('highlight')[3];
+    mod = goosemod.webpackModules.findByPropsAll('highlight')[3];
     
     let fn = () => {
       css = el.innerHTML;
-      
-      highlightEl.innerHTML = el.innerHTML;
-      
-      mod.highlightBlock(highlightEl);
-      
+
+      updateHighlight();
+
       updateCSS(el.textContent);
     };
-    
+
     el.innerHTML = css;
     
     el.oninput = fn;
@@ -87,6 +91,16 @@ let obj = {
     
     let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Custom CSS');
     goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
+  },
+
+  getSettings: () => [css],
+  loadSettings: ([_css]) => {
+    css = _css; // Update internal var
+
+    el.innerHTML = css; // Update UI
+    updateHighlight();
+
+    updateCSS(c); // Update actual style
   },
   
   name: 'Custom CSS',
