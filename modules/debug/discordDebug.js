@@ -61,7 +61,7 @@ let obj = {
   name: 'Discord Debug',
   description: 'Setting option with debug information about Discord',
 
-  author: 'Ducko',
+  author: 'Ducko (506482395269169153)',
 
   version
 };
