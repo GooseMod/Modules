@@ -1,6 +1,6 @@
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const version = '1.1.1';
+const version = '1.1.2';
 
 let css = '';
 let styleEl, el, highlightEl, mod;
@@ -101,7 +101,7 @@ let obj = {
     el.innerHTML = css; // Update UI
     updateHighlight();
 
-    updateCSS(c); // Update actual style
+    updateCSS(css); // Update actual style
   },
   
   name: 'Custom CSS',
