@@ -1,8 +1,11 @@
-let version = '2.0.0';
+let version = '2.1.0';
 
 let blocking = {
+  'compat': '2.1.0',
+
   'science': true,
-  'sentry': true
+  'sentry': true,
+  'crash': true
 };
 
 let originals = {
@@ -19,10 +22,6 @@ const enableAnalytics = () => {
   const analyticsMod = goosemodScope.webpackModules.findByProps('getSuperPropertiesBase64');
 
   analyticsMod.track = originals.analytics;
-
-  const crashMod = goosemodScope.webpackModules.findByProps('submitLiveCrashReport');
-
-  crashMod.submitLiveCrashReport = originals.crash;
 };
 
 const disableAnalytics = () => {
@@ -30,7 +29,20 @@ const disableAnalytics = () => {
 
   originals.analytics = analyticsMod.track;
   analyticsMod.track = () => {};
+};
 
+const setCrash = (val) => {
+  if (!val) enableCrash();
+    else disableCrash();
+};
+
+const enableCrash = () => {
+  const crashMod = goosemodScope.webpackModules.findByProps('submitLiveCrashReport');
+
+  crashMod.submitLiveCrashReport = originals.crash;
+};
+
+const disableCrash = () => {
   const crashMod = goosemodScope.webpackModules.findByProps('submitLiveCrashReport');
 
   originals.crash = crashMod.submitLiveCrashReport;
@@ -54,6 +66,7 @@ let obj = {
   onImport: async function() {
     setAnalytics(blocking.science);
     setSentry(blocking.sentry);
+    setCrash(blocking.crash);
   },
 
   onLoadingFinished: async function() {
@@ -78,6 +91,17 @@ let obj = {
 
       {
         type: 'toggle',
+        text: 'Crash Reports',
+        subtext: 'Automatically sends Discord a crash report on crash (without your consent).',
+        onToggle: (c) => {
+          blocking.crash = c;
+          setCrash(c);
+        },
+        isToggled: () => blocking.crash
+      },
+
+      {
+        type: 'toggle',
         text: 'Sentry',
         subtext: 'Used to track console / JS errors.',
         onToggle: (c) => {
@@ -93,24 +117,26 @@ let obj = {
     try {
       enableAnalytics();
       enableSentry();
+      enableCrash();
     } catch (e) {}
 
     let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Fucklytics');
     goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
   },
 
-  getSettings: () => [true, blocking], // Keep enabled setting at first element for backwards compatibility with <2.0.0
-  loadSettings: ([_enabled, _blocking]) => {
+  getSettings: () => [blocking],
+  loadSettings: ([_blocking]) => {
+    if (_blocking.compat !== version) return;
+
     blocking = _blocking;
 
     setAnalytics(blocking.science);
     setSentry(blocking.sentry);
+    setCrash(blocking.crash);
   },
 
-  logRegionColor: 'darkblue',
-
   name: 'Fucklytics',
-  description: 'Blocks Discord (Science) analytics and Sentry',
+  description: 'Blocks Discord (Science) analytics, crash reports and Sentry',
 
   author: 'Ducko',
 
