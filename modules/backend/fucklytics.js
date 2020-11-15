@@ -1,47 +1,59 @@
-let version = '1.2.4';
-
-let enabled = true;
+let version = '2.0.0';
 
 let blocking = {
   'science': true,
   'sentry': true
 };
 
-if (typeof window === 'undefined' || typeof window.XMLHttpRequest === 'undefined') { // JSON API generator evals
-  global.window = {XMLHttpRequest: {}};
-}
+let originals = {
+  'analytics': undefined,
+  'crash': undefined
+};
 
-let _XMLHttpRequest = window.XMLHttpRequest;
+const setAnalytics = (val) => {
+  if (!val) enableAnalytics();
+    else disableAnalytics();
+};
+
+const enableAnalytics = () => {
+  const analyticsMod = goosemodScope.webpackModules.findByProps('getSuperPropertiesBase64');
+
+  analyticsMod.track = originals.analytics;
+
+  const crashMod = goosemodScope.webpackModules.findByProps('submitLiveCrashReport');
+
+  crashMod.submitLiveCrashReport = originals.crash;
+};
+
+const disableAnalytics = () => {
+  const analyticsMod = goosemodScope.webpackModules.findByProps('getSuperPropertiesBase64');
+
+  originals.analytics = analyticsMod.track;
+  analyticsMod.track = () => {};
+
+  const crashMod = goosemodScope.webpackModules.findByProps('submitLiveCrashReport');
+
+  originals.crash = crashMod.submitLiveCrashReport;
+  crashMod.submitLiveCrashReport = () => {};
+};
+
+const setSentry = (val) => {
+  if (!val) enableSentry();
+    else disableSentry();
+};
+
+const enableSentry = () => {
+  window.__SENTRY__.hub.getClient().getOptions().enabled = true;
+};
+
+const disableSentry = () => {
+  window.__SENTRY__.hub.getClient().getOptions().enabled = false;
+};
 
 let obj = {
   onImport: async function() {
-    goosemodScope.logger.debug('fucklytics', 'Overriding XMLHTTPRequest with a proxy function');
-
-    window.XMLHttpRequest = function() {
-      var xhr = new _XMLHttpRequest();
-  
-      var _open = xhr.open;
-      xhr.open = function() {
-        //console.log(this, arguments, arguments[1], arguments[1].includes('science'));
-        if (enabled) {
-          if (blocking['science'] === true && arguments[1].includes('/v8/science')) {
-            goosemodScope.logger.debug('fucklytics', 'Blocked analytics request (science)');
-
-            return false;
-          }
-
-          if (blocking['sentry'] === true && arguments[1].includes('https://sentry.io')) {
-            goosemodScope.logger.debug('fucklytics', 'Blocked analytics request (sentry)');
-
-            return false;
-          }
-        }
-
-        return _open.apply(this, arguments);
-      };
-  
-      return xhr;
-    }
+    setAnalytics(blocking.science);
+    setSentry(blocking.sentry);
   },
 
   onLoadingFinished: async function() {
@@ -49,51 +61,56 @@ let obj = {
       `(v${version})`,
 
       {
-        type: 'toggle',
-        text: 'Fucklytics Enabled',
-        onToggle: (c) => { enabled = c; },
-        isToggled: () => enabled
-      },
-
-      {
         type: 'header',
-        text: 'Types to Block'
+        text: 'What to block'
       },
 
       {
         type: 'toggle',
         text: 'Science (Discord API)',
-        subtext: 'Discord\'s own analytics, most used',
-        onToggle: (c) => { blocking['science'] = c; },
-        isToggled: () => blocking['science']
+        subtext: 'Discord\'s own analytics, most used.',
+        onToggle: (c) => {
+          blocking.science = c;
+          setAnalytics(c);
+        },
+        isToggled: () => blocking.science
       },
+
       {
         type: 'toggle',
-        text: 'Sentry.io',
-        subtext: 'Used to track console / JS errors',
-        onToggle: (c) => { blocking['sentry'] = c; },
-        isToggled: () => blocking['sentry']
+        text: 'Sentry',
+        subtext: 'Used to track console / JS errors.',
+        onToggle: (c) => {
+          blocking.sentry = c;
+          setSentry(c);
+        },
+        isToggled: () => blocking.sentry
       }
     ]);
   },
 
   remove: async function() {
-    window.XMLHttpRequest = _XMLHttpRequest;
+    try {
+      enableAnalytics();
+      enableSentry();
+    } catch (e) {}
 
     let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Fucklytics');
     goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
   },
 
-  getSettings: () => [blocking, enabled],
-  loadSettings: ([_blocking, _enabled]) => {
+  getSettings: () => [true, blocking], // Keep enabled setting at first element for backwards compatibility with <2.0.0
+  loadSettings: ([_enabled, _blocking]) => {
     blocking = _blocking;
-    enabled = _enabled;
+
+    setAnalytics(blocking.science);
+    setSentry(blocking.sentry);
   },
 
   logRegionColor: 'darkblue',
 
   name: 'Fucklytics',
-  description: 'Blocks analytics',
+  description: 'Blocks Discord (Science) analytics and Sentry',
 
   author: 'Ducko',
 
