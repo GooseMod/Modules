@@ -1,6 +1,6 @@
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const version = '1.1.2';
+const version = '1.1.3';
 
 let css = '';
 let styleEl, el, highlightEl, mod;
@@ -53,11 +53,11 @@ let obj = {
     mod = goosemod.webpackModules.findByPropsAll('highlight')[3];
     
     let fn = () => {
-      css = el.innerHTML;
+      css = el.textContent;
 
       updateHighlight();
 
-      updateCSS(el.textContent);
+      updateCSS(css);
     };
 
     el.innerHTML = css;
