@@ -1,6 +1,6 @@
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const version = '1.1.3';
+const version = '1.1.4';
 
 let css = '';
 let styleEl, el, highlightEl, mod;
@@ -53,11 +53,11 @@ let obj = {
     mod = goosemod.webpackModules.findByPropsAll('highlight')[3];
     
     let fn = () => {
-      css = el.textContent;
+      css = el.innerHTML;
 
       updateHighlight();
 
-      updateCSS(css);
+      updateCSS(el.textContent);
     };
 
     el.innerHTML = css;
@@ -101,7 +101,7 @@ let obj = {
     el.innerHTML = css; // Update UI
     updateHighlight();
 
-    updateCSS(css); // Update actual style
+    updateCSS(el.textContent); // Update actual style
   },
   
   name: 'Custom CSS',
