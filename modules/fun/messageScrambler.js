@@ -1,11 +1,11 @@
-let version = '1.0.3';
+let version = '1.1.0';
 
 let interval;
 
 function scrambleMessages() {
 	function getRandomInt(min, max) {
-		minr = Math.ceil(Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
-		maxr = Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
+		let minr = Math.ceil(Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
+		let maxr = Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
 		return Math.floor(Math.random() * (maxr - minr) + minr);
 	}
 
@@ -39,7 +39,7 @@ let obj = {
 	name: 'Message Scrambler',
 	description: 'Makes discord unusable by converting all messages into random text',
 
-	author: 'Fjorge',
+	author: ['Fjorge'][0],
 
 	version: version
 };
