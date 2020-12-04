@@ -1,4 +1,4 @@
-let version = '0';
+let version = '1';
 
 let el;
 
@@ -20,7 +20,7 @@ let obj = {
   name: 'Slate Theme',
   description: 'An optimized, consistent, and functional theme for Discord based on GitHub\'s design language.',
 
-  author: 'Gibbu + Tropical',
+  author: ['Gibbu', 'Tropical'],
 
   version
 };

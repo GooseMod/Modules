@@ -1,4 +1,4 @@
-let version = '1.0.2';
+let version = '1.0.3';
 
 let interval;
 
@@ -31,7 +31,7 @@ let obj = {
   name: 'Egg Scrambler',
   description: 'Makes discord unusable by converting all messages into eggs',
   
-  author: 'Fjorge + Hax + Ducko',
+  author: ['Fjorge', 'Hax', 'Ducko'],
   
   version: version
 };

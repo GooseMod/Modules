@@ -1,4 +1,4 @@
-let version = '2.5.3';
+let version = '2.5.4';
 
 let obj = {
   onImport: async function () {
@@ -171,7 +171,7 @@ let obj = {
   name: 'Visual Tweaks',
   description: 'A variety of minor visual tweaks',
 
-  author: 'Ducko + Fjorge',
+  author: ['Ducko', 'Fjorge'],
 
   version
 };
