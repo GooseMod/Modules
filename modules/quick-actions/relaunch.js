@@ -1,4 +1,4 @@
-let version = "1.0.0";
+let version = "1.0.1";
 
 const openModal = async () => {
   if (
@@ -14,7 +14,6 @@ const openModal = async () => {
 };
 
 const keydownHandler = (event) => {
-  //console.log(`The key just pressed is: ${event.code}`)
   if (event.code == "F4") {
     openModal();
     event.preventDefault();
@@ -49,4 +48,4 @@ let obj = {
   version,
 };
 
-obj;
+obj
