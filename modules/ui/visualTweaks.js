@@ -171,7 +171,7 @@ let obj = {
   name: 'Visual Tweaks',
   description: 'A variety of minor visual tweaks',
 
-  author: 'Ducko + Fjorge',
+  author: ['Ducko', 'Fjorge'],
 
   version
 };
