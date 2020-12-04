@@ -31,7 +31,7 @@ let obj = {
   name: 'Egg Scrambler',
   description: 'Makes discord unusable by converting all messages into eggs',
   
-  author: 'Fjorge + Hax + Ducko',
+  author: ['Fjorge', 'Hax', 'Ducko'],
   
   version: version
 };
