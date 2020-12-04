@@ -1,8 +1,8 @@
-const version = '0';
+const version = '1';
 
 let el;
 
-const css = `@import url("https://raw.githack.com/LuckFire/BottomBar/master/bottombar.theme.css");`;
+const css = `@import url("https://raw.githack.com/LuckFire/BottomBar/master/bottombar.css");`;
 
 let obj = {
   onImport: async function () {
