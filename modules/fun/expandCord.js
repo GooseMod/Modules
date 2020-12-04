@@ -31,7 +31,7 @@ let obj = {
   name: '(E x p a n d)Cord',
   description: 'M a k e s  d i s c o r d  w i d e',
 
-  author: 'Fjorge + Ducko',
+  author: ['Fjorge', 'Ducko'],
 
   version: version
 };
