@@ -1,4 +1,4 @@
-let version = '5.6.1';
+const version = '1.0.0';
 
 let newStickyKeybindFunction;
 
@@ -208,18 +208,18 @@ let obj = {
 	// Activating module
 	onImport: async function () {
 		goosemodScope.logger.debug('Sticky Notes', 'Starting...');
-        injMod();
+        	injMod();
 	},
 
 	// Removing function
 	remove: async function () {
 	    goosemodScope.logger.debug('Sticky Notes', 'Stopping...');
-        rmMod();
-    },
+        	rmMod();
+    	},
 		
 	// Data
 	name: 'Sticky Notes',
-    description: 'Allows you to create temporary sticky notes on the screen. Open new sticky notes with Ctrl+D. They will disappear as soon as you refresh discord.',
+    	description: 'Allows you to create temporary sticky notes on the screen. Open new sticky notes with Ctrl+D. They will disappear as soon as you refresh discord.',
 
 	author: ['Fjorge', 'Liam The Protogen'],
 
