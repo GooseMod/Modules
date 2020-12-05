@@ -1,4 +1,4 @@
-const version = '1.0.0';
+const version = '5.6.2';
 
 let newStickyKeybindFunction;
 
