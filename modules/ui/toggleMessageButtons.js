@@ -8,6 +8,8 @@ const css = `body.gm-toggle-messages-buttons .buttons-3JBrkn {
   display: none;
 }`;
 
+let style;
+
 const updateContextItem = async (val) => {
   try {
     await goosemodScope.patcher.contextMenu.remove("toggle-message-buttons");
@@ -30,7 +32,7 @@ const updateContextItem = async (val) => {
 
 let obj = {
   onImport: async () => {
-    const style = document.createElement("style");
+    style = document.createElement("style");
     style.appendChild(
       document.createTextNode(css)
     );
@@ -42,6 +44,8 @@ let obj = {
   remove: async () => {
     goosemodScope.patcher.contextMenu.remove("toggle-message-buttons");
     document.body.classList.remove('gm-toggle-messages-buttons');
+    
+    style.remove();
   },
 
   getSettings: () => [settings],
