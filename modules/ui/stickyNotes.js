@@ -1,4 +1,4 @@
-const version = '2.0.0';
+const version = '2.0.1';
 
 let newStickyKeybindFunction;
 
@@ -207,7 +207,7 @@ function injMod() {
         }
     };
 
-    document.addEventListener('keypress', newStickyKeybindFunction);
+    document.addEventListener('keydown', newStickyKeybindFunction);
 
     // Button to open a new note.
     // We cannot get this SVG button to work. If you can, please send a pull request to wherever this is.
@@ -254,7 +254,7 @@ function injMod() {
 
 function rmMod() {
     Array.from(document.getElementsByClassName("goosemod-sticky-note-asset")).forEach((note) => note.remove());
-    document.removeEventListener('keypress', newStickyKeybindFunction);
+    document.removeEventListener('keydown', newStickyKeybindFunction);
 };
 
 let obj = {
