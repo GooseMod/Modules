@@ -34,6 +34,7 @@ let obj = {
     style.appendChild(
       document.createTextNode(css)
     );
+    document.head.appendChild(style);
 
     updateContextItem(settings.buttonsToggled);
   },
