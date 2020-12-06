@@ -1,4 +1,4 @@
-let version = "1.0.1";
+let version = "1.1.0";
 
 const openModal = async () => {
   if (
@@ -21,15 +21,20 @@ const keydownHandler = (event) => {
 };
 
 let obj = {
-  onImport: async function () {
-    goosemodScope.settings.createItem("Relaunch", [""], async () => {
-      openModal();
-    });
+  onImport: async () => {
+    goosemodScope.settings.createItem(
+      "Relaunch",
+      [""],
+      async () => {
+        openModal();
+      },
+      true
+    );
 
     document.addEventListener("keydown", keydownHandler);
   },
 
-  remove: async function () {
+  remove: async () => {
     let settingItem = goosemodScope.settings.items.find(
       (x) => x[1] === "Relaunch"
     );
