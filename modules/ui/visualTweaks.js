@@ -1,4 +1,4 @@
-let version = '2.5.4';
+let version = '2.6.0';
 
 let obj = {
   onImport: async function () {
@@ -38,14 +38,20 @@ let obj = {
       transform: translate(-22px, -10px);
     }`, sheet.cssRules.length);
 
+    sheet.insertRule(`body.no-help-button a[href="https://support.discord.com"] > div[role="button"] {
+      display: none;
+    }`, sheet.cssRules.length);
+
     let tweakFunctions = {
       'removeHelpButton': {
         enable: () => {
-          document.querySelector('a[href="https://support.discord.com"] > div[role="button"]').parentElement.style.display = 'none';
+          document.body.classList.add('no-help-button');
+          // document.querySelector('a[href="https://support.discord.com"] > div[role="button"]').parentElement.style.display = 'none';
         },
 
         disable: () => {
-          document.querySelector('a[href="https://support.discord.com"] > div[role="button"]').parentElement.style.display = 'flex';
+          document.body.classList.remove('no-help-button');
+          // document.querySelector('a[href="https://support.discord.com"] > div[role="button"]').parentElement.style.display = 'flex';
         }
       },
 
