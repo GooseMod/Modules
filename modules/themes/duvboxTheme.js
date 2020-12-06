@@ -1,4 +1,4 @@
-const version = '0';
+const version = '1';
 
 let el;
 
@@ -18,11 +18,11 @@ let obj = {
   },
 
   name: 'Duvbox Theme',
-  description: 'This is a theme, based on the Vim theme, named Gruvbox.',
+  description: 'Based on the Vim theme, named Gruvbox.',
 
   author: 'CircuitRCAY',
 
   version
-}
+};
 
 obj
