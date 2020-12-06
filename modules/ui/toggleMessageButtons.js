@@ -4,12 +4,9 @@ let settings = {
   buttonsToggled: true,
 };
 
-const style = document.createElement("style");
-style.appendChild(
-  document.createTextNode(`.buttons-3JBrkn {
+const css = `body.gm-toggle-messages-buttons .buttons-3JBrkn {
   display: none;
-}`)
-);
+}`;
 
 const updateContextItem = async (val) => {
   try {
@@ -22,8 +19,7 @@ const updateContextItem = async (val) => {
         settings.buttonsToggled = !settings.buttonsToggled;
         updateContextItem(settings.buttonsToggled);
 
-        if (val) document.head.appendChild(style);
-        else style.remove();
+        if (val) document.body.classList[val ? 'add' : 'remove']('gm-toggle-messages-buttons');
       },
     });
   } catch (err) {
@@ -34,12 +30,17 @@ const updateContextItem = async (val) => {
 
 let obj = {
   onImport: async () => {
+    const style = document.createElement("style");
+    style.appendChild(
+      document.createTextNode(css)
+    );
+
     updateContextItem(settings.buttonsToggled);
   },
 
   remove: async () => {
     goosemodScope.patcher.contextMenu.remove("toggle-message-buttons");
-    style.remove();
+    document.body.classList.remove('gm-toggle-messages-buttons');
   },
 
   getSettings: () => [settings],
