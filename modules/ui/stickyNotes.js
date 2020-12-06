@@ -1,10 +1,23 @@
-const version = '2.0.1';
+const version = '2.1.0';
 
 let newStickyKeybindFunction;
 
+let moduleData = {
+    settings: {
+        openNoteOnLoad: true
+    }
+};
+
 function injMod() {
+    moduleData.setSetting = (setting, value) => {
+        if (moduleData.settings[setting]) {
+            moduleData.settings[setting] = value;
+        };
+    };
+
     let noteCount = 0;
-    function newSticky(becomeActive = true) {
+
+    moduleData.newSticky = (becomeActive = true) => {
         let mousePosition;
         let offset = [0,0];
         let isDown = false;
@@ -188,68 +201,23 @@ function injMod() {
 
         noteContainerElHeaderN.addEventListener('click', e => {
             e.preventDefault();
-            newSticky(false);
+            moduleData.newSticky(false);
         });
 
         noteCount++;
         return div;
     };
 
-    // Open initial note on module load.
-    newSticky();
-
     // Keybind (Ctrl+D) to open a new note.
     newStickyKeybindFunction = (e) => {
         //console.log(e.code + ' ' + e.ctrlKey)
         if (e.code === 'KeyD' && e.ctrlKey) {
             e.preventDefault();
-            newSticky();
-        }
+            moduleData.newSticky();
+        };
     };
 
     document.addEventListener('keydown', newStickyKeybindFunction);
-
-    // Button to open a new note.
-    // We cannot get this SVG button to work. If you can, please send a pull request to wherever this is.
-    //
-    /*let svg = document.createElement("svg");
-
-    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    svg.setAttribute("width", "24");
-    svg.setAttribute("height", "24");
-    svg.setAttribute("fill", "none");
-    svg.setAttribute("aria-hidden", "true");
-    svg.setAttribute("class","icon-22AiRD");
-    svg.setAttribute("viewBox", "0 0 448 512");
-    svg.setAttribute("role", "img");
-
-    let path = svg.appendChild(document.createElement("path"));
-
-    path.setAttribute("fill", "currentColor"); // This'll pick the most suitable color, but you can change it if you need to
-    path.setAttribute("d", "M312 320h136V56c0-13-11-24-24-24H24C11 32 0 43 0 56v400c0 13 11 24 24 24h264V344c0-13 11-24 24-24zm129 55l-98 98c-4 5-11 7-17 7h-6V352h128v6c0 6-2 13-7 17z");
-
-    const noteButtonEl = document.createElement('div');
-    noteButtonEl.classList.add('iconWrapper-2OrFZ1', 'clickable-3rdHwn', 'goosemod-sticky-note-asset');
-    noteButtonEl.setAttribute('role', 'button');
-    noteButtonEl.setAttribute('aria-label', 'New Sticky Note');
-    noteButtonEl.setAttribute('tabindex', '0');
-
-    const noteButtonElImage = document.createElement('svg');
-    noteButtonElImage.classList.add('icon-22AiRD');
-    noteButtonElImage.setAttribute('xmlns', "http://www.w3.org/2000/svg");
-    noteButtonElImage.setAttribute('viewBox', "0 0 448 512");
-
-    const noteButtonElImagePath = document.createElement("path");
-    noteButtonElImagePath.setAttribute('fill', "currentColor"); // This'll pick the most suitable color, but you can change it if you need to
-    noteButtonElImagePath.setAttribute('d', "M312 320h136V56c0-13.3-10.7-24-24-24H24C10.7 32 0 42.7 0 56v400c0 13.3 10.7 24 24 24h264V344c0-13.2 10.8-24 24-24zm129 55l-98 98c-4.5 4.5-10.6 7-17 7h-6V352h128v6.1c0 6.3-2.5 12.4-7 16.9z");
-
-    noteButtonElImage.appendChild(noteButtonElImagePath);
-    noteButtonEl.appendChild(svg);
-    document.getElementsByClassName("toolbar-1t6TWx")[0].insertBefore(noteButtonEl, document.querySelector('div[aria-label="Inbox"]'));
-
-    noteButtonEl.addEventListener('click', e => {
-        newSticky();
-    });*/
 };
 
 function rmMod() {
@@ -258,17 +226,44 @@ function rmMod() {
 };
 
 let obj = {
-    // Activating module
+    // Importing module
     onImport: async function () {
         goosemodScope.logger.debug('Sticky Notes', 'Starting...');
         injMod();
     },
 
-    // Removing function
+    // Removing module
     remove: async function () {
         goosemodScope.logger.debug('Sticky Notes', 'Stopping...');
+        let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Sticky Notes');
+        goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
         rmMod();
     },
+
+    // Run after loading
+    onLoadingFinished: async function () {
+        goosemodScope.settings.createItem('Sticky Notes', [`(v${version})`,
+            {
+                type: 'header',
+                text: 'Sticky Notes Settings'
+            },
+            {
+                type: 'toggle',
+                text: 'Launch Note on Load',
+                subtext: 'Open a sticky note automatically once the module is loaded in.',
+                onToggle: (v) => { moduleData.setSetting('openNoteOnLoad', v) },
+                isToggled: () => moduleData.settings['openNoteOnLoad']
+            }
+        ]);
+
+        if (moduleData.settings['openNoteOnLoad']) {
+            moduleData.newSticky();
+        };
+    },
+
+    // Getting and setting settings
+    getSettings: async function() { return [moduleData.settings] },
+    loadSettings: async function ([settings]) { moduleData.settings = settings; },
 
     // Data
     name: 'Sticky Notes',
