@@ -2,23 +2,29 @@ const version = '2.1.0';
 
 let newStickyKeybindFunction;
 
+let moduleData = {
+    settings: {
+        openNoteOnLoad: true
+    }
+};
+
 function injMod() {
 
-    goosemodScope.stickyNotes = {
+    moduleData = {
         settings: {
             openNoteOnLoad: true
         }
     };
 
-    goosemodScope.stickyNotes.setSetting = (setting, value) => {
-        if (goosemodScope.stickyNotes.settings[setting]) {
-            goosemodScope.stickyNotes.settings[setting] = value;
+    moduleData.setSetting = (setting, value) => {
+        if (moduleData.settings[setting]) {
+            moduleData.settings[setting] = value;
         };
     };
 
     let noteCount = 0;
 
-    goosemodScope.stickyNotes.newSticky = (becomeActive = true) => {
+    moduleData.newSticky = (becomeActive = true) => {
         let mousePosition;
         let offset = [0,0];
         let isDown = false;
@@ -80,7 +86,7 @@ function injMod() {
         let noteContainerElBodyText = document.createElement('div');
         noteContainerElBodyText.classList.add('markup-2BOw-j', 'scrollableContainer-2NUZem', 'webkit-HjD9Er');
         noteContainerElBodyText.setAttribute('aria-multiline', 'true');
-        noteContainerElBodyText.setAttribute('data-can-focus', 'true');
+        noteCntainerElBodyText.setAttribute('data-can-focus', 'true');
         noteContainerElBodyText.setAttribute('data-slate-editor', 'true');
         noteContainerElBodyText.setAttribute('contenteditable', 'true');
         noteContainerElBodyText.setAttribute('autocorrect', 'off');
@@ -202,7 +208,7 @@ function injMod() {
 
         noteContainerElHeaderN.addEventListener('click', e => {
             e.preventDefault();
-            goosemodScope.stickyNotes.newSticky(false);
+            moduleData.newSticky(false);
         });
 
         noteCount++;
@@ -214,7 +220,7 @@ function injMod() {
         //console.log(e.code + ' ' + e.ctrlKey)
         if (e.code === 'KeyD' && e.ctrlKey) {
             e.preventDefault();
-            goosemodScope.stickyNotes.newSticky();
+            moduleData.newSticky();
         };
     };
 
@@ -252,29 +258,19 @@ let obj = {
                 type: 'toggle',
                 text: 'Launch Note on Load',
                 subtext: 'Open a sticky note automatically once the module is loaded in.',
-                onToggle: (v) => { goosemodScope.stickyNotes.setSetting('openNoteOnLoad', v) },
-                isToggled: () => goosemodScope.stickyNotes.settings['openNoteOnLoad']
+                onToggle: (v) => { moduleData.setSetting('openNoteOnLoad', v) },
+                isToggled: () => moduleData.settings['openNoteOnLoad']
             }
         ]);
 
-        if (goosemodScope.stickyNotes.settings['openNoteOnLoad']) {
-            goosemodScope.stickyNotes.newSticky();
+        if (moduleData.settings['openNoteOnLoad']) {
+            moduleData.newSticky();
         };
     },
 
     // Getting and setting settings
-    getSettings: async function() { return [goosemodScope.stickyNotes.settings] },
-    loadSettings: async function ([settings]) {
-        goosemodScope.stickyNotes.settings = settings;
-
-        for (let s in goosemodScope.stickyNotes.settings) {
-            try { // Some tweaks might have been removed so wrap in try catch
-                goosemodScope.setTweak(t, goosemodScope.stickyNotes.settings[s]);
-            } catch (e) {
-                console.error(e);
-            };
-        };
-    },
+    getSettings: async function() { return [moduleData.settings] },
+    loadSettings: async function ([settings]) { moduleData.settings = settings; },
 
     // Data
     name: 'Sticky Notes',
