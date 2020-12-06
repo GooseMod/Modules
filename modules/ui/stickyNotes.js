@@ -79,7 +79,7 @@ function injMod() {
         let noteContainerElBodyText = document.createElement('div');
         noteContainerElBodyText.classList.add('markup-2BOw-j', 'scrollableContainer-2NUZem', 'webkit-HjD9Er');
         noteContainerElBodyText.setAttribute('aria-multiline', 'true');
-        noteCntainerElBodyText.setAttribute('data-can-focus', 'true');
+        noteContainerElBodyText.setAttribute('data-can-focus', 'true');
         noteContainerElBodyText.setAttribute('data-slate-editor', 'true');
         noteContainerElBodyText.setAttribute('contenteditable', 'true');
         noteContainerElBodyText.setAttribute('autocorrect', 'off');
