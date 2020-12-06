@@ -142,13 +142,13 @@ function injMod() {
         }, true);
 
         // Dragging events
-        document.addEventListener('mousemove', function(event) {
+        document.addEventListener('mousemove', function(e) {
             if (isDown) {
-                event.preventDefault();
+                e.preventDefault();
                 mousePosition = {
 
-                    x : event.clientX,
-                    y : event.clientY
+                    x : e.clientX,
+                    y : e.clientY
 
                 };
                 div.style.left = (mousePosition.x + offset[0]) + 'px';
@@ -167,7 +167,7 @@ function injMod() {
         });
 
         noteContainerElHeaderX.addEventListener('click', e => {
-            event.preventDefault();
+            e.preventDefault();
             const newActive = div.previousElementSibling;
             // Pass on active-sticky id on note close
             if (newActive != undefined && newActive.classList.contains('goosemod-sticky-note')) {
@@ -187,7 +187,7 @@ function injMod() {
         });
 
         noteContainerElHeaderN.addEventListener('click', e => {
-            event.preventDefault();
+            e.preventDefault();
             newSticky(false);
         });
 
