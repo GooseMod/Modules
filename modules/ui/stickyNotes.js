@@ -9,13 +9,6 @@ let moduleData = {
 };
 
 function injMod() {
-
-    moduleData = {
-        settings: {
-            openNoteOnLoad: true
-        }
-    };
-
     moduleData.setSetting = (setting, value) => {
         if (moduleData.settings[setting]) {
             moduleData.settings[setting] = value;
