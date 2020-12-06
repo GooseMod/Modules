@@ -19,7 +19,7 @@ const updateContextItem = async (val) => {
         settings.buttonsToggled = !settings.buttonsToggled;
         updateContextItem(settings.buttonsToggled);
 
-        if (val) document.body.classList[val ? 'add' : 'remove']('gm-toggle-messages-buttons');
+        document.body.classList[val ? 'add' : 'remove']('gm-toggle-messages-buttons');
       },
     });
   } catch (err) {
@@ -49,8 +49,7 @@ let obj = {
     settings = _settings;
 
     updateContextItem(settings.buttonsToggled);
-    if (!settings.buttonsToggled) document.head.appendChild(style);
-    else style.remove();
+    document.body.classList[settings.buttonsToggled ? 'add' : 'remove']('gm-toggle-messages-buttons');
   },
 
   name: "Toggle Message Buttons",
