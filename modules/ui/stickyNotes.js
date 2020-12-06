@@ -1,15 +1,16 @@
-const version = '1.0.0';
+const version = '2.0.0';
 
 let newStickyKeybindFunction;
 
 function injMod() {
-    function newSticky() {
+    let noteCount = 0;
+    function newSticky(becomeActive = true) {
         let mousePosition;
         let offset = [0,0];
         let isDown = false;
 
         let div = document.createElement("div");
-        div.classList.add('goosemod-sticky-note');
+        div.classList.add('goosemod-sticky-note', 'goosemod-sticky-note-asset', `goosemod-sticky-note-number-${noteCount}`);
         div.style.position = "absolute";
         div.style.left = "0px";
         div.style.top = "0px";
@@ -45,10 +46,15 @@ function injMod() {
         noteContainerElHeaderH.classList.add("colorStandard-2KCXvj", "size14-e6ZScH", "h4-AQvcAz", "title-3sZWYQ", "defaultColor-1_ajX0", "defaultMarginh4-2vWMG5");
         noteContainerElHeaderH.textContent = "Sticky Note";
 
-        let noteContainerElHeaderX = document.createElement('h2')
-        noteContainerElHeaderX.classList.add("colorStandard-2KCXvj", "size14-e6ZScH", "h4-AQvcAz", "defaultColor-1_ajX0", "defaultMarginh4-2vWMG5");
+        let noteContainerElHeaderN = document.createElement('h2');
+        noteContainerElHeaderN.classList.add("colorStandard-2KCXvj", "size14-e6ZScH", "h4-AQvcAz", "defaultColor-1_ajX0", "defaultMarginh4-2vWMG5", "clickable-3rdHwn");
+        noteContainerElHeaderN.textContent = "🞣";
+        noteContainerElHeaderN.setAttribute('style', 'display: flex; font-size: 25px; color: #B9BBBE; align-items: center; margin-right: 5px;');
+
+        let noteContainerElHeaderX = document.createElement('h2');
+        noteContainerElHeaderX.classList.add("colorStandard-2KCXvj", "size14-e6ZScH", "h4-AQvcAz", "defaultColor-1_ajX0", "defaultMarginh4-2vWMG5", "clickable-3rdHwn");
         noteContainerElHeaderX.textContent = "⨯";
-        noteContainerElHeaderX.setAttribute('style', 'display: flex; justify-content: flex-end; font-size: 25px; color: #B9BBBE;');
+        noteContainerElHeaderX.setAttribute('style', 'display: flex; font-size: 29px; color: #B9BBBE; align-items: center');
 
         //Body stuff
         let noteContainerElBody = document.createElement('div');
@@ -58,7 +64,7 @@ function injMod() {
         noteContainerElBody.style.paddingRight = '8px';
 
         let noteContainerElBodyText = document.createElement('div');
-        noteContainerElBodyText.classList.add('markup-2BOw-j');
+        noteContainerElBodyText.classList.add('markup-2BOw-j', 'scrollableContainer-2NUZem', 'webkit-HjD9Er');
         noteContainerElBodyText.setAttribute('aria-multiline', 'true');
         noteContainerElBodyText.setAttribute('data-can-focus', 'true');
         noteContainerElBodyText.setAttribute('data-slate-editor', 'true');
@@ -67,7 +73,7 @@ function injMod() {
         noteContainerElBodyText.setAttribute('spellcheck', 'true');
         noteContainerElBodyText.setAttribute('role', 'textbox');
         noteContainerElBodyText.setAttribute('data-gramm', 'true');
-        noteContainerElBodyText.setAttribute('style', 'outline: none; white-space: pre-wrap; overflow-wrap: break-word; -webkit-user-modify: read-write-plaintext-only; padding-bottom: 0px;');
+        noteContainerElBodyText.setAttribute('style', 'outline: none; white-space: pre-wrap; overflow-wrap: break-word; -webkit-user-modify: read-write-plaintext-only; padding: 5px;');
 
         //Appending root elements
         noteContainerElContainer.appendChild(noteContainerElLayer);
@@ -77,36 +83,59 @@ function injMod() {
         //Appending headers
         noteContainerElRoot.appendChild(noteContainerElHeaderDiv);
         noteContainerElHeaderDiv.appendChild(noteContainerElHeaderH);
+        noteContainerElHeaderDiv.appendChild(noteContainerElHeaderN);
         noteContainerElHeaderDiv.appendChild(noteContainerElHeaderX);
 
         //Appending body
         noteContainerElRoot.appendChild(noteContainerElBody);
         noteContainerElBody.appendChild(noteContainerElBodyText);
 
+        // Appending root div
         div.appendChild(noteContainerElContainer);
-
         document.body.appendChild(div);
 
-        // Setting the active focused note on creation.
-        if (document.getElementById("active-sticky") && document.getElementById("active-sticky") != div) {
-            document.getElementById("active-sticky").removeAttribute('id');
-            div.setAttribute('id', 'active-sticky');
+        function becomeActiveNote(moveToTop = false) {
+            function compareNotes(n1, n2 = div) {
+                // Returns true if they have the same class lists (de-facto same note due to the goosemod-note-number-* class)
+                return (n1.classList.value === n2.classList.value);
+            };
+            const currentActiveNote = document.getElementById("active-sticky");
+            // Setting the note to become focused and on top.
+            if (currentActiveNote && !compareNotes(currentActiveNote, div)) {
+                if (moveToTop && div.getAttribute('id') != 'active-sticky') {
+                    document.body.insertBefore(div, currentActiveNote.nextElementSibling);
+                };
+                currentActiveNote.removeAttribute('id');
+                div.setAttribute('id', 'active-sticky');
+            } else if (Array.from(document.getElementsByClassName('goosemod-sticky-note')).filter(note => !compareNotes(note, div)).length <= 0) {
+                div.setAttribute('id', 'active-sticky');
+            };
+        };
+
+        // Becoming the active note on creation
+        if (becomeActive) {
+            becomeActiveNote();
         };
 
         // Checking if mouse is up or down
         noteContainerElHeaderDiv.addEventListener('mousedown', function(e) {
             isDown = true;
-            // Setting the active focused note.
-            if (document.getElementById("active-sticky") && document.getElementById("active-sticky") != div) {
-                document.body.insertBefore(div, document.getElementById("active-sticky").nextSibling);
-                document.getElementById("active-sticky").removeAttribute('id');
-            };
-            div.setAttribute('id', 'active-sticky');
+
+            // Becoming active on click.
+            becomeActiveNote(true);
+
             offset = [
                 div.offsetLeft - e.clientX,
                 div.offsetTop - e.clientY
             ];
         }, true);
+
+        noteContainerElBody.addEventListener('click', function(e) {
+            if (div.getAttribute('id') != 'active-sticky' && !isDown) {
+                e.preventDefault();
+                becomeActiveNote(true);
+            };
+        });
 
         document.addEventListener('mouseup', function() {
             isDown = false;
@@ -128,7 +157,7 @@ function injMod() {
         }, true);
 
 
-        // Button events
+        // Close button events
         noteContainerElHeaderX.addEventListener('mouseenter', e => {
             noteContainerElHeaderX.style.color = "white";
         });
@@ -139,13 +168,37 @@ function injMod() {
 
         noteContainerElHeaderX.addEventListener('click', e => {
             event.preventDefault();
+            const newActive = div.previousElementSibling;
+            // Pass on active-sticky id on note close
+            if (newActive != undefined && newActive.classList.contains('goosemod-sticky-note')) {
+                div.removeAttribute('id');
+                newActive.setAttribute('id', 'active-sticky');
+            }
             div.remove();
         });
+
+        // New note button events
+        noteContainerElHeaderN.addEventListener('mouseenter', e => {
+            noteContainerElHeaderN.style.color = "white";
+        });
+
+        noteContainerElHeaderN.addEventListener('mouseleave', e => {
+            noteContainerElHeaderN.style.color = "#B9BBBE"
+        });
+
+        noteContainerElHeaderN.addEventListener('click', e => {
+            event.preventDefault();
+            newSticky(false);
+        });
+
+        noteCount++;
+        return div;
     };
-    // Open 1 initial note on module load.
+
+    // Open initial note on module load.
     newSticky();
 
-    // Keybind (Ctrl+S) to open a new note.
+    // Keybind (Ctrl+D) to open a new note.
     newStickyKeybindFunction = (e) => {
         //console.log(e.code + ' ' + e.ctrlKey)
         if (e.code === 'KeyD' && e.ctrlKey) {
@@ -176,7 +229,7 @@ function injMod() {
     path.setAttribute("d", "M312 320h136V56c0-13-11-24-24-24H24C11 32 0 43 0 56v400c0 13 11 24 24 24h264V344c0-13 11-24 24-24zm129 55l-98 98c-4 5-11 7-17 7h-6V352h128v6c0 6-2 13-7 17z");
 
     const noteButtonEl = document.createElement('div');
-    noteButtonEl.classList.add('iconWrapper-2OrFZ1', 'clickable-3rdHwn', 'goosemod-sticky-note');
+    noteButtonEl.classList.add('iconWrapper-2OrFZ1', 'clickable-3rdHwn', 'goosemod-sticky-note-asset');
     noteButtonEl.setAttribute('role', 'button');
     noteButtonEl.setAttribute('aria-label', 'New Sticky Note');
     noteButtonEl.setAttribute('tabindex', '0');
@@ -200,30 +253,30 @@ function injMod() {
 };
 
 function rmMod() {
-    Array.from(document.getElementsByClassName("goosemod-sticky-note")).forEach((note) => note.remove());
+    Array.from(document.getElementsByClassName("goosemod-sticky-note-asset")).forEach((note) => note.remove());
     document.removeEventListener('keypress', newStickyKeybindFunction);
 };
 
 let obj = {
-	// Activating module
-	onImport: async function () {
-		goosemodScope.logger.debug('Sticky Notes', 'Starting...');
-        	injMod();
-	},
+    // Activating module
+    onImport: async function () {
+        goosemodScope.logger.debug('Sticky Notes', 'Starting...');
+        injMod();
+    },
 
-	// Removing function
-	remove: async function () {
-	    goosemodScope.logger.debug('Sticky Notes', 'Stopping...');
-        	rmMod();
-    	},
-		
-	// Data
-	name: 'Sticky Notes',
-    	description: 'Allows you to create temporary sticky notes on the screen. Open new sticky notes with Ctrl+D. They will disappear as soon as you refresh discord.',
+    // Removing function
+    remove: async function () {
+        goosemodScope.logger.debug('Sticky Notes', 'Stopping...');
+        rmMod();
+    },
 
-	author: ['Fjorge', 'Liam The Protogen'],
+    // Data
+    name: 'Sticky Notes',
+    description: 'Allows you to create temporary sticky notes on the screen. Open new sticky notes with Ctrl+D or the New Note button.',
 
-	version: version
+    author: ['Fjorge', 'Liam The Protogen'],
+
+    version: version
 };
 
 obj
