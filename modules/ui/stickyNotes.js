@@ -83,7 +83,7 @@ function injMod() {
         noteContainerElBodyText.setAttribute('data-slate-editor', 'true');
         noteContainerElBodyText.setAttribute('contenteditable', 'true');
         noteContainerElBodyText.setAttribute('autocorrect', 'off');
-        noteContainerElBodyText.setAttribute('spellcheck', 'tru');
+        noteContainerElBodyText.setAttribute('spellcheck', 'true');
         noteContainerElBodyText.setAttribute('role', 'textbox');
         noteContainerElBodyText.setAttribute('data-gramm', 'true');
         noteContainerElBodyText.setAttribute('style', 'outline: none; white-space: pre-wrap; overflow-wrap: break-word; -webkit-user-modify: read-write-plaintext-only; padding: 5px;');
