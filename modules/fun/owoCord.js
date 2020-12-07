@@ -1,15 +1,15 @@
-let version = "0.3.1";
+let version = "0.3.2";
 
 let owointerval;
 function owoify() {
-	String.prototype.owocordToOwOSpeak = function() {
+	function owocordToOwOSpeak() {
 		this.split("r").join("w").split("R").join("W").split("l").join("w").split("L").split("W").replace("(edited)"," [Edited]");
 	};
 	
 	owointerval = setInterval(function () {
 		let messages = document.getElementsByClassName("messageContent-2qWWxC");
 		for(let message of messages) {
-			message.textContent = message.textContent.owocordToOwOSpeak();
+			message.textContent = owocordToOwOSpeak(message.textContent);
 		}
 	}, 250);
 }
