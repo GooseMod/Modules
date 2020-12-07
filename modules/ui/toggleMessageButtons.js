@@ -1,4 +1,4 @@
-const version = "1.0.0";
+const version = "1.1.0";
 
 let settings = {
   buttonsToggled: true,
@@ -12,9 +12,9 @@ let style;
 
 const updateContextItem = async (val) => {
   try {
-    await goosemodScope.patcher.contextMenu.remove("toggle-message-buttons");
+    await goosemod.patcher.contextMenu.remove("toggle-message-buttons");
 
-    goosemodScope.patcher.contextMenu.add("textarea-context", {
+    goosemod.patcher.contextMenu.add("textarea-context", {
       id: "toggle-message-buttons",
       label: `${val ? "Disable" : "Enable"} Buttons`,
       action: () => {
@@ -42,7 +42,7 @@ let obj = {
   },
 
   remove: async () => {
-    goosemodScope.patcher.contextMenu.remove("toggle-message-buttons");
+    goosemod.patcher.contextMenu.remove("toggle-message-buttons");
     document.body.classList.remove('gm-toggle-messages-buttons');
     
     style.remove();
