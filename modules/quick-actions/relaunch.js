@@ -1,4 +1,4 @@
-let version = "1.1.0";
+let version = "1.2.0";
 
 const openModal = async () => {
   if (
