@@ -7,13 +7,13 @@ let obj = {
       action: (_originalArgs, extraInfo) => {
         try {
           if (extraInfo.message.content == "") {
-            return goosemod.showToast("Unable to copy", { type: "error" });
+            return goosemodScope.showToast("Unable to copy", { type: "error" });
           }
 
           DiscordNative.clipboard.copy(extraInfo.message.content);
-          goosemod.showToast("Copied!", { type: "success", icon: false });
+          goosemodScope.showToast("Copied!", { type: "success", icon: false });
         } catch (error) {
-          goosemod.showToast("An error has occured!", { type: "error" });
+          goosemodScope.showToast("An error has occured!", { type: "error" });
           console.error(error);
         }
       },
