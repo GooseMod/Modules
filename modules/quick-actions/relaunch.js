@@ -35,13 +35,7 @@ let obj = {
   },
 
   remove: async () => {
-    let settingItem = goosemodScope.settings.items.find(
-      (x) => x[1] === "Relaunch"
-    );
-    goosemodScope.settings.items.splice(
-      goosemodScope.settings.items.indexOf(settingItem),
-      1
-    );
+    goosemod.settings.removeItem("Relaunch");
     document.removeEventListener("keydown", keydownHandler);
   },
 
