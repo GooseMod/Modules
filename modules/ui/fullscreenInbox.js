@@ -1,4 +1,4 @@
-const version = "1.0.0";
+const version = "1.1.0";
 
 let settings = {
   floating: true,
@@ -82,9 +82,9 @@ let obj = {
     ]),
 
   remove: async () => {
-    goosemod.settings.items.splice(
-      goosemod.settings.items.indexOf(
-        goosemod.settings.items.find((x) => x[1] === "Fullscreen Inbox")
+    goosemodScope.settings.items.splice(
+      goosemodScope.settings.items.indexOf(
+        goosemodScope.settings.items.find((x) => x[1] === "Fullscreen Inbox")
       ),
       1
     );
