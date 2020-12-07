@@ -1,4 +1,4 @@
-const version = "1.0.0";
+const version = "1.1.0";
 
 let settings = {
   statusIcon: false,
@@ -305,12 +305,7 @@ let obj = {
     ]),
 
   remove: async () => {
-    goosemod.settings.items.splice(
-      goosemod.settings.items.indexOf(
-        goosemod.settings.items.find((x) => x[1] === "Comfy Theme")
-      ),
-      1
-    );
+    goosemod.settings.removeItem("Comfy Theme");
     style.remove();
     try {
       cssStatusIcon.remove();
