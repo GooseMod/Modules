@@ -1,11 +1,15 @@
-let version = "0.3.0";
+let version = "0.3.1";
 
 let owointerval;
 function owoify() {
+	String.prototype.owocordToOwOSpeak = function() {
+		this.split("r").join("w").split("R").join("W").split("l").join("w").split("L").split("W").replace("(edited)"," [Edited]");
+	};
+	
 	owointerval = setInterval(function () {
 		let messages = document.getElementsByClassName("messageContent-2qWWxC");
 		for(let message of messages) {
-			message.textContent = message.textContent.replaceAll("r","w").replaceAll("l","w").replaceAll("R","W").replaceAll("L","W").replaceAll("(edited)"," [Edited]");
+			message.textContent = message.textContent.owocordToOwOSpeak();
 		}
 	}, 250);
 }
@@ -16,6 +20,7 @@ let obj = {
 	},
 	remove: async function () {
 		clearInterval(owointerval);
+		String.prototype.owocordToOwOSpeak = undefined;
 	},
 	logRegionColor: 'green',
 	name: 'OwOCord',
