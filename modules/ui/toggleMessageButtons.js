@@ -1,4 +1,4 @@
-const version = "1.0.0";
+const version = "1.1.0";
 
 let settings = {
   buttonsToggled: true,
@@ -25,8 +25,8 @@ const updateContextItem = async (val) => {
       },
     });
   } catch (err) {
-    goosemod.showToast("An error has ocurred!", { type: "error" });
-    goosemod.logger.debug(err);
+    goosemodScope.showToast("An error has ocurred!", { type: "error" });
+    goosemodScope.logger.debug(err);
   }
 };
 
