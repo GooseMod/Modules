@@ -1,4 +1,4 @@
-const version = "1.0.0";
+const version = "1.1.0";
 
 let settings = {
   statusIcon: false,
@@ -200,7 +200,7 @@ let obj = {
   },
 
   onLoadingFinished: async () =>
-    goosemod.settings.createItem("Comfy Theme", [
+    goosemodScope.settings.createItem("Comfy Theme", [
       `(v${version})`,
       {
         type: "header",
@@ -305,9 +305,9 @@ let obj = {
     ]),
 
   remove: async () => {
-    goosemod.settings.items.splice(
-      goosemod.settings.items.indexOf(
-        goosemod.settings.items.find((x) => x[1] === "Comfy Theme")
+    goosemodScope.settings.items.splice(
+      goosemodScope.settings.items.indexOf(
+        goosemodScope.settings.items.find((x) => x[1] === "Comfy Theme")
       ),
       1
     );
