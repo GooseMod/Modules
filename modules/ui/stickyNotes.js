@@ -1,4 +1,4 @@
-const version = '2.1.0';
+const version = '2.2.0';
 
 let newStickyKeybindFunction;
 
@@ -235,8 +235,7 @@ let obj = {
     // Removing module
     remove: async function () {
         goosemodScope.logger.debug('Sticky Notes', 'Stopping...');
-        let settingItem = goosemodScope.settings.items.find((x) => x[1] === 'Sticky Notes');
-        goosemodScope.settings.items.splice(goosemodScope.settings.items.indexOf(settingItem), 1);
+        goosemod.settings.removeItem('Sticky Notes');
         rmMod();
     },
 
@@ -255,15 +254,17 @@ let obj = {
                 isToggled: () => moduleData.settings['openNoteOnLoad']
             }
         ]);
-
-        if (moduleData.settings['openNoteOnLoad']) {
-            moduleData.newSticky();
-        };
     },
 
     // Getting and setting settings
     getSettings: async function() { return [moduleData.settings] },
-    loadSettings: async function ([settings]) { moduleData.settings = settings; },
+    loadSettings: async function ([settings]) {
+        moduleData.settings = settings;
+        
+        if (moduleData.settings['openNoteOnLoad']) {
+            moduleData.newSticky();
+        };
+    },
 
     // Data
     name: 'Sticky Notes',
