@@ -1,4 +1,8 @@
-const version = "1.0.0";
+/* 
+ * Both the theme and the snippet is made by Freeplay (https://freeplay.codeberg.page)
+ * Check out the PC and BD version: https://github.com/Freeplayg/Discord-fullscreen-inbox
+ */
+const version = "1.1.0";
 
 let settings = {
   floating: true,
@@ -99,7 +103,7 @@ let obj = {
 
   name: "Fullscreen Inbox",
   description: "Makes the inbox appear as if it's a channel",
-  author: ["Liam The Protogen", "Freeplay"],
+  author: ["Freeplay", "Liam The Protogen"],
   version,
 };
 
