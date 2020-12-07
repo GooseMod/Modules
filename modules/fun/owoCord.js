@@ -20,7 +20,6 @@ let obj = {
 	},
 	remove: async function () {
 		clearInterval(owointerval);
-		String.prototype.owocordToOwOSpeak = undefined;
 	},
 	logRegionColor: 'green',
 	name: 'OwOCord',
