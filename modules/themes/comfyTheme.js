@@ -305,12 +305,8 @@ let obj = {
     ]),
 
   remove: async () => {
-    goosemodScope.settings.items.splice(
-      goosemodScope.settings.items.indexOf(
-        goosemodScope.settings.items.find((x) => x[1] === "Comfy Theme")
-      ),
-      1
-    );
+    goosemodScope.settings.removeItem("Comfy Theme");
+    
     style.remove();
     try {
       cssStatusIcon.remove();
