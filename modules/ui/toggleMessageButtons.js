@@ -12,9 +12,9 @@ let style;
 
 const updateContextItem = async (val) => {
   try {
-    await goosemodScope.patcher.contextMenu.remove("toggle-message-buttons");
+    await goosemod.patcher.contextMenu.remove("toggle-message-buttons");
 
-    goosemodScope.patcher.contextMenu.add("textarea-context", {
+    goosemod.patcher.contextMenu.add("textarea-context", {
       id: "toggle-message-buttons",
       label: `${val ? "Disable" : "Enable"} Buttons`,
       action: () => {

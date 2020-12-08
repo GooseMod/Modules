@@ -86,12 +86,7 @@ let obj = {
     ]),
 
   remove: async () => {
-    goosemod.settings.items.splice(
-      goosemod.settings.items.indexOf(
-        goosemod.settings.items.find((x) => x[1] === "Fullscreen Inbox")
-      ),
-      1
-    );
+    goosemod.settings.removeItem("Fullscreen Inbox");
     style.remove();
   },
 
