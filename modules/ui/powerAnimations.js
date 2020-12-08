@@ -1,7 +1,7 @@
-const version = "1.0.0";
+const version = "1.0.1";
 
 const settings = {
-  ping: true,
+  pings: true,
   modals: true,
   profile: true,
   channelMute: true,
@@ -162,7 +162,7 @@ let obj = {
     );
     document.head.appendChild(style);
 
-    setPing(settings.ping);
+    setPing(settings.pings);
     setModals(settings.modals);
     setProfile(settings.profile);
     setChannelMute(settings.channelMute);
@@ -173,7 +173,7 @@ let obj = {
   },
 
   onLoadingFinished: async () =>
-    goosemod.settings.createItem("Power Animations", [
+    goosemodScope.settings.createItem("Power Animations", [
       `(v${version})`,
       {
         type: "header",
@@ -262,7 +262,7 @@ let obj = {
   loadSettings: ([_settings]) => {
     settings = _settings;
 
-    setPing(settings.ping);
+    setPing(settings.pings);
     setModals(settings.modals);
     setProfile(settings.profile);
     setChannelMute(settings.channelMute);
