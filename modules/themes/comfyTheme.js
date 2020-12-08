@@ -200,7 +200,7 @@ let obj = {
   },
 
   onLoadingFinished: async () =>
-    goosemod.settings.createItem("Comfy Theme", [
+    goosemodScope.settings.createItem("Comfy Theme", [
       `(v${version})`,
       {
         type: "header",
@@ -305,7 +305,8 @@ let obj = {
     ]),
 
   remove: async () => {
-    goosemod.settings.removeItem("Comfy Theme");
+    goosemodScope.settings.removeItem("Comfy Theme");
+    
     style.remove();
     try {
       cssStatusIcon.remove();

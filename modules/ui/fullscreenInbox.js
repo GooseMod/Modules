@@ -86,7 +86,8 @@ let obj = {
     ]),
 
   remove: async () => {
-    goosemod.settings.removeItem("Fullscreen Inbox");
+    goosemodScope.settings.removeItem("Fullscreen Inbox");
+
     style.remove();
   },
 
