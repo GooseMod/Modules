@@ -4,7 +4,6 @@ let style;
 
 let obj = {
   onImport: async () => {
-    goosemodScope.showToast("onImport()");
     style = document.createElement("style");
     document.head.appendChild(style);
     style.appendChild(
