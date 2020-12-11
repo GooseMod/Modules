@@ -1,4 +1,4 @@
-const version = "1.1.0";
+const version = "1.1.1";
 
 let settings = {
   statusIcon: false,
@@ -95,7 +95,7 @@ const setUserButtons = (value) => {
     cssUserButtons = document.createElement("style");
     cssUserButtons.appendChild(
       document.createTextNode(`:root {
-        --user-buttons: ${value} !important;
+        --user-buttons-color: ${value} !important;
       }`)
     );
     document.head.appendChild(cssUserButtons);
@@ -306,7 +306,7 @@ let obj = {
 
   remove: async () => {
     goosemodScope.settings.removeItem("Comfy Theme");
-    
+
     style.remove();
     try {
       cssStatusIcon.remove();
