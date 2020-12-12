@@ -17,8 +17,8 @@ let obj = {
     style.remove();
   },
 
-  name: "i fixed discord",
-  description: "Use in light mode with dark sidebar enabled.",
+  name: '"i fixed discord" Theme',
+  description: "Makes light theme bearable. (Use in light mode with dark sidebar enabled.)",
   author: "jo",
   version,
 };
