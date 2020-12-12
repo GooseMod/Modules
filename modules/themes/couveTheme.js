@@ -17,7 +17,7 @@ let obj = {
     style.remove();
   },
 
-  name: "Couve",
+  name: "Couve Theme",
   description: "A new look to discord",
   author: "A user",
   version,
