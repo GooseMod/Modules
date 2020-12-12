@@ -17,7 +17,7 @@ let obj = {
     style.remove();
   },
 
-  name: "Splendid",
+  name: "Splendid Theme",
   description: "An absolutely splendid theme.",
   author: "𝙞𝙡.",
   version,
