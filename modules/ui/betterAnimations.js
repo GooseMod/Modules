@@ -2188,7 +2188,7 @@ let obj = {
   },
 
   onLoadingFinished: async () =>
-    goosemodScope.settings.createItem("Power Animations", [
+    goosemodScope.settings.createItem("Better Animations", [
       `(v${version})`,
       {
         type: "header",
@@ -2269,7 +2269,7 @@ let obj = {
     ]),
 
   remove: async () => {
-    goosemodScope.settings.removeItem("Power Animations");
+    goosemodScope.settings.removeItem("Better Animations");
 
     setPing(false);
     setModals(false);
