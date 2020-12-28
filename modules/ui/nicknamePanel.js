@@ -1,4 +1,4 @@
-const version = '1.0.2';
+const version = '1.0.3';
 
 const getCurrentNickname = () => (getNick.getNick(getGuildId.getGuildId(), user.id) || user.username);
 
@@ -36,7 +36,7 @@ let obj = {
     user = goosemodScope.webpackModules.findByProps('getCurrentUser').getCurrentUser();
 
     getNick = goosemodScope.webpackModules.findByProps('getNick');
-    getGuildId = goosemodScope.webpackModules.findByPropsAll('getGuildId')[1];
+    getGuildId = goosemodScope.webpackModules.findByProps('getGuildId', 'getLastSelectedGuildId');
   },
 
   onLoadingFinished: async function () {
