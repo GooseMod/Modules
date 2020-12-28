@@ -1,4 +1,4 @@
-const version = '1.0.2';
+const version = '1.0.3';
 
 let getUser, getMembers, getGuildId;
 let members;
@@ -38,7 +38,7 @@ let obj = {
 
     getUser = goosemodScope.webpackModules.findByProps('getUser');
     getMembers = goosemodScope.webpackModules.findByProps('getNick');
-    getGuildId = goosemodScope.webpackModules.findByPropsAll('getGuildId')[1];
+    getGuildId = goosemodScope.webpackModules.findByProps('getGuildId', 'getLastSelectedGuildId');
 
     intervals.push(setInterval(run, 300), setInterval(updateMembers, 5000));
 
