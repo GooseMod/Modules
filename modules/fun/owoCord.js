@@ -1,9 +1,9 @@
-let version = "0.3.2";
+let version = "0.4";
 
 let owointerval;
 function owoify() {
 	function owocordToOwOSpeak() {
-		this.split("r").join("w").split("R").join("W").split("l").join("w").split("L").split("W").replace("(edited)"," [Edited]");
+		this.replace(/r/g,"w").replace(/l/g,"w").replace(/R/g,"W").replace(/L/g,"W").replace("(edited)"," [Edited]");
 	};
 	
 	owointerval = setInterval(function () {
