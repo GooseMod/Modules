@@ -1,6 +1,6 @@
-const version = "2.0.0";
+const version = "2.0.1";
 
-const settings = {
+let settings = {
   pings: true,
   modals: true,
   profile: true,
