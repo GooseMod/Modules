@@ -1,4 +1,4 @@
-let version = '1.2.1';
+let version = '1.2.2';
 
 let interval;
 
@@ -44,7 +44,7 @@ let obj = {
 
           let [h, s, l] = rgb2hsl(rgb[0], rgb[1], rgb[2]);
 
-          roleColor = `hsl(${h}, ${65}%, ${85}%)`;
+          roleColor = `hsl(${h}, ${85}%, ${75}%)`;
         }
 
         el.querySelector('.markup-2BOw-j').style.color = roleColor || lastColor;
