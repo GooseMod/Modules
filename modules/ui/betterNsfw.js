@@ -1,4 +1,4 @@
-const version = "1.0.0";
+const version = "1.0.1";
 
 let style;
 let timeout;
@@ -60,11 +60,12 @@ let obj = {
           Channel.constructor.prototype,
           "render",
           (_, res) => {
-            const currentChannelID = res.props.children[1].props.channelId;
+            const currentChannelID =
+              res.props.children[1].props.children[0].props.channelId;
             const channel = getChannel(currentChannelID);
 
             if (channel.nsfw) {
-              res.props.className += " nsfw";
+              res.props.children[1].props.className += " nsfw";
             }
 
             return res;

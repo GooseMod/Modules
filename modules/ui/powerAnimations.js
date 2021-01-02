@@ -1,6 +1,6 @@
-const version = "2.0.0";
+const version = "2.0.2";
 
-const settings = {
+let settings = {
   pings: true,
   modals: true,
   profile: true,
@@ -21,6 +21,10 @@ let styleUpdate;
 let styleUserButtons;
 
 const setPing = (value) => {
+  try {
+    stylePing.remove();
+  } catch {}
+
   if (value) {
     stylePing = document.createElement("style");
     stylePing.appendChild(
@@ -41,13 +45,13 @@ const setPing = (value) => {
       }`)
     );
     document.head.appendChild(stylePing);
-  } else {
-    try {
-      stylePing.remove();
-    } catch {}
   }
 };
 const setModals = (value) => {
+  try {
+    styleModals.remove();
+  } catch {}
+
   if (value) {
     styleModals = document.createElement("style");
     styleModals.appendChild(
@@ -137,13 +141,13 @@ const setModals = (value) => {
       }`)
     );
     document.head.appendChild(styleModals);
-  } else {
-    try {
-      styleModals.remove();
-    } catch {}
   }
 };
 const setProfile = (value) => {
+  try {
+    styleProfile.remove();
+  } catch {}
+
   if (value) {
     styleProfile = document.createElement("style");
     styleProfile.appendChild(
@@ -170,13 +174,13 @@ const setProfile = (value) => {
       }`)
     );
     document.head.appendChild(styleProfile);
-  } else {
-    try {
-      styleProfile.remove();
-    } catch {}
   }
 };
 const setChannelMute = (value) => {
+  try {
+    styleChannelMute.remove();
+  } catch {}
+
   if (value) {
     styleChannelMute = document.createElement("style");
     styleChannelMute.appendChild(
@@ -197,13 +201,13 @@ const setChannelMute = (value) => {
       }`)
     );
     document.head.appendChild(styleChannelMute);
-  } else {
-    try {
-      styleChannelMute.remove();
-    } catch {}
   }
 };
 const setCall = (value) => {
+  try {
+    styleCall.remove();
+  } catch {}
+
   if (value) {
     styleCall = document.createElement("style");
     styleCall.appendChild(
@@ -1328,13 +1332,13 @@ const setCall = (value) => {
       }`)
     );
     document.head.appendChild(styleCall);
-  } else {
-    try {
-      styleCall.remove();
-    } catch {}
   }
 };
 const setPins = (value) => {
+  try {
+    stylePins.remove();
+  } catch {}
+
   if (value) {
     stylePins = document.createElement("style");
     stylePins.appendChild(
@@ -1955,13 +1959,13 @@ const setPins = (value) => {
       }`)
     );
     document.head.appendChild(stylePins);
-  } else {
-    try {
-      stylePins.remove();
-    } catch {}
   }
 };
 const setUpdate = (value) => {
+  try {
+    styleUpdate.remove();
+  } catch {}
+
   if (value) {
     styleUpdate = document.createElement("style");
     styleUpdate.appendChild(
@@ -2130,13 +2134,13 @@ const setUpdate = (value) => {
       }`)
     );
     document.head.appendChild(styleUpdate);
-  } else {
-    try {
-      styleUpdate.remove();
-    } catch {}
   }
 };
 const setUserButtons = (value) => {
+  try {
+    styleUserButtons.remove();
+  } catch {}
+
   if (value) {
     styleUserButtons = document.createElement("style");
     styleUserButtons.appendChild(
@@ -2168,10 +2172,6 @@ const setUserButtons = (value) => {
       }`)
     );
     document.head.appendChild(styleUserButtons);
-  } else {
-    try {
-      styleUserButtons.remove();
-    } catch {}
   }
 };
 
