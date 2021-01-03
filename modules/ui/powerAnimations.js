@@ -1,4 +1,4 @@
-const version = "2.0.2";
+const version = "2.1.0";
 
 let settings = {
   pings: true,
@@ -161,8 +161,14 @@ const setProfile = (value) => {
         z-index: 1;
         background: url(https://cdn.naila.bot/Discord/playing-background.svg), #1db954;
       }
+      .headerStreaming-2FjmGz,
+      .topSectionStreaming-1Tpf5X {
+        z-index: 1;
+        background: url(https://cdn.naila.bot/Discord/playing-background.svg), #593695;
+      }
       .topSectionPlaying-1J5E4n,
-      .topSectionSpotify-1lI0-P {
+      .topSectionSpotify-1lI0-P,
+      .topSectionStreaming-1Tpf5X {
         animation: Profile 15s infinite ease-in-out;
         background-size: 50%;
       }
