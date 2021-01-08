@@ -267,7 +267,7 @@ let obj = {
   logRegionColor: 'darkred',
 
   name: 'WYSIWYG Messages',
-  description: 'Makes messages WGSIWYG-like (like in the message sending box)',
+  description: 'Makes messages WYSIWYG-like (like in the message sending box)',
 
   author: 'Ducko',
 
