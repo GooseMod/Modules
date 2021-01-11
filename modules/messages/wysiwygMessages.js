@@ -1,4 +1,4 @@
-let version = '1.3.2';
+let version = '1.3.3';
 
 // .messagesWrapper-1sRNjr .markup-2BOw-j
 let italicsEnabled = true; // <em>
