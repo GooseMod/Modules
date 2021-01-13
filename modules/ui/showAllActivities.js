@@ -237,7 +237,7 @@ let obj = {
 
   name: "Show All Activities",
   description: "See every status a user has enabled.",
-  author: ["Juby210", "Liam The Protogen"],
+  author: ["Juby210", "Liam The Protogen (441384103946878987)"],
   version,
 };
 
