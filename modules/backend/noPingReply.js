@@ -1,5 +1,5 @@
 
-let version = '1.0';
+let version = '1.0.0';
 let unpatch;
 
 let obj = {
