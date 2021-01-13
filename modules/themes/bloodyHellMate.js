@@ -19,7 +19,7 @@ let obj = {
 
   name: "Bloody Hell Mate",
   description: "Makes everything bloody red, mate!",
-  author: ["MrDragonBoi", "Liam The Protogen"],
+  author: "MrDragonBoi",
   version,
 };
 
