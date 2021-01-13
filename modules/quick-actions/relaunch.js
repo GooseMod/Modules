@@ -42,7 +42,7 @@ let obj = {
   name: "Relaunch",
   description: "Easily relaunch Discord, completely. (Press `F4` to relaunch.)",
 
-  author: "Liam The Protogen",
+  author: "Liam The Protogen (441384103946878987)",
 
   version,
 };
