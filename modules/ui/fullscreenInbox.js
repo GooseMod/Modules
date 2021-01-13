@@ -99,7 +99,7 @@ let obj = {
 
   name: "Fullscreen Inbox",
   description: "Makes the inbox appear as if it's a channel",
-  author: ["Freeplay", "Liam The Protogen"],
+  author: ["Freeplay", "Liam The Protogen (441384103946878987)"],
   version,
 };
 
