@@ -11,7 +11,7 @@ let obj = {
   },
 
   name: `Disable ping reply`,
-  description: `Automatically turns off pinging whoever you're replying to`,
+  description: `Disables Discord automatically pinging when you are replying`,
 
   author: 'Lith',
 
