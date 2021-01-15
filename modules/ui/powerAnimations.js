@@ -2303,7 +2303,7 @@ let obj = {
 
   name: "Better Animations",
   description: "Adds animations to a bunch of stuff.",
-  author: "Liam The Protogen",
+  author: "Liam The Protogen (441384103946878987)",
   version,
 };
 

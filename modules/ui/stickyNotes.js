@@ -270,7 +270,7 @@ let obj = {
     name: 'Sticky Notes',
     description: 'Allows you to create temporary sticky notes on the screen. Open new sticky notes with Ctrl+D or the New Note button.',
 
-    author: ['Fjorge', 'Liam The Protogen'],
+    author: ['Fjorge', 'Liam The Protogen (441384103946878987)'],
 
     version: version
 };

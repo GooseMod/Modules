@@ -359,7 +359,7 @@ let obj = {
   name: "Comfy Theme",
   description:
     "A simple, customizable, comfy theme. (Ported with the addition of settings by Liam The Protogen.)",
-  author: ["Nyria", "Liam The Protogen"],
+  author: ["Nyria", "Liam The Protogen (441384103946878987)"],
   version,
 };
 

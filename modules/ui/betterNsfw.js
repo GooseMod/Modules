@@ -87,7 +87,7 @@ let obj = {
 
   name: "Better NSFW",
   description: "Blurs content in NSFW channels.",
-  author: "Liam The Protogen",
+  author: "Liam The Protogen (441384103946878987)",
   version,
 };
 

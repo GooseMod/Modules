@@ -26,7 +26,7 @@ let obj = {
 
   name: "Copy Raw",
   description: "Allows you to copy messages as they were when being written.",
-  author: "Liam The Protogen",
+  author: "Liam The Protogen (441384103946878987)",
   version,
 };
 

@@ -18,7 +18,7 @@ let obj = {
 
   name: "De-Nitro",
   description: "Removes everything Nitro related.",
-  author: "Liam The Protogen",
+  author: "Liam The Protogen (441384103946878987)",
   version,
 };
 

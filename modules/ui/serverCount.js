@@ -78,7 +78,7 @@ let obj = {
 
   name: "Server Count",
   description: "Shows how many servers you're in.",
-  author: "Liam The Protogen",
+  author: "Liam The Protogen (441384103946878987)",
   version,
 };
 
