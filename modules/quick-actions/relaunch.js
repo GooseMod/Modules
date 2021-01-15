@@ -1,5 +1,7 @@
 const version = "1.2.1";
 
+let keydownHandler;
+
 let obj = {
   onImport: async () => {
     const openModal = async () => {
@@ -21,7 +23,7 @@ let obj = {
       }
     };
 
-    const keydownHandler = async (event) => {
+    keydownHandler = async (event) => {
       if (event.code == "F4") {
         openModal();
         event.preventDefault();
