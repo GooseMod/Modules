@@ -1,14 +1,13 @@
-const version = "1.0.1";
+const version = "1.0.2";
 
 let style;
 let timeout;
 
-const { inject, uninject } = goosemodScope.patcher;
+let unpatch;
 
 let obj = {
   onImport: async () => {
     style = document.createElement("style");
-    document.head.appendChild(style);
     style.appendChild(
       document.createTextNode(`.chat-3bRxxu.nsfw .imageWrapper-2p5ogY {
         position: relative;
@@ -46,25 +45,23 @@ let obj = {
       }
       `)
     );
+    document.head.appendChild(style);
 
     const runInjection = () => {
       try {
         const { findByProps } = goosemodScope.webpackModules;
-        const { getChannel } = findByProps("getChannel");
-        const chatClass = findByProps("chat").chat;
-        const chat = document.querySelector(`.${chatClass}`);
-        const Channel = goosemodScope.reactUtils.getOwnerInstance(chat);
 
-        inject(
-          "gm-betternsfw",
-          Channel.constructor.prototype,
+        unpatch = goosemodScope.patcher.patch(
+          goosemodScope.reactUtils.getOwnerInstance(
+            document.querySelector(`.${findByProps("chat").chat}`)
+          ).constructor.prototype,
           "render",
           (_, res) => {
-            const currentChannelID =
-              res.props.children[1].props.children[0].props.channelId;
-            const channel = getChannel(currentChannelID);
-
-            if (channel.nsfw) {
+            if (
+              findByProps("getChannel").getChannel(
+                res.props.children[1].props.children[0]?.props.channelId
+              ).nsfw
+            ) {
               res.props.children[1].props.className += " nsfw";
             }
 
@@ -82,12 +79,15 @@ let obj = {
   remove: async () => {
     style.remove();
     clearTimeout(timeout);
-    uninject("gm-betternsfw");
+
+    try {
+      unpatch();
+    } catch {}
   },
 
   name: "Better NSFW",
   description: "Blurs content in NSFW channels.",
-  author: "Liam The Protogen (441384103946878987)",
+  author: "441384103946878987",
   version,
 };
 
