@@ -24,8 +24,7 @@ let obj = {
   },
 
   name: "No Notes",
-  description:
-    "Hides the notes on user profile modals. (Does not apply to the user popout.)",
+  description: "Hides the notes on user profile modals. (Does not apply to the user popout.)",
   author: "Liam The Protogen (441384103946878987)",
   version,
 };
