@@ -59,8 +59,7 @@ let obj = {
   },
 
   name: "Toggle Message Buttons",
-  description:
-    "Toggles whether the buttons on the message box should appear. (Right click the message box to toggle.)",
+  description: "Toggles whether the buttons on the message box should appear. (Right click the message box to toggle.)",
   author: "Liam The Protogen (441384103946878987)",
   version,
 };
